@@ -3,11 +3,11 @@
 # ----------------------- #
 
 url: http://paradin.github.io
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+title: Paradin's Blog
+subtitle: A little bit of progress every day 
+author: Paradin 
 simple_search: http://google.com/search
-description:
+description: Author of WeiChat ID [EasyTool]
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -52,6 +52,15 @@ titlecase: true       # Converts page and post titles to titlecase
 # To add custom asides, create files in /source/_includes/custom/asides/ and add them to the list like 'custom/asides/custom_aside_name.html'
 default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.html, asides/pinboard.html, asides/googleplus.html]
 
+# weibo
+# refer to http://weibo.com/tool/weiboshow to get your uid and verifier
+weibo_uid: 3446536584
+weibo_verifier: e5bc5b22
+weibo_fansline: 0
+weibo_show: true
+weibo_pic: true
+weibo_skin: 10
+
 # Each layout uses the default asides, but they can have their own asides instead. Simply uncomment the lines below
 # and add an array with the asides you want to use.
 # blog_index_asides:
@@ -65,12 +74,12 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # Github repositories
 github_user:
 github_repo_count: 0
-github_show_profile_link: true
+github_show_profile_link: false 
 github_skip_forks: true
 
 # Twitter
 twitter_user:
-twitter_tweet_button: true
+twitter_tweet_button: false 
 
 # Google +1
 google_plus_one: false
