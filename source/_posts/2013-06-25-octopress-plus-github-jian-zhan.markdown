@@ -3,7 +3,7 @@ layout: post
 title: "octopress+github 建站"
 date: 2013-06-25 14:10
 comments: true
-categories: octopress, github 
+categories: octopress github 
 ---
 
 建站的过程主要参考：［用octopress来写博客]caok1231.com/blog/2012/06/24/install-octopress-to-write-blog
