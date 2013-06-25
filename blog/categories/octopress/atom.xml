@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Paradin's Blog]]></title>
-  <link href="http://paradin.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: octopress, | Paradin's Blog]]></title>
+  <link href="http://paradin.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://paradin.github.io/"/>
   <updated>2013-06-26T00:53:10+08:00</updated>
   <id>http://paradin.github.io/</id>
