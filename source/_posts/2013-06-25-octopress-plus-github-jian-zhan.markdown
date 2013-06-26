@@ -12,7 +12,7 @@ categories: octopress github
 2. [搭Blog 学Git](http://shanewfx.github.io/blog/2012/02/16/bulid-blog-by-octopress/) - 中文Win XP下环境设置
 
 多余的我就不说了，主要说下我遇到的问题：
-
+<!--more-->
 1. rebenv 可以不用，查看ruby版本号命令：ruby -v
 
 2. 不用rbenv的话，rbenv rehash 就不用执行了
