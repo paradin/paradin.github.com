@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[转载]Why does C++ compilation take so long? - EasyTool's Blog</title>
+  <meta name="author" content="Paradin">
+
+  
+  <meta name="description" content="Several reasons: 1. Header files 2. Linking 3. Templates 4. Optimization 5. Machine code 1. Header files Every single compilation unit requires &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="EasyTool's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/blog">EasyTool's Blog</a></h1>
+  
+    <h2>A little bit of progress every day</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paradin.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://me.alipay.com/lynnliu" target="_blank">Donate</a></li>
+  <li><a href="/blog/about">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[转载]Why Does C++ Compilation Take So Long?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-07T14:10:00+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Several reasons:</p>
+
+<pre><code>    1. Header files
+    2. Linking
+    3. Templates
+    4. Optimization
+    5. Machine code
+</code></pre>
+
+<!--more-->
+
+
+<h2>1. Header files</h2>
+
+<p>Every single compilation unit requires hundreds or even thousands of headers to be <strong>1: loaded</strong>, and <strong>2: compiled</strong>. Every one of them typically has to be <strong>recompiled</strong> for every compilation unit, because the preprocessor ensure that the result of compiling a header might vary between every compilation unit. (A macro may be defined in one compilation unit which changes the content of the header).</p>
+
+<p>This is probably the main reason, as it requires huge amounts of code to be compiled for every compilation unit, and additionally, every header has to be compiled multiple times (once for every compilation unit that includes it)</p>
+
+<h2>2. Linking</h2>
+
+<p>Once compiled, all the object files have to be linked together. This is basically a monolithic process that <strong>can&rsquo;t very well be parallelized</strong>, and has to process your entire project.</p>
+
+<p>Parsing: The syntax is extremely complicated to parse, depends heavily on context, and is very hard to disambiguate. This takes a lot of time</p>
+
+<h2>3. Templates</h2>
+
+<p>In C#, List<T> is the only type that is compiled, no matter how many instantiations of List you have in your program. In C++, vector<int> is a completely separate type from vector<float>, and each one will has to be compiled separately.</p>
+
+<p>Add to this that templates make up a full turing-complete &ldquo;sub-language&rdquo; that the compiler has to interpret, and this can become ridiculously complicated. Even relatively simple template metaprogramming code can define recursive templates that create dozens and dozens of template instantiations. Templates may also result in extremely complex types, with ridiculously long names, adding a lot of extra work to the linker. (It has to compare a lot of symbol names, and if these names can grow into many thousand characters, that can become fairly expensive).</p>
+
+<p>And of course, they exacerbate the problems with header files, because templates generally have to be defined in headers, which means far more code has to be parsed and compiled for every compilation unit. In plain C code, a header typically only contains <strong>forward declarations</strong>, but very little actual code. In C++, it is not uncommon for almost all the code to reside in header files.</p>
+
+<h2>4. Optimization</h2>
+
+<p>C++ allows some very dramatic optimizations. C# or Java don&rsquo;t allow classes to be completely eliminated (they have to be there for reflection purposes), but even a simple C++ template metaprogram can easily generate dozens or hundreds of classes, all of which are inlined and eliminated again in the optimization phase.</p>
+
+<p>Moreover, a C++ program must be fully optimized by the compiler. A C# program can rely on the JIT compiler to perform additional optimizations at load-time, C++ doesn&rsquo;t get any such &ldquo;second chances&rdquo;. What the compiler generates is as optimized as it&rsquo;s going to get.</p>
+
+<h2>5. Machine code</h2>
+
+<p>C++ is compiled to machine code which may be somewhat more complicated than the bytecode Java or .NET use (especially in the case of x86).
+(This is mentioned out of completeness only because it was mentioned in comments and such. In practice, this step is unlikely to take more than a tiny fraction of the total compilation time.)</p>
+
+<p>Most of these factors are shared by C code, which actually compiles fairly efficiently. The parsing step is a lot more complicated in C++, and can take up significantly more time, but the main offender is probably templates. They&rsquo;re useful, and make C++ a far more powerful language, but they also take their toll in terms of compilation speed.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paradin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-07T14:10:00+08:00" pubdate data-updated="true">Apr 7<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/c-plus-plus/'>c++</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/01/cplusplus_precompile_head/" title="Previous Post: C++预编译头小记">&laquo; C++预编译头小记</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/09/python_console_progress/" title="Next Post: 命令行中进度条展示的方法">命令行中进度条展示的方法 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/octopress-plus-github-jian-zhan/">Octopress+github 建站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/30/python_string_codec/">Python 字符串编码</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/python_webservice_suds/">Python Webservice调用-suds</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/21/git_learn_branch/">Git操作图形教学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/python_chinese_text_parser/">[转载]python汉字处理的工具</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>About</h1>
+  <p>  一直在努力<br>
+      <br>C++、Python开发工程师
+      <br>
+      <br>新浪微博: <a href="http://weibo.com/u/3446536584" target="_blank">易生活_EasyTool</a>
+      <span id="wb_follow_btn"><span class="WB_btnA WB_widgets" node-type="followBtn"><span> <em class="WB_btnicn_add" node-type="followImg"></em><em>加关注</em></span></span></span>
+      <br>我的<strong>"易生活"</strong>微信公众账号:
+      <br><img width="220px" src="/images/weixin-qr.jpg">
+  </p>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
+<li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
+<li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
+<li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
+<li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (11)</a></li>
+<li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
+<li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
+
+  </ul>
+</section>
+
+  <section>
+    <h1>Links</h1>
+    <ul id="weibo">
+      <li>
+        <iframe 
+          width="100%" 
+          height="110" 
+          class="share_self" 
+          frameborder="0" 
+          scrolling="no" 
+          src="http://widget.weibo.com/weiboshow/index.php?width=0&height=110&ptype=0&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=3446536584&verifier=e5bc5b22&dpc=1">
+        </iframe>
+      </li>
+    </ul>
+  </section>
+
+<section>
+  <h1>Recent Comments</h1>
+  <div id="dsq-recentcomments" class="dsq-widget">
+	<script type="text/javascript" src="http://disqus.com/forums/paradin/recent_comments_widget.js?hide_avatars=1"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paradin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'paradin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason/';
+        var disqus_url = 'http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

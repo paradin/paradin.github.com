@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: android | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[解决Unable to resolve target 'android-XX']]></title>
+    <link href="http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target/"/>
+    <updated>2013-05-05T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target</id>
+    <content type="html"><![CDATA[<p>将低版本的代码导入eclipse时，常遇到这样的问题：</p>
+
+<pre><code>Unable to resolve target 'android-XX'
+</code></pre>
+
+<!--more-->
+
+
+<p>这是原代码中project.properties 的 Project target 设置与当前eclipse环境设置不一致所致。</p>
+
+<p>解决这个问题:</p>
+
+<pre><code>只要把project.properties文件用记事本打开
+将 Project target.target=android-7 改为你当前支持的AVD版本即可
+
+AVD(Android Virtual Device)，是Android的模拟器。
+具体介绍和命令参数参照http://apps.hi.baidu.com/share/detail/49251071
+</code></pre>
+
+<p>一般 android-8 对应的android sdk 是2.2， android-10对应的是2.3</p>
+
+<p>参考: <a href="http://mishar-china-hotmail-com.iteye.com/blog/969178">http://mishar-china-hotmail-com.iteye.com/blog/969178</a></p>
+]]></content>
+  </entry>
+  
+</feed>

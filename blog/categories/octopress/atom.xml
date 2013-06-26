@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: octopress | Paradin's Blog]]></title>
+  <title><![CDATA[Category: octopress | EasyTool's Blog]]></title>
   <link href="http://paradin.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://paradin.github.com/"/>
-  <updated>2013-06-26T21:19:00+08:00</updated>
+  <updated>2013-06-26T22:28:39+08:00</updated>
   <id>http://paradin.github.com/</id>
   <author>
     <name><![CDATA[Paradin]]></name>
@@ -27,6 +27,9 @@
 
 
 <p>多余的我就不说了，主要说下我遇到的问题：</p>
+
+<!--more-->
+
 
 <ol>
 <li><p>rebenv 可以不用，查看ruby版本号命令：ruby -v</p></li>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mysql | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[mysql建库及用户命令实例]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd/"/>
+    <updated>2013-05-15T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd</id>
+    <content type="html"><![CDATA[<p>这里记录下mysql命令行下创建库及用户的命令</p>
+
+<!--more-->
+
+
+<pre><code>&gt;mysql -u root -p
+
+&gt;show databases;
+
+&gt;create database new_database;
+
+&gt;create user 'name' identified by 'pwd';
+
+&gt;grant all privileges on new_database.* to 'name'@'localhost' identified by 'pwd' with grant option; 
+
+&gt;quit
+
+&gt;mysql -u name -p
+
+&gt;show databases;
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

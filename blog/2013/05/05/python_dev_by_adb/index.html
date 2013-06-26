@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>通过adb连接手机或者模拟器进行python开发 - EasyTool's Blog</title>
+  <meta name="author" content="Paradin">
+
+  
+  <meta name="description" content="adb remote control sl4a 可以开启python-server，通过远程adb进行开发、调试，然后发布到手机 在pc上通过adb, 连接手机上的python-server public server开启不了
+只能usb开始private server，但是连着usb后， &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paradin.github.com/blog/2013/05/05/python_dev_by_adb">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="EasyTool's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/blog">EasyTool's Blog</a></h1>
+  
+    <h2>A little bit of progress every day</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paradin.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://me.alipay.com/lynnliu" target="_blank">Donate</a></li>
+  <li><a href="/blog/about">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">通过adb连接手机或者模拟器进行python开发</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-05T14:10:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>adb remote control</h1>
+
+<p>sl4a 可以开启python-server，通过远程adb进行开发、调试，然后发布到手机</p>
+
+<!--more-->
+
+
+<p>在pc上通过adb, 连接手机上的python-server</p>
+
+<pre><code>public server开启不了
+只能usb开始private server，但是连着usb后，手机自动卸载sdcard
+
+期间一直找不到设备，后来发现是usb驱动没装好
+</code></pre>
+
+<h1>usb连接手机，开启模拟器</h1>
+
+<ol>
+<li><p>查看当前连接的手机或模拟器</p>
+
+<pre><code> c:/&gt;adb devices
+ List of devices attached
+ 015EF45B0D01200F        device
+ emulator-5554   device
+</code></pre></li>
+<li><p>连接指定机器安装 sl4a，已经下载 sl4a_r6.apk</p>
+
+<pre><code> c:/&gt;adb -s &lt;name&gt; install sl4a_r6.apk
+</code></pre></li>
+<li><p>进入机器shell</p>
+
+<pre><code> c:/&gt;adb -s &lt;name&gt; shell
+ $
+</code></pre></li>
+<li><p>开启private server</p>
+
+<p> 手机的话su切换到高级用户</p>
+
+<pre><code> $ su  
+ #
+</code></pre>
+
+<p> Start a private server.</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher
+</code></pre>
+
+<p> Start a private server on a particular port (in this case, 45001)</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
+</code></pre>
+
+<p> Start a public server.</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ez com.googlecode.android_scripting.extra.USE_PUBLIC_IP true
+</code></pre></li>
+<li><p>退出shell</p>
+
+<pre><code> # exit
+ $ exit
+ c:/&gt;
+</code></pre></li>
+<li><p>连接手机/模拟器python-server</p>
+
+<pre><code> c:/&gt; adb -s &lt;name&gt; forward tcp:9999 tcp:45001
+ c:/&gt; set AP_PORT=9999
+</code></pre></li>
+<li><p>开始编写python代码</p>
+
+<pre><code> c:/&gt; edit hello.py
+ import android
+ droid=android.Android()
+ droid.makeToast("hello")
+</code></pre></li>
+<li><p>执行python</p>
+
+<pre><code> c:/&gt; python hello.py
+</code></pre></li>
+</ol>
+
+
+<h1>模拟器加载sdcard</h1>
+
+<ol>
+<li><p>创建sdcard文件</p>
+
+<pre><code> mksdcard -l e 512M mysdcard.img
+</code></pre></li>
+<li><p>带sdcard启动avd</p>
+
+<pre><code> emulator -avd QVGA_2.7 -sdcard mysdcard.img
+</code></pre></li>
+<li><p>上传文件</p>
+
+<pre><code> adb -s emulator-5554 push proxy.py /mnt/sdcard/sl4a/scripts
+</code></pre></li>
+</ol>
+
+
+<h1>启动模拟器脚本(start avd.bat)</h1>
+
+<pre><code>emulator -avd QVGA_2.7 
+</code></pre>
+
+<h1>建立adb连接脚本(start adb.bat)</h1>
+
+<pre><code>adb devices
+
+adb -s emulator-5554 shell am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
+
+adb -s emulator-5554 forward tcp:9999 tcp:45001
+set AP_PORT=9999
+
+
+start echo Adb connected!
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paradin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-05T14:10:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/05/android_unable_to_resole_target/" title="Previous Post: 解决Unable to resolve target 'android-XX'">&laquo; 解决Unable to resolve target 'android-XX'</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/05/python_kivy_setup/" title="Next Post: 致没有搞好的kivy环境">致没有搞好的kivy环境 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/octopress-plus-github-jian-zhan/">Octopress+github 建站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/30/python_string_codec/">Python 字符串编码</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/python_webservice_suds/">Python Webservice调用-suds</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/21/git_learn_branch/">Git操作图形教学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/python_chinese_text_parser/">[转载]python汉字处理的工具</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>About</h1>
+  <p>  一直在努力<br>
+      <br>C++、Python开发工程师
+      <br>
+      <br>新浪微博: <a href="http://weibo.com/u/3446536584" target="_blank">易生活_EasyTool</a>
+      <span id="wb_follow_btn"><span class="WB_btnA WB_widgets" node-type="followBtn"><span> <em class="WB_btnicn_add" node-type="followImg"></em><em>加关注</em></span></span></span>
+      <br>我的<strong>"易生活"</strong>微信公众账号:
+      <br><img width="220px" src="/images/weixin-qr.jpg">
+  </p>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
+<li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
+<li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
+<li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
+<li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (11)</a></li>
+<li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
+<li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
+
+  </ul>
+</section>
+
+  <section>
+    <h1>Links</h1>
+    <ul id="weibo">
+      <li>
+        <iframe 
+          width="100%" 
+          height="110" 
+          class="share_self" 
+          frameborder="0" 
+          scrolling="no" 
+          src="http://widget.weibo.com/weiboshow/index.php?width=0&height=110&ptype=0&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=3446536584&verifier=e5bc5b22&dpc=1">
+        </iframe>
+      </li>
+    </ul>
+  </section>
+
+<section>
+  <h1>Recent Comments</h1>
+  <div id="dsq-recentcomments" class="dsq-widget">
+	<script type="text/javascript" src="http://disqus.com/forums/paradin/recent_comments_widget.js?hide_avatars=1"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paradin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'paradin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://paradin.github.com/blog/2013/05/05/python_dev_by_adb/';
+        var disqus_url = 'http://paradin.github.com/blog/2013/05/05/python_dev_by_adb/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

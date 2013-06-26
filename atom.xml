@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Paradin's Blog]]></title>
+  <title><![CDATA[EasyTool's Blog]]></title>
   <link href="http://paradin.github.com/atom.xml" rel="self"/>
   <link href="http://paradin.github.com/"/>
-  <updated>2013-06-26T21:19:00+08:00</updated>
+  <updated>2013-06-26T22:28:39+08:00</updated>
   <id>http://paradin.github.com/</id>
   <author>
     <name><![CDATA[Paradin]]></name>
@@ -28,6 +28,9 @@
 
 <p>多余的我就不说了，主要说下我遇到的问题：</p>
 
+<!--more-->
+
+
 <ol>
 <li><p>rebenv 可以不用，查看ruby版本号命令：ruby -v</p></li>
 <li><p>不用rbenv的话，rbenv rehash 就不用执行了</p></li>
@@ -40,6 +43,1144 @@
 </code></pre></li>
 </ol>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python 字符串编码]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/30/python_string_codec/"/>
+    <updated>2013-05-30T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/30/python_string_codec</id>
+    <content type="html"><![CDATA[<p>在pythong开发过程中经常遇到编码问题，原因在于没有正确理解编码解码过程</p>
+
+<p>通过以下命令过程帮助理解下，各自体会吧。</p>
+
+<!--more-->
+
+
+<p>宗旨：<strong>由Unicode中转进行编码、解码</strong></p>
+
+<pre><code>&gt;&gt;&gt; u = '\uffef'
+&gt;&gt;&gt; print u
+\uffef
+&gt;&gt;&gt; u = u'\uffef'
+&gt;&gt;&gt; print u
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeEncodeError: 'gbk' codec can't encode character u'\uffef' in position 0: illegal multibyte sequence
+&gt;&gt;&gt; str(u)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeEncodeError: 'ascii' codec can't encode character u'\uffef' in position 0: ordinal not in range(128)
+&gt;&gt;&gt; sys.stdout.encoding
+'cp936'
+&gt;&gt;&gt; x = u.encode('utf-8')
+&gt;&gt;&gt; x
+'\xef\xbf\xaf'
+&gt;&gt;&gt; x.decode('utf-8')
+u'\uffef'
+&gt;&gt;&gt; x.encode('utf-8')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xef in position 0: ordinal not in range(128)
+&gt;&gt;&gt; u.decode('utf-8')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "E:\Program Files\Python27\lib\encodings\utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\uffef' in position 0: ordinal not in range(128)
+&gt;&gt;&gt; u.encode('utf-8')
+'\xef\xbf\xaf'
+
+&gt;&gt;&gt; print x
+锟
+&gt;&gt;&gt; str(x)
+'\xef\xbf\xaf'
+&gt;&gt;&gt; repr(x)
+"'\\xef\\xbf\\xaf'"
+&gt;&gt;&gt; repr(u)
+"u'\\uffef'"
+&gt;&gt;&gt; repr(str)
+"&lt;type 'str'&gt;"
+&gt;&gt;&gt; repr(unicode)
+"&lt;type 'unicode'&gt;"
+
+&gt;&gt;&gt; unicode(x)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xef in position 0: ordinal not in range(128)
+&gt;&gt;&gt; unicode(u)
+u'\uffef'
+&gt;&gt;&gt; isinstance(u, str)
+False
+&gt;&gt;&gt; isinstance(u, unicode)
+True
+&gt;&gt;&gt; isinstance(x, str)
+True
+&gt;&gt;&gt; isinstance(x, unicode)
+False
+
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; re.search(u'\uff', u)
+  File "&lt;stdin&gt;", line 1
+SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 0-XXX escape
+&gt;&gt;&gt; re.search(u'ff', u)
+&gt;&gt;&gt; re.search(r'\uff', u)
+&gt;&gt;&gt; re.search(ur'\uff', u)
+  File "&lt;stdin&gt;", line 1
+SyntaxError: (unicode error) 'rawunicodeescape' codec can't decode bytes in position\uXXXX
+
+
+
+&gt;&gt;&gt; len(None)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: object of type 'NoneType' has no len()
+&gt;&gt;&gt; len('aaa')
+3
+&gt;&gt;&gt; len([])
+0
+&gt;&gt;&gt; len(())
+0
+&gt;&gt;&gt; len({})
+0
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python webservice调用-suds]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/22/python_webservice_suds/"/>
+    <updated>2013-05-22T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/22/python_webservice_suds</id>
+    <content type="html"><![CDATA[<p>python也可以调用webservice : suds</p>
+
+<!--more-->
+
+
+<p>在本地sae中可以运行</p>
+
+<pre><code>    from suds.client import Client
+    url =  "http://host:port/service.wsdl"  
+
+    #根据wsdl创建一个WebService的Client  
+    client = Client(url)
+
+    # 查看webservice提供的服务
+    print client
+
+    # 调用接口
+    client.service.Interface(...)
+
+    # 构造复杂数据
+    monitor1 = client.factory.create('MonitorEntry')
+</code></pre>
+
+<p>但是上传sae后，运行失败</p>
+
+<pre><code>。suds需要写临时文件，应该是wsdl文件
+。找了个解决办法：
+    在suds/cache.py中用 
+。但是sae声称 get_tmp_dir 暂不支持
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[git操作图形教学]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/21/git_learn_branch/"/>
+    <updated>2013-05-21T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/21/git_learn_branch</id>
+    <content type="html"><![CDATA[<p>看到一个图形展示git使用的教程</p>
+
+<p>简单明了得介绍了git命令的作用</p>
+
+<p><a href="http://pcottle.github.io/learnGitBranching/" title="LearnGitBranching">LearnGitBranching</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]python汉字处理的工具]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser/"/>
+    <updated>2013-05-17T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser</id>
+    <content type="html"><![CDATA[<p>下面这个小工具包含了：</p>
+
+<pre><code>判断unicode是否是汉字，数字，英文，或者其他字符。 
+全角符号转半角符号。 
+unicode字符串归一化等工作。 
+还有一个能处理多音字的汉字转拼音的程序，还在整理中。
+</code></pre>
+
+<!--more-->
+
+
+<pre><code>#!/usr/bin/env python
+# -*- coding:GBK -*- 
+"""汉字处理的工具:
+判断unicode是否是汉字，数字，英文，或者其他字符。
+全角符号转半角符号。"""
+__author__="internetsweeper &lt;zhengbin0713@gmail.com&gt;"
+__date__="2007-08-04"
+
+def is_chinese(uchar):
+    """判断一个unicode是否是汉字"""
+    if uchar &gt;= u'\u4e00' and uchar&lt;=u'\u9fa5':
+        return True
+    else:
+        return False
+
+def is_number(uchar):
+    """判断一个unicode是否是数字"""
+    if uchar &gt;= u'\u0030' and uchar&lt;=u'\u0039':
+        return True
+    else:
+        return False
+
+def is_alphabet(uchar):
+    """判断一个unicode是否是英文字母"""
+    if (uchar &gt;= u'\u0041' and uchar&lt;=u'\u005a') or (uchar &gt;= u'\u0061' and uchar&lt;=u'\u007a'):
+        return True
+    else:
+        return False
+
+def is_other(uchar):
+    """判断是否非汉字，数字和英文字符"""
+    if not (is_chinese(uchar) or is_number(uchar) or is_alphabet(uchar)):
+        return True
+    else:
+        return False
+
+def B2Q(uchar):
+    """半角转全角"""
+    inside_code=ord(uchar)
+    if inside_code&lt;0x0020 or inside_code&gt;0x7e: #不是半角字符就返回原来的字符
+        return uchar
+    if inside_code==0x0020: #除了空格其他的全角半角的公式为:半角=全角-0xfee0
+        inside_code=0x3000
+    else:
+        inside_code+=0xfee0
+    return unichr(inside_code)
+
+def Q2B(uchar):
+    """全角转半角"""
+    inside_code=ord(uchar)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mysql建库及用户命令实例]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd/"/>
+    <updated>2013-05-15T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd</id>
+    <content type="html"><![CDATA[<p>这里记录下mysql命令行下创建库及用户的命令</p>
+
+<!--more-->
+
+
+<pre><code>&gt;mysql -u root -p
+
+&gt;show databases;
+
+&gt;create database new_database;
+
+&gt;create user 'name' identified by 'pwd';
+
+&gt;grant all privileges on new_database.* to 'name'@'localhost' identified by 'pwd' with grant option; 
+
+&gt;quit
+
+&gt;mysql -u name -p
+
+&gt;show databases;
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转载] Win7系统建立并开启Wifi热点的bat批处理]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/win7_wifi_point/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/win7_wifi_point</id>
+    <content type="html"><![CDATA[<p>硬件：含有无线网卡的电脑或笔记本</p>
+
+<p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>
+
+<p>目的：将Win7的无线网卡作为wifi热点，让其他含有WIFI电子设备(平板电脑，手机，笔记本)连接上笔记本共享的WIFI</p>
+
+<!--more-->
+
+
+<p>具体过程不详述了,核心代码如下：</p>
+
+<ol>
+<li><p>显示无线热点状态</p>
+
+<pre><code> netsh wlan show hostednetwork
+</code></pre></li>
+<li><p>打开无线热点</p>
+
+<pre><code> netsh wlan start hostednetwork
+</code></pre></li>
+<li><p>关闭无线热点</p>
+
+<pre><code> netsh wlan stop hostednetwork
+</code></pre></li>
+<li><p>禁用无线热点</p>
+
+<pre><code> netsh wlan set hostednetwork mode=disallow
+</code></pre></li>
+<li><p>启用无线热点</p>
+
+<pre><code> wlan set hostednetwork mode=allow
+</code></pre></li>
+<li><p>更改无线热点参数（SSID/KEY）</p>
+
+<pre><code> netsh wlan set hostednetwork mode=allow ssid=rekfan.com key=wwwrekfancom
+</code></pre></li>
+</ol>
+
+
+<p>参数解释：</p>
+
+<pre><code>mode:是否启用虚拟WiFi网卡，改为disallow则为禁止。
+ssid:无线网名称，推荐最好用英文。（此处以rekfan.com为例，可自由设置）
+key:无线网密码，限定八个以上字符。（此处以wwwrekfancom为例，可自由设置）
+</code></pre>
+
+<p>改编后的bat批处理：</p>
+
+<pre><code>echo off
+title windows 7 无线热点设置 By:REKFAN
+color 1E
+:main
+cls
+echo.
+echo.       /-------------------------------
+echo.       ‖     windows 7 无线热点设置    ‖
+echo.       -------------------------------/
+echo.
+echo.            1 - 显示无线热点状态
+echo.            2 - 打开无线热点
+echo.            3 - 关闭无线热点
+echo.            4 - 禁用无线热点
+echo.            5 - 启用无线热点
+echo.            6 - 更改无线热点参数（SSID/KEY）
+echo.            0 - 退出
+echo.-----------------------------------------------------------
+echo.          首次运行请执行6      
+echo.          直接回车可查看说明文档
+echo.          http://blog.rekfan.com
+set input=
+set /p input=请选择【输入序号,然后回车】：
+if /i '%input%'=='1' goto main1
+if /i '%input%'=='2' goto main2
+if /i '%input%'=='3' goto main3
+if /i '%input%'=='4' goto main4
+if /i '%input%'=='5' goto main5
+if /i '%input%'=='6' goto main6
+if /i '%input%'=='0' goto end
+cls
+echo.
+pause
+goto main
+
+:end
+set ssid=
+set key=
+exit
+
+:main1
+cls
+echo 系统当前无线热点状态
+echo.
+netsh wlan show hostednetwork
+echo.
+pause
+goto main
+
+:main2
+cls
+echo 打开无线热点
+echo.
+netsh wlan start hostednetwork
+echo.
+pause
+goto main1
+
+:main3
+cls
+echo 关闭无线热点
+echo.
+netsh wlan stop hostednetwork
+echo.
+pause
+goto main1
+
+:main4
+cls
+echo 禁用无线热点
+echo.
+netsh wlan set hostednetwork mode=disallow
+echo.
+pause
+goto main1
+
+:main5
+cls
+echo 启用无线热点
+echo.
+netsh wlan set hostednetwork mode=allow
+pause
+goto main2
+
+:main6
+cls
+echo 更改无线热点参数（SSID/KEY）
+echo.
+netsh wlan stop hostednetwork
+echo.
+set ssid=
+set /p ssid=请输入热点名称：
+echo.
+set key=
+set /p key=请输入网络密码(8位以上)：
+echo.
+netsh wlan set hostednetwork mode=allow ssid=%ssid% key=%key%
+pause
+goto main2
+</code></pre>
+
+<p>使用步骤：</p>
+
+<ol>
+<li>将上面代码保存在记事本里，改名更改为<em>.bat(</em>随便写，比如：Win7_Wifi.bat)</li>
+<li>初次使用，运行bat,输入6</li>
+<li>打开“网络和共享中心”&mdash;“更改适配器设置”看看是不是多了一项，如果有多出的这一项“Microsoft Virtual WiFi Miniport Adapter”，那么说明你前边的设置是正确的。</li>
+<li>设置Internet连接共享：在“网络连接”窗口中，右键单击已连接到Internet的网络连接(一般是“本地连接”)，选择“属性”→“共享”，勾上“允许其他······连接(N)”并选择刚才新建的虚拟连接。<a href="http://blog.rekfan.com/?p=226">http://blog.rekfan.com/?p=226</a></li>
+<li>到此，基本上可以使用其他设备连接wifi上网了！</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
+    <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
+
+<p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
+
+<!--more-->
+
+
+<p>下面提供我自己使用的简单sae python测试框架(weixin_unitest.py)：</p>
+
+<pre><code>﻿# -*- coding: utf-8 -*-
+#/usr/bin/env python
+
+
+import sys, urllib, httplib, time, hashlib, random
+
+# 配置
+interface_url = '***.sinaapp.com:80' # 注意不能加http://
+interface_path = '/your path'
+Token = 'your token'
+
+messages = {
+    # 用户关注消息
+    'subscribe' : '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[tester name]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+    &lt;Event&gt;&lt;![CDATA[subscribe]]&gt;&lt;/Event&gt;
+    &lt;EventKey&gt;&lt;![CDATA[EVENTKEY]]&gt;&lt;/EventKey&gt;
+    &lt;/xml&gt;''',
+
+    # 用户发送文本信息
+    'text': '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[test name]]&gt;&lt;/FromUserName&gt; 
+    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+    &lt;Content&gt;&lt;![CDATA[test text]]&gt;&lt;/Content&gt;
+    &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+    &lt;/xml&gt;'''
+
+}
+
+def make_post(action):
+    '''模拟用户行为产生的消息提交给接口程序'''
+
+    conn = httplib.HTTPConnection(interface_url)
+
+    headers = { "Content-type": "text/xml",
+                "Content-Length": "%d" % len(messages[action])}
+
+    # 生成签名相关变量
+    timestamp = int(time.time())
+
+    nonce = random.randint(1,100000)
+
+    signature = makeSignature(Token, timestamp, nonce)
+
+    params = urllib.urlencode({'signature': signature, 'timestamp': timestamp, 'nonce': nonce})
+
+    conn.request("POST", interface_path + "?" +params, "", headers)
+
+    print messages[action]
+    conn.send(messages[action])
+
+    response = conn.getresponse()
+
+    print response.status, response.reason
+
+    print response.read()
+
+    conn.close()
+
+
+
+def makeSignature(Token, timestamp, nonce):
+    '''生成签名'''
+    try:
+        Token = int(Token)
+    except Exception, e:
+        pass
+
+    sorted_arr = map(str, sorted([Token, timestamp, nonce]))
+
+    sha1obj = hashlib.sha1()
+    sha1obj.update(''.join(sorted_arr))
+    hash = sha1obj.hexdigest()
+
+    return hash
+
+def listAction():
+    print("======Supported actions:======")
+    for i in messages.keys():
+        print(i)
+    print("==============================")
+
+if __name__ == '__main__':
+    if len(sys.argv) &lt; 2:   
+        print (u"Please input your action")
+        listAction()
+    else:
+        if (messages.has_key(sys.argv[1])):
+            make_post(sys.argv[1])
+        else:
+            print("No this action")
+            listAction()
+</code></pre>
+
+<p>运行：</p>
+
+<pre><code>python weixin_unitest.py subscribe
+python weixin_unitest.py text
+</code></pre>
+
+<p>结合SAEPython（sae服务器），在本地完成开发测试就很方便了。</p>
+
+<h1>广告</h1>
+
+<p>关注易生活，关注微信公众：EasyTool</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python日期字符串解析]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/python_datestr_parser/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/python_datestr_parser</id>
+    <content type="html"><![CDATA[<p>用python + 正则表达式 实现的日期字符串解析工具：</p>
+
+<!--more-->
+
+
+<pre><code># -*- coding: utf-8 -*-
+#
+# 关注易生活，我是小E
+# 微信：EasyTool
+#
+import re
+from datetime import date
+
+
+DATE_PATTERNS = {
+u'2013-05-16':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月](\d{1,2})日{,1}',
+u'20130516':u'^(\d{4})(\d{1,2})(\d{1,2})',
+u'2013-05':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月]{,1}()',
+u'2013':u'^(\d{4})[\-\/\.年]{,1}()()',
+u'05月':u'^()(\d{1,2})[月]()',
+u'05-16':u'^()(\d{1,2})[\-\/\.月](\d{1,2})日{,1}'
+}
+
+DATE_PATTERNS_TEST = [
+u'2013-05-16',
+u'2013年05月16',
+u'2013年05月16日',
+
+u'20130516',
+
+u'2013-05', 
+u'2013年05', 
+u'2013-05月',
+
+u'2013',
+u'2013年',
+
+u'05月',
+
+u'05-16',
+u'05月16',
+u'05月16日',
+
+u'05'
+]
+
+
+LANG_PRINT = 'utf-8'
+
+def parse_date(dt_str):
+    year, month, day = u'', u'', u''
+
+    for pat_key in DATE_PATTERNS.keys():
+        dt_arrs = re.findall(DATE_PATTERNS[pat_key], dt_str)
+        if len(dt_arrs)&gt;0:
+            dt_arr = dt_arrs[0]
+            if len(dt_arr)&gt;0: year  = dt_arr[0]
+            if len(dt_arr)&gt;1: month = dt_arr[1]
+            if len(dt_arr)&gt;2: day   = dt_arr[2]
+            break
+
+    return year, month, day
+
+def test_all():
+    for dt_str in DATE_PATTERNS_TEST:
+        dt_tuple = parse_date(dt_str)
+        if dt_tuple is not None:
+            print u'dt_str {0} parse result: {1} {2} {3}'.format(dt_str, dt_tuple[0], dt_tuple[1], dt_tuple[2]).encode(LANG_PRINT)
+        else:
+            print u'error date format {0}'.format(dt_str).encode(LANG_PRINT)
+
+
+if __name__ == '__main__':
+    test_all()
+</code></pre>
+
+<h1>期间遇到问题：</h1>
+
+<p>print 内容需要是utf-8格式，否则会异常</p>
+
+<p>print是标准输出sys.stdout</p>
+
+<p>查看标准输出的编码：  print sys.stdout.encoding</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[svn目录的拷贝方法]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/linux_svn_moveto/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/linux_svn_moveto</id>
+    <content type="html"><![CDATA[<p>svn目录中都有一个隐藏目录&#8221;.svn&#8221;，这给复制带来不便。</p>
+
+<p>记录下拷贝目录时过滤文件的方法：</p>
+
+<h1>当不需要的文件类型较为单一时</h1>
+
+<p>可以通过完全复制然后删除指定类型的文件完成</p>
+
+<pre><code>cp -r test/ test2
+find test2/ -name '.svn' | xargs rm -rf
+</code></pre>
+
+<p>xargs是给命令传递参数的一个过滤器，可以将前一个命令产生的输出作为后一个命令的参数</p>
+
+<h1>需要的文件为单一类型</h1>
+
+<p>带目录结构复制</p>
+
+<pre><code>mkdir test3
+find test/ -name '*.txt' | xargs tar czf test3.tgz
+tar zxvf test3.tgz -C test3
+</code></pre>
+
+<p>tree 命令可以查看目录树形结构</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hello sae python]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/10/sae_python_helloworld/"/>
+    <updated>2013-05-10T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/10/sae_python_helloworld</id>
+    <content type="html"><![CDATA[<p>看看如何在sae上部署第一个python应用吧</p>
+
+<!--more-->
+
+
+<p>首先在sae上创建一个python应用</p>
+
+<p>创建好后其实是没有完成创建的，无法进行代码管理</p>
+
+<p>需要先svn签出、签入</p>
+
+<p>SAE采用svn来作为代码部署工具</p>
+
+<ol>
+<li><p>检出应用helloworld目录</p>
+
+<pre><code> svn co https://svn.sinaapp.com/helloworld
+</code></pre></li>
+<li><p>创建版本目录</p>
+
+<p> 进入helloworld目录，创建一个目录1作为默认版本，切换到目录1。</p>
+
+<pre><code> cd helloworld
+ ~/helloworld$ mkdir 1
+ ~/helloworld$ cd 1
+</code></pre></li>
+<li><p>创建应用配置文件config.yaml，内容如下：</p>
+
+<pre><code> name: helloworld
+ version: 1
+</code></pre></li>
+<li><p>创建index.wsgi，内容如下：</p>
+
+<pre><code> import sae
+
+ def app(environ, start_response):
+     status = '200 OK'
+     response_headers = [('Content-type', 'text/plain')]
+     start_response(status, response_headers)
+     return ['Hello, world!']
+
+ application = sae.create_wsgi_app(app)
+</code></pre></li>
+<li><p>部署应用</p>
+
+<p> 提交刚刚编辑的代码，就可以完成应用在SAE上的部署。</p>
+
+<pre><code> svn add 1/
+ ~/helloworld$ svn ci -m "initialize project"
+</code></pre></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[致没有搞好的kivy环境]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/05/python_kivy_setup/"/>
+    <updated>2013-05-05T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/05/python_kivy_setup</id>
+    <content type="html"><![CDATA[<pre><code>    继续研究kivy，上次没搞通是环境安装没装好
+
+    按照说明安装需要的包，遇到问题：
+    。 要求安装python-dev，但是发现版本是2.5，没装
+    。 要安装libgles2 ，找不到， 搜了下这个包， 在apt源增加一个地址
+    。 用aptitude -f install 进行安装后，pip安装kivy，发现把gcc 给删了，然后环境烂了，经常提示 package broken
+    。 尝试过apt-get clean    apt-get autoremove 都无法解决
+    。 查看pip.log 发现标准库都不存在了， stdio.h都找不到
+
+    怀疑环境安装还是有问题
+    。 有些库提示无用可以删除，但是看要安装的库对其又有依赖
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[通过adb连接手机或者模拟器进行python开发]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/05/python_dev_by_adb/"/>
+    <updated>2013-05-05T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/05/python_dev_by_adb</id>
+    <content type="html"><![CDATA[<h1>adb remote control</h1>
+
+<p>sl4a 可以开启python-server，通过远程adb进行开发、调试，然后发布到手机</p>
+
+<!--more-->
+
+
+<p>在pc上通过adb, 连接手机上的python-server</p>
+
+<pre><code>public server开启不了
+只能usb开始private server，但是连着usb后，手机自动卸载sdcard
+
+期间一直找不到设备，后来发现是usb驱动没装好
+</code></pre>
+
+<h1>usb连接手机，开启模拟器</h1>
+
+<ol>
+<li><p>查看当前连接的手机或模拟器</p>
+
+<pre><code> c:/&gt;adb devices
+ List of devices attached
+ 015EF45B0D01200F        device
+ emulator-5554   device
+</code></pre></li>
+<li><p>连接指定机器安装 sl4a，已经下载 sl4a_r6.apk</p>
+
+<pre><code> c:/&gt;adb -s &lt;name&gt; install sl4a_r6.apk
+</code></pre></li>
+<li><p>进入机器shell</p>
+
+<pre><code> c:/&gt;adb -s &lt;name&gt; shell
+ $
+</code></pre></li>
+<li><p>开启private server</p>
+
+<p> 手机的话su切换到高级用户</p>
+
+<pre><code> $ su  
+ #
+</code></pre>
+
+<p> Start a private server.</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher
+</code></pre>
+
+<p> Start a private server on a particular port (in this case, 45001)</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
+</code></pre>
+
+<p> Start a public server.</p>
+
+<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ez com.googlecode.android_scripting.extra.USE_PUBLIC_IP true
+</code></pre></li>
+<li><p>退出shell</p>
+
+<pre><code> # exit
+ $ exit
+ c:/&gt;
+</code></pre></li>
+<li><p>连接手机/模拟器python-server</p>
+
+<pre><code> c:/&gt; adb -s &lt;name&gt; forward tcp:9999 tcp:45001
+ c:/&gt; set AP_PORT=9999
+</code></pre></li>
+<li><p>开始编写python代码</p>
+
+<pre><code> c:/&gt; edit hello.py
+ import android
+ droid=android.Android()
+ droid.makeToast("hello")
+</code></pre></li>
+<li><p>执行python</p>
+
+<pre><code> c:/&gt; python hello.py
+</code></pre></li>
+</ol>
+
+
+<h1>模拟器加载sdcard</h1>
+
+<ol>
+<li><p>创建sdcard文件</p>
+
+<pre><code> mksdcard -l e 512M mysdcard.img
+</code></pre></li>
+<li><p>带sdcard启动avd</p>
+
+<pre><code> emulator -avd QVGA_2.7 -sdcard mysdcard.img
+</code></pre></li>
+<li><p>上传文件</p>
+
+<pre><code> adb -s emulator-5554 push proxy.py /mnt/sdcard/sl4a/scripts
+</code></pre></li>
+</ol>
+
+
+<h1>启动模拟器脚本(start avd.bat)</h1>
+
+<pre><code>emulator -avd QVGA_2.7 
+</code></pre>
+
+<h1>建立adb连接脚本(start adb.bat)</h1>
+
+<pre><code>adb devices
+
+adb -s emulator-5554 shell am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
+
+adb -s emulator-5554 forward tcp:9999 tcp:45001
+set AP_PORT=9999
+
+
+start echo Adb connected!
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[解决Unable to resolve target 'android-XX']]></title>
+    <link href="http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target/"/>
+    <updated>2013-05-05T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target</id>
+    <content type="html"><![CDATA[<p>将低版本的代码导入eclipse时，常遇到这样的问题：</p>
+
+<pre><code>Unable to resolve target 'android-XX'
+</code></pre>
+
+<!--more-->
+
+
+<p>这是原代码中project.properties 的 Project target 设置与当前eclipse环境设置不一致所致。</p>
+
+<p>解决这个问题:</p>
+
+<pre><code>只要把project.properties文件用记事本打开
+将 Project target.target=android-7 改为你当前支持的AVD版本即可
+
+AVD(Android Virtual Device)，是Android的模拟器。
+具体介绍和命令参数参照http://apps.hi.baidu.com/share/detail/49251071
+</code></pre>
+
+<p>一般 android-8 对应的android sdk 是2.2， android-10对应的是2.3</p>
+
+<p>参考: <a href="http://mishar-china-hotmail-com.iteye.com/blog/969178">http://mishar-china-hotmail-com.iteye.com/blog/969178</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[linux中时区设置]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/04/linux_timezone_set/"/>
+    <updated>2013-05-04T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/04/linux_timezone_set</id>
+    <content type="html"><![CDATA[<p>源码安装的时候 ./configure 最后经常提示
+make: warning:  Clock skew detected.  Your build may be incomplete.</p>
+
+<p>于是date，发现时区是：EDT</p>
+
+<p>修改时区方法：
+ /usr/share/zoneinfo/Asia/Shanghai 复制到 /etc/localtime 即可</p>
+
+<p>修改后时区改为：CST</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[colinux中实现声音播放]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/04/colinux_soundplay/"/>
+    <updated>2013-05-04T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/04/colinux_soundplay</id>
+    <content type="html"><![CDATA[<p>因为window占用着声卡,colinux是没法占用了,只能通过网络间接使用:</p>
+
+<pre><code>在colinux安装虚拟声卡；
+通过网络传输声音数据到宿主机；
+在宿主机播放声音。
+</code></pre>
+
+<!--more-->
+
+
+<p>找到了pulseaudio这个解决方案，具体安装介绍就不累赘了，这里只说明下安装过程中遇到的问题及解决方法。</p>
+
+<p>window安装pulseaudio服务，运行pulseaudio后，提示错误</p>
+
+<pre><code>W: pulsecore/random.c: failed to get proper entropy. Falling back to seeding with current time.
+W: pulsecore/core-util.c: secure directory creation not supported on Win32.
+E: pulsecore/pid.c: stale PID file, overwriting.
+W: pulsecore/core.c: failed to allocate shared memory pool. Falling back to a normal memory pool.   Unable to convert, filtering
+E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
+E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
+E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
+E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argument
+</code></pre>
+
+<p>在网上找了一通，都没有解决，有人说ipv6应该关掉</p>
+
+<p>我看了下网络连接，发现没有安装ipv6，于是尝试安装了一下，结果居然好了</p>
+
+<p>成功在colinux上播放wav文件</p>
+
+<p>尽管还有提示</p>
+
+<pre><code>W: pulsecore/random.c: failed to get proper entropy. Falling back to seeding with current time.
+W: pulsecore/core-util.c: secure directory creation not supported on Win32.
+W: pulsecore/core.c: failed to allocate shared memory pool. Falling back to a normal memory pool.
+</code></pre>
+
+<p>因为之前更换过default.pa配置，不确定是否有关，于是切换回原配置，发现有问题</p>
+
+<p>说明配置也是要更换的</p>
+
+<pre><code>// default.pa
+
+# Load audio drivers automatically on access
+
+#add-autoload-sink output module-waveout sink_name=output source_name=input
+#add-autoload-source input module-waveout sink_name=output source_name=input
+
+# Load several protocols
+#load-module module-esound-protocol-tcp
+#load-module module-native-protocol-tcp
+#load-module module-simple-protocol-tcp
+#load-module module-cli-protocol-tcp
+
+load-module module-esound-protocol-tcp auth-anonymous=1
+load-module module-native-protocol-tcp auth-anonymous=1
+load-module module-cli-protocol-tcp
+load-module module-http-protocol-tcp
+
+### Automatically restore the volume of playback streams
+load-module module-volume-restore
+
+### Automatically move streams to the default sink if the sink they are
+### connected to dies, similar for sources
+load-module module-rescue-streams
+
+# Make some devices default
+set-default-sink output
+set-default-source input
+
+.nofail
+
+# Load something to the sample cache
+load-sample x11-bell %WINDIR%\Media\ding.wav
+load-sample-dir-lazy C:\WINDOWS\Media
+</code></pre>
+
+<p>现在起colinux，还要起Xming、PulseAudio，分别打开挺麻烦的，colinux早就为我们想好了</p>
+
+<p>在colinux的.conf配置文件最后，可以设置启动命令，来启动所要的服务，如：</p>
+
+<pre><code># Run an application on colinux start (Sample Xming, a Xserver)
+exec0="D:\Program Files\Xming\Xming.exe",":0 -clipboard -multiwindow -ac"
+exec1="D:\Program Files\PulseAudio\pulseaudio.exe"
+</code></pre>
+
+<p>注意：</p>
+
+<pre><code>要增加启动进程的话，exec后序号递增；
+=后的参数以逗号分隔，第一个是exe路径，后面是启动参数。包含空格的参数最好用"包含
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[colinux中安装pygame]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/03/python_pygame_install/"/>
+    <updated>2013-05-03T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/03/python_pygame_install</id>
+    <content type="html"><![CDATA[<p>pygame是封装sdl的基于python语言的跨平台图像开发库</p>
+
+<p>与pygame相对的还有pyglet，是基于opengl的跨平台python语言开发库</p>
+
+<!--more-->
+
+
+<p>安装pygame时需要 sdl-config</p>
+
+<h1>download and install SDL</h1>
+
+<blockquote><p>wget <a href="http://www.libsdl.org/release/SDL-1.2.14.tar.gz">http://www.libsdl.org/release/SDL-1.2.14.tar.gz</a>
+tar -xzvf SDL-1.2.14.tar.gz
+cd SDL-1.2.14
+./configure &mdash;prefix=/usr/local/SDL
+make
+make install</p></blockquote>
+
+<h1>download and install PyGame</h1>
+
+<blockquote><p>wget <a href="http://pygame.seul.org/ftp/pygame-1.9.1release.tar.gz">http://pygame.seul.org/ftp/pygame-1.9.1release.tar.gz</a>
+tar xzvf pygame-1.9.1release.tar.gz
+cd pygame-1.9.1release</p></blockquote>
+
+<p># Here you need to edit the Setup file and comment out the line that looks like
+# scrap src/scrap.c $(SDL) $(SCRAP) $(DEBUG)
+# for some reason the compilation of the camera module fails for me, so I commented it out</p>
+
+<blockquote><p>vi Setup</p></blockquote>
+
+<p># once the camera module is out of the way we can proceed with the installation
+# Make sure to use the correct Python version here (e.g. &lsquo;python2.5&rsquo; or &lsquo;python2.6&rsquo;)</p>
+
+<blockquote><p>python27 setup.py install &mdash;prefix=/usr/local/pygame</p></blockquote>
+
+<h1>That&rsquo;s it</h1>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[colinux中安装设置idle环境]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/03/python_idle_tool_install/"/>
+    <updated>2013-05-03T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/03/python_idle_tool_install</id>
+    <content type="html"><![CDATA[<p>colinux 安装idle，又装了一个python2.5</p>
+
+<p>无奈，强制将/usr/bin/python改成link python2.7，会造成环境不一致的问题</p>
+
+<p>于是打算安装两个环境，默认的就用2.5，再安装设置python27</p>
+
+<!--more-->
+
+
+<p>相应的安装easy_install27, pip27, virtualenv27</p>
+
+<p>因为linux是用的colinux，进行图像开发需要display device</p>
+
+<p>通过在宿主机开启Xming服务：</p>
+
+<pre><code>安装目录中X0.hosts文件中添加colinux主机ip;
+运行Xming.
+</code></pre>
+
+<p>在colinux中设置连接宿主机显示：</p>
+
+<pre><code>$ export DISPLAY=192.168.0.100:0.0
+</code></pre>
+
+<p>启动编辑器</p>
+
+<pre><code>$ idle
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]App Store审核宝典 - App提交和审核的流程]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow/"/>
+    <updated>2013-05-02T18:58:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow</id>
+    <content type="html"><![CDATA[<p><a href="http://tiny4cocoa.com/home/s/20/" title="App提交和审核的流程">App提交和审核的流程</a>
+<img src="http://tiny4cocoa.com/newsupload/appsubmitprocess_m.png" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[利用DropBox建站]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/02/dropbox_calepin_co/"/>
+    <updated>2013-05-02T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/02/dropbox_calepin_co</id>
+    <content type="html"><![CDATA[<p>Dropbox作为saas平台，也提供了第三方引用接入接口。</p>
+
+<p>如类似calepin.co等网站可以利用dropbox建站，建站步骤：</p>
+
+<!--more-->
+
+
+<ol>
+<li>通过dropbox帐号绑定</li>
+<li><p>在dropbox中建立独立的应用目录</p>
+
+<p> 接入应用只能读取指定目录下的文件，无需担心其他资源暴露</p></li>
+<li><p>按照应用规则，在目录中增加自己的网页了</p></li>
+<li>任何文件变化dropbox自动同步</li>
+<li>有的应用自动从dropbox同步，有的由用户自己进行刷新</li>
+</ol>
+
+
+<p>我的静态站：<a href="http://powerlly.calepin.co/">http://powerlly.calepin.co/</a></p>
+
+<p>只能作为文章归档用，没有评论留言等功能。</p>
+
+<p>PS: 为了能够置顶联系方式和归档页，通过将metainfo中Date标签时间写得久远些</p>
 ]]></content>
   </entry>
   

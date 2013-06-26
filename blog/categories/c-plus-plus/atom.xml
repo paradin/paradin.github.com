@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: c++ | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/c-plus-plus/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]Why does C++ compilation take so long?]]></title>
+    <link href="http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason/"/>
+    <updated>2013-04-07T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason</id>
+    <content type="html"><![CDATA[<p>Several reasons:</p>
+
+<pre><code>    1. Header files
+    2. Linking
+    3. Templates
+    4. Optimization
+    5. Machine code
+</code></pre>
+
+<!--more-->
+
+
+<h2>1. Header files</h2>
+
+<p>Every single compilation unit requires hundreds or even thousands of headers to be <strong>1: loaded</strong>, and <strong>2: compiled</strong>. Every one of them typically has to be <strong>recompiled</strong> for every compilation unit, because the preprocessor ensure that the result of compiling a header might vary between every compilation unit. (A macro may be defined in one compilation unit which changes the content of the header).</p>
+
+<p>This is probably the main reason, as it requires huge amounts of code to be compiled for every compilation unit, and additionally, every header has to be compiled multiple times (once for every compilation unit that includes it)</p>
+
+<h2>2. Linking</h2>
+
+<p>Once compiled, all the object files have to be linked together. This is basically a monolithic process that <strong>can&rsquo;t very well be parallelized</strong>, and has to process your entire project.</p>
+
+<p>Parsing: The syntax is extremely complicated to parse, depends heavily on context, and is very hard to disambiguate. This takes a lot of time</p>
+
+<h2>3. Templates</h2>
+
+<p>In C#, List<T> is the only type that is compiled, no matter how many instantiations of List you have in your program. In C++, vector<int> is a completely separate type from vector<float>, and each one will has to be compiled separately.</p>
+
+<p>Add to this that templates make up a full turing-complete &ldquo;sub-language&rdquo; that the compiler has to interpret, and this can become ridiculously complicated. Even relatively simple template metaprogramming code can define recursive templates that create dozens and dozens of template instantiations. Templates may also result in extremely complex types, with ridiculously long names, adding a lot of extra work to the linker. (It has to compare a lot of symbol names, and if these names can grow into many thousand characters, that can become fairly expensive).</p>
+
+<p>And of course, they exacerbate the problems with header files, because templates generally have to be defined in headers, which means far more code has to be parsed and compiled for every compilation unit. In plain C code, a header typically only contains <strong>forward declarations</strong>, but very little actual code. In C++, it is not uncommon for almost all the code to reside in header files.</p>
+
+<h2>4. Optimization</h2>
+
+<p>C++ allows some very dramatic optimizations. C# or Java don&rsquo;t allow classes to be completely eliminated (they have to be there for reflection purposes), but even a simple C++ template metaprogram can easily generate dozens or hundreds of classes, all of which are inlined and eliminated again in the optimization phase.</p>
+
+<p>Moreover, a C++ program must be fully optimized by the compiler. A C# program can rely on the JIT compiler to perform additional optimizations at load-time, C++ doesn&rsquo;t get any such &ldquo;second chances&rdquo;. What the compiler generates is as optimized as it&rsquo;s going to get.</p>
+
+<h2>5. Machine code</h2>
+
+<p>C++ is compiled to machine code which may be somewhat more complicated than the bytecode Java or .NET use (especially in the case of x86).
+(This is mentioned out of completeness only because it was mentioned in comments and such. In practice, this step is unlikely to take more than a tiny fraction of the total compilation time.)</p>
+
+<p>Most of these factors are shared by C code, which actually compiles fairly efficiently. The parsing step is a lot more complicated in C++, and can take up significantly more time, but the main offender is probably templates. They&rsquo;re useful, and make C++ a far more powerful language, but they also take their toll in terms of compilation speed.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[C++预编译头小记]]></title>
+    <link href="http://paradin.github.com/blog/2013/04/01/cplusplus_precompile_head/"/>
+    <updated>2013-04-01T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/04/01/cplusplus_precompile_head</id>
+    <content type="html"><![CDATA[<p>随着功能的不断增加，工程逐渐庞大，编译、链接时间明显变长，于是考虑进行优化。在多人进行开发，而没有代码质量监控的话，确实很容易造成这样的结果，尽早发现和解决这些问题，可以避免更大的麻烦。</p>
+
+<!--more-->
+
+
+<p>现在所遇到的问题主要有：</p>
+
+<ol>
+<li>模板的大量使用</li>
+<li>头文件包含混乱</li>
+<li>头文件中直接定义</li>
+</ol>
+
+
+<p>首先考虑采用预编译头文件方式处理。</p>
+
+<p>预编译头(Precompile head)</p>
+
+<p><strong>/Yc</strong></p>
+
+<p>创建预编译头PCH, VC中通过设置.cpp文件的属性来设置预编译的源文件，命令行通过命令 cl /Yc stdafx.h /Pf stdafx.h stdafx.cpp 来编译预编译文件</p>
+
+<p><strong>/Yu</strong></p>
+
+<p>使用预编译头PCH，VC中可以通过设置工程的预编译属性，来设置是否使用预编译头，同时也可以单独对.cpp文件设置是否使用预编译头。设置使用预编译头的工程，其中所有的.cpp文件都需要在文件的顶部#include stdafx.h 文件。注（stdafx.h stdafx.cpp文件是VC创建工程时，如果需要预编译头，则自动创建的，也可以自己手动添加或指定其他文件为预编译头）</p>
+
+<p><strong>要点</strong></p>
+
+<p>创建、使用、#include 的预编译头文件路径需要一致，不一致（缩写）视为不同
+在编译单元中重复#include与编译头文件中引用的文件，尽量保证路径一致（相同路径串），否则与编译无效</p>
+
+<p>/Zmnumber 设置与编译内存使用大小，创建和使用预编译头的文件都需要设置相同的参数。number 是比例因子，其默认值为 100，指定分配 50MB 内存。number 的最大值为 2000。下表说明 number 如何修改内存分配：</p>
+
+<pre><code>number 内存分配 
+10     5.0 MB 
+100    50 MB 
+200    100 MB 
+1000   500 MB 
+2000   1000 MB 
+</code></pre>
+
+<p>但是，正如前面所的只有尽早发现才能避免大麻烦，由于工程太多，采用预编译头的方式进行优化的可操作性太差，于是没有采用。</p>
+]]></content>
+  </entry>
+  
+</feed>

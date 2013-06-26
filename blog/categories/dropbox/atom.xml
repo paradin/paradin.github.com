@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: DropBox | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/dropbox/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[利用DropBox建站]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/02/dropbox_calepin_co/"/>
+    <updated>2013-05-02T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/02/dropbox_calepin_co</id>
+    <content type="html"><![CDATA[<p>Dropbox作为saas平台，也提供了第三方引用接入接口。</p>
+
+<p>如类似calepin.co等网站可以利用dropbox建站，建站步骤：</p>
+
+<!--more-->
+
+
+<ol>
+<li>通过dropbox帐号绑定</li>
+<li><p>在dropbox中建立独立的应用目录</p>
+
+<p> 接入应用只能读取指定目录下的文件，无需担心其他资源暴露</p></li>
+<li><p>按照应用规则，在目录中增加自己的网页了</p></li>
+<li>任何文件变化dropbox自动同步</li>
+<li>有的应用自动从dropbox同步，有的由用户自己进行刷新</li>
+</ol>
+
+
+<p>我的静态站：<a href="http://powerlly.calepin.co/">http://powerlly.calepin.co/</a></p>
+
+<p>只能作为文章归档用，没有评论留言等功能。</p>
+
+<p>PS: 为了能够置顶联系方式和归档页，通过将metainfo中Date标签时间写得久远些</p>
+]]></content>
+  </entry>
+  
+</feed>

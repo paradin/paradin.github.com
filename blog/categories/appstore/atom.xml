@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: AppStore | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/appstore/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]App Store审核宝典 - App提交和审核的流程]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow/"/>
+    <updated>2013-05-02T18:58:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow</id>
+    <content type="html"><![CDATA[<p><a href="http://tiny4cocoa.com/home/s/20/" title="App提交和审核的流程">App提交和审核的流程</a>
+<img src="http://tiny4cocoa.com/newsupload/appsubmitprocess_m.png" alt="" /></p>
+]]></content>
+  </entry>
+  
+</feed>

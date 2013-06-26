@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: wifi | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/wifi/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[转载] Win7系统建立并开启Wifi热点的bat批处理]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/win7_wifi_point/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/win7_wifi_point</id>
+    <content type="html"><![CDATA[<p>硬件：含有无线网卡的电脑或笔记本</p>
+
+<p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>
+
+<p>目的：将Win7的无线网卡作为wifi热点，让其他含有WIFI电子设备(平板电脑，手机，笔记本)连接上笔记本共享的WIFI</p>
+
+<!--more-->
+
+
+<p>具体过程不详述了,核心代码如下：</p>
+
+<ol>
+<li><p>显示无线热点状态</p>
+
+<pre><code> netsh wlan show hostednetwork
+</code></pre></li>
+<li><p>打开无线热点</p>
+
+<pre><code> netsh wlan start hostednetwork
+</code></pre></li>
+<li><p>关闭无线热点</p>
+
+<pre><code> netsh wlan stop hostednetwork
+</code></pre></li>
+<li><p>禁用无线热点</p>
+
+<pre><code> netsh wlan set hostednetwork mode=disallow
+</code></pre></li>
+<li><p>启用无线热点</p>
+
+<pre><code> wlan set hostednetwork mode=allow
+</code></pre></li>
+<li><p>更改无线热点参数（SSID/KEY）</p>
+
+<pre><code> netsh wlan set hostednetwork mode=allow ssid=rekfan.com key=wwwrekfancom
+</code></pre></li>
+</ol>
+
+
+<p>参数解释：</p>
+
+<pre><code>mode:是否启用虚拟WiFi网卡，改为disallow则为禁止。
+ssid:无线网名称，推荐最好用英文。（此处以rekfan.com为例，可自由设置）
+key:无线网密码，限定八个以上字符。（此处以wwwrekfancom为例，可自由设置）
+</code></pre>
+
+<p>改编后的bat批处理：</p>
+
+<pre><code>echo off
+title windows 7 无线热点设置 By:REKFAN
+color 1E
+:main
+cls
+echo.
+echo.       /-------------------------------
+echo.       ‖     windows 7 无线热点设置    ‖
+echo.       -------------------------------/
+echo.
+echo.            1 - 显示无线热点状态
+echo.            2 - 打开无线热点
+echo.            3 - 关闭无线热点
+echo.            4 - 禁用无线热点
+echo.            5 - 启用无线热点
+echo.            6 - 更改无线热点参数（SSID/KEY）
+echo.            0 - 退出
+echo.-----------------------------------------------------------
+echo.          首次运行请执行6      
+echo.          直接回车可查看说明文档
+echo.          http://blog.rekfan.com
+set input=
+set /p input=请选择【输入序号,然后回车】：
+if /i '%input%'=='1' goto main1
+if /i '%input%'=='2' goto main2
+if /i '%input%'=='3' goto main3
+if /i '%input%'=='4' goto main4
+if /i '%input%'=='5' goto main5
+if /i '%input%'=='6' goto main6
+if /i '%input%'=='0' goto end
+cls
+echo.
+pause
+goto main
+
+:end
+set ssid=
+set key=
+exit
+
+:main1
+cls
+echo 系统当前无线热点状态
+echo.
+netsh wlan show hostednetwork
+echo.
+pause
+goto main
+
+:main2
+cls
+echo 打开无线热点
+echo.
+netsh wlan start hostednetwork
+echo.
+pause
+goto main1
+
+:main3
+cls
+echo 关闭无线热点
+echo.
+netsh wlan stop hostednetwork
+echo.
+pause
+goto main1
+
+:main4
+cls
+echo 禁用无线热点
+echo.
+netsh wlan set hostednetwork mode=disallow
+echo.
+pause
+goto main1
+
+:main5
+cls
+echo 启用无线热点
+echo.
+netsh wlan set hostednetwork mode=allow
+pause
+goto main2
+
+:main6
+cls
+echo 更改无线热点参数（SSID/KEY）
+echo.
+netsh wlan stop hostednetwork
+echo.
+set ssid=
+set /p ssid=请输入热点名称：
+echo.
+set key=
+set /p key=请输入网络密码(8位以上)：
+echo.
+netsh wlan set hostednetwork mode=allow ssid=%ssid% key=%key%
+pause
+goto main2
+</code></pre>
+
+<p>使用步骤：</p>
+
+<ol>
+<li>将上面代码保存在记事本里，改名更改为<em>.bat(</em>随便写，比如：Win7_Wifi.bat)</li>
+<li>初次使用，运行bat,输入6</li>
+<li>打开“网络和共享中心”&mdash;“更改适配器设置”看看是不是多了一项，如果有多出的这一项“Microsoft Virtual WiFi Miniport Adapter”，那么说明你前边的设置是正确的。</li>
+<li>设置Internet连接共享：在“网络连接”窗口中，右键单击已连接到Internet的网络连接(一般是“本地连接”)，选择“属性”→“共享”，勾上“允许其他······连接(N)”并选择刚才新建的虚拟连接。<a href="http://blog.rekfan.com/?p=226">http://blog.rekfan.com/?p=226</a></li>
+<li>到此，基本上可以使用其他设备连接wifi上网了！</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

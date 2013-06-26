@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[转载] Win7系统建立并开启Wifi热点的bat批处理 - EasyTool's Blog</title>
+  <meta name="author" content="Paradin">
+
+  
+  <meta name="description" content="硬件：含有无线网卡的电脑或笔记本 系统：Windows7内核的系统，Windows8，Windows Server 2008 等 目的：将Win7的无线网卡作为wifi热点，让其他含有WIFI电子设备(平板电脑，手机，笔记本)连接上笔记本共享的WIFI 具体过程不详述了,核心代码如下： &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://paradin.github.com/blog/2013/05/13/win7_wifi_point">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="EasyTool's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/blog">EasyTool's Blog</a></h1>
+  
+    <h2>A little bit of progress every day</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:paradin.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/blog">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://me.alipay.com/lynnliu" target="_blank">Donate</a></li>
+  <li><a href="/blog/about">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[转载] Win7系统建立并开启Wifi热点的bat批处理</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-13T14:10:00+08:00" pubdate data-updated="true">May 13<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>硬件：含有无线网卡的电脑或笔记本</p>
+
+<p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>
+
+<p>目的：将Win7的无线网卡作为wifi热点，让其他含有WIFI电子设备(平板电脑，手机，笔记本)连接上笔记本共享的WIFI</p>
+
+<!--more-->
+
+
+<p>具体过程不详述了,核心代码如下：</p>
+
+<ol>
+<li><p>显示无线热点状态</p>
+
+<pre><code> netsh wlan show hostednetwork
+</code></pre></li>
+<li><p>打开无线热点</p>
+
+<pre><code> netsh wlan start hostednetwork
+</code></pre></li>
+<li><p>关闭无线热点</p>
+
+<pre><code> netsh wlan stop hostednetwork
+</code></pre></li>
+<li><p>禁用无线热点</p>
+
+<pre><code> netsh wlan set hostednetwork mode=disallow
+</code></pre></li>
+<li><p>启用无线热点</p>
+
+<pre><code> wlan set hostednetwork mode=allow
+</code></pre></li>
+<li><p>更改无线热点参数（SSID/KEY）</p>
+
+<pre><code> netsh wlan set hostednetwork mode=allow ssid=rekfan.com key=wwwrekfancom
+</code></pre></li>
+</ol>
+
+
+<p>参数解释：</p>
+
+<pre><code>mode:是否启用虚拟WiFi网卡，改为disallow则为禁止。
+ssid:无线网名称，推荐最好用英文。（此处以rekfan.com为例，可自由设置）
+key:无线网密码，限定八个以上字符。（此处以wwwrekfancom为例，可自由设置）
+</code></pre>
+
+<p>改编后的bat批处理：</p>
+
+<pre><code>echo off
+title windows 7 无线热点设置 By:REKFAN
+color 1E
+:main
+cls
+echo.
+echo.       /-------------------------------
+echo.       ‖     windows 7 无线热点设置    ‖
+echo.       -------------------------------/
+echo.
+echo.            1 - 显示无线热点状态
+echo.            2 - 打开无线热点
+echo.            3 - 关闭无线热点
+echo.            4 - 禁用无线热点
+echo.            5 - 启用无线热点
+echo.            6 - 更改无线热点参数（SSID/KEY）
+echo.            0 - 退出
+echo.-----------------------------------------------------------
+echo.          首次运行请执行6      
+echo.          直接回车可查看说明文档
+echo.          http://blog.rekfan.com
+set input=
+set /p input=请选择【输入序号,然后回车】：
+if /i '%input%'=='1' goto main1
+if /i '%input%'=='2' goto main2
+if /i '%input%'=='3' goto main3
+if /i '%input%'=='4' goto main4
+if /i '%input%'=='5' goto main5
+if /i '%input%'=='6' goto main6
+if /i '%input%'=='0' goto end
+cls
+echo.
+pause
+goto main
+
+:end
+set ssid=
+set key=
+exit
+
+:main1
+cls
+echo 系统当前无线热点状态
+echo.
+netsh wlan show hostednetwork
+echo.
+pause
+goto main
+
+:main2
+cls
+echo 打开无线热点
+echo.
+netsh wlan start hostednetwork
+echo.
+pause
+goto main1
+
+:main3
+cls
+echo 关闭无线热点
+echo.
+netsh wlan stop hostednetwork
+echo.
+pause
+goto main1
+
+:main4
+cls
+echo 禁用无线热点
+echo.
+netsh wlan set hostednetwork mode=disallow
+echo.
+pause
+goto main1
+
+:main5
+cls
+echo 启用无线热点
+echo.
+netsh wlan set hostednetwork mode=allow
+pause
+goto main2
+
+:main6
+cls
+echo 更改无线热点参数（SSID/KEY）
+echo.
+netsh wlan stop hostednetwork
+echo.
+set ssid=
+set /p ssid=请输入热点名称：
+echo.
+set key=
+set /p key=请输入网络密码(8位以上)：
+echo.
+netsh wlan set hostednetwork mode=allow ssid=%ssid% key=%key%
+pause
+goto main2
+</code></pre>
+
+<p>使用步骤：</p>
+
+<ol>
+<li>将上面代码保存在记事本里，改名更改为<em>.bat(</em>随便写，比如：Win7_Wifi.bat)</li>
+<li>初次使用，运行bat,输入6</li>
+<li>打开“网络和共享中心”&mdash;“更改适配器设置”看看是不是多了一项，如果有多出的这一项“Microsoft Virtual WiFi Miniport Adapter”，那么说明你前边的设置是正确的。</li>
+<li>设置Internet连接共享：在“网络连接”窗口中，右键单击已连接到Internet的网络连接(一般是“本地连接”)，选择“属性”→“共享”，勾上“允许其他······连接(N)”并选择刚才新建的虚拟连接。<a href="http://blog.rekfan.com/?p=226">http://blog.rekfan.com/?p=226</a></li>
+<li>到此，基本上可以使用其他设备连接wifi上网了！</li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Paradin</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-13T14:10:00+08:00" pubdate data-updated="true">May 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/wifi/'>wifi</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/13/python_weixin_sae_unitest_frame/" title="Previous Post: sae python 微信公众项目单元测试框架">&laquo; sae python 微信公众项目单元测试框架</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/05/15/mysql_create_db_user_cmd/" title="Next Post: mysql建库及用户命令实例">mysql建库及用户命令实例 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/octopress-plus-github-jian-zhan/">Octopress+github 建站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/30/python_string_codec/">Python 字符串编码</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/22/python_webservice_suds/">Python Webservice调用-suds</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/21/git_learn_branch/">Git操作图形教学</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/17/python_chinese_text_parser/">[转载]python汉字处理的工具</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>About</h1>
+  <p>  一直在努力<br>
+      <br>C++、Python开发工程师
+      <br>
+      <br>新浪微博: <a href="http://weibo.com/u/3446536584" target="_blank">易生活_EasyTool</a>
+      <span id="wb_follow_btn"><span class="WB_btnA WB_widgets" node-type="followBtn"><span> <em class="WB_btnicn_add" node-type="followImg"></em><em>加关注</em></span></span></span>
+      <br>我的<strong>"易生活"</strong>微信公众账号:
+      <br><img width="220px" src="/images/weixin-qr.jpg">
+  </p>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
+<li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
+<li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
+<li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
+<li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (11)</a></li>
+<li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
+<li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
+
+  </ul>
+</section>
+
+  <section>
+    <h1>Links</h1>
+    <ul id="weibo">
+      <li>
+        <iframe 
+          width="100%" 
+          height="110" 
+          class="share_self" 
+          frameborder="0" 
+          scrolling="no" 
+          src="http://widget.weibo.com/weiboshow/index.php?width=0&height=110&ptype=0&speed=0&skin=&isTitle=0&noborder=1&isWeibo=1&isFans=&uid=3446536584&verifier=e5bc5b22&dpc=1">
+        </iframe>
+      </li>
+    </ul>
+  </section>
+
+<section>
+  <h1>Recent Comments</h1>
+  <div id="dsq-recentcomments" class="dsq-widget">
+	<script type="text/javascript" src="http://disqus.com/forums/paradin/recent_comments_widget.js?hide_avatars=1"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Paradin -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'paradin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://paradin.github.com/blog/2013/05/13/win7_wifi_point/';
+        var disqus_url = 'http://paradin.github.com/blog/2013/05/13/win7_wifi_point/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

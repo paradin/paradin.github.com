@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | EasyTool's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T22:28:39+08:00</updated>
+  <id>http://paradin.github.com/</id>
+  <author>
+    <name><![CDATA[Paradin]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[python 字符串编码]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/30/python_string_codec/"/>
+    <updated>2013-05-30T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/30/python_string_codec</id>
+    <content type="html"><![CDATA[<p>在pythong开发过程中经常遇到编码问题，原因在于没有正确理解编码解码过程</p>
+
+<p>通过以下命令过程帮助理解下，各自体会吧。</p>
+
+<!--more-->
+
+
+<p>宗旨：<strong>由Unicode中转进行编码、解码</strong></p>
+
+<pre><code>&gt;&gt;&gt; u = '\uffef'
+&gt;&gt;&gt; print u
+\uffef
+&gt;&gt;&gt; u = u'\uffef'
+&gt;&gt;&gt; print u
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeEncodeError: 'gbk' codec can't encode character u'\uffef' in position 0: illegal multibyte sequence
+&gt;&gt;&gt; str(u)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeEncodeError: 'ascii' codec can't encode character u'\uffef' in position 0: ordinal not in range(128)
+&gt;&gt;&gt; sys.stdout.encoding
+'cp936'
+&gt;&gt;&gt; x = u.encode('utf-8')
+&gt;&gt;&gt; x
+'\xef\xbf\xaf'
+&gt;&gt;&gt; x.decode('utf-8')
+u'\uffef'
+&gt;&gt;&gt; x.encode('utf-8')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xef in position 0: ordinal not in range(128)
+&gt;&gt;&gt; u.decode('utf-8')
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+  File "E:\Program Files\Python27\lib\encodings\utf_8.py", line 16, in decode
+    return codecs.utf_8_decode(input, errors, True)
+UnicodeEncodeError: 'ascii' codec can't encode character u'\uffef' in position 0: ordinal not in range(128)
+&gt;&gt;&gt; u.encode('utf-8')
+'\xef\xbf\xaf'
+
+&gt;&gt;&gt; print x
+锟
+&gt;&gt;&gt; str(x)
+'\xef\xbf\xaf'
+&gt;&gt;&gt; repr(x)
+"'\\xef\\xbf\\xaf'"
+&gt;&gt;&gt; repr(u)
+"u'\\uffef'"
+&gt;&gt;&gt; repr(str)
+"&lt;type 'str'&gt;"
+&gt;&gt;&gt; repr(unicode)
+"&lt;type 'unicode'&gt;"
+
+&gt;&gt;&gt; unicode(x)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+UnicodeDecodeError: 'ascii' codec can't decode byte 0xef in position 0: ordinal not in range(128)
+&gt;&gt;&gt; unicode(u)
+u'\uffef'
+&gt;&gt;&gt; isinstance(u, str)
+False
+&gt;&gt;&gt; isinstance(u, unicode)
+True
+&gt;&gt;&gt; isinstance(x, str)
+True
+&gt;&gt;&gt; isinstance(x, unicode)
+False
+
+&gt;&gt;&gt; import re
+&gt;&gt;&gt; re.search(u'\uff', u)
+  File "&lt;stdin&gt;", line 1
+SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 0-XXX escape
+&gt;&gt;&gt; re.search(u'ff', u)
+&gt;&gt;&gt; re.search(r'\uff', u)
+&gt;&gt;&gt; re.search(ur'\uff', u)
+  File "&lt;stdin&gt;", line 1
+SyntaxError: (unicode error) 'rawunicodeescape' codec can't decode bytes in position\uXXXX
+
+
+
+&gt;&gt;&gt; len(None)
+Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: object of type 'NoneType' has no len()
+&gt;&gt;&gt; len('aaa')
+3
+&gt;&gt;&gt; len([])
+0
+&gt;&gt;&gt; len(())
+0
+&gt;&gt;&gt; len({})
+0
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python webservice调用-suds]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/22/python_webservice_suds/"/>
+    <updated>2013-05-22T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/22/python_webservice_suds</id>
+    <content type="html"><![CDATA[<p>python也可以调用webservice : suds</p>
+
+<!--more-->
+
+
+<p>在本地sae中可以运行</p>
+
+<pre><code>    from suds.client import Client
+    url =  "http://host:port/service.wsdl"  
+
+    #根据wsdl创建一个WebService的Client  
+    client = Client(url)
+
+    # 查看webservice提供的服务
+    print client
+
+    # 调用接口
+    client.service.Interface(...)
+
+    # 构造复杂数据
+    monitor1 = client.factory.create('MonitorEntry')
+</code></pre>
+
+<p>但是上传sae后，运行失败</p>
+
+<pre><code>。suds需要写临时文件，应该是wsdl文件
+。找了个解决办法：
+    在suds/cache.py中用 
+。但是sae声称 get_tmp_dir 暂不支持
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]python汉字处理的工具]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser/"/>
+    <updated>2013-05-17T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser</id>
+    <content type="html"><![CDATA[<p>下面这个小工具包含了：</p>
+
+<pre><code>判断unicode是否是汉字，数字，英文，或者其他字符。 
+全角符号转半角符号。 
+unicode字符串归一化等工作。 
+还有一个能处理多音字的汉字转拼音的程序，还在整理中。
+</code></pre>
+
+<!--more-->
+
+
+<pre><code>#!/usr/bin/env python
+# -*- coding:GBK -*- 
+"""汉字处理的工具:
+判断unicode是否是汉字，数字，英文，或者其他字符。
+全角符号转半角符号。"""
+__author__="internetsweeper &lt;zhengbin0713@gmail.com&gt;"
+__date__="2007-08-04"
+
+def is_chinese(uchar):
+    """判断一个unicode是否是汉字"""
+    if uchar &gt;= u'\u4e00' and uchar&lt;=u'\u9fa5':
+        return True
+    else:
+        return False
+
+def is_number(uchar):
+    """判断一个unicode是否是数字"""
+    if uchar &gt;= u'\u0030' and uchar&lt;=u'\u0039':
+        return True
+    else:
+        return False
+
+def is_alphabet(uchar):
+    """判断一个unicode是否是英文字母"""
+    if (uchar &gt;= u'\u0041' and uchar&lt;=u'\u005a') or (uchar &gt;= u'\u0061' and uchar&lt;=u'\u007a'):
+        return True
+    else:
+        return False
+
+def is_other(uchar):
+    """判断是否非汉字，数字和英文字符"""
+    if not (is_chinese(uchar) or is_number(uchar) or is_alphabet(uchar)):
+        return True
+    else:
+        return False
+
+def B2Q(uchar):
+    """半角转全角"""
+    inside_code=ord(uchar)
+    if inside_code&lt;0x0020 or inside_code&gt;0x7e: #不是半角字符就返回原来的字符
+        return uchar
+    if inside_code==0x0020: #除了空格其他的全角半角的公式为:半角=全角-0xfee0
+        inside_code=0x3000
+    else:
+        inside_code+=0xfee0
+    return unichr(inside_code)
+
+def Q2B(uchar):
+    """全角转半角"""
+    inside_code=ord(uchar)
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
+    <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
+
+<p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
+
+<!--more-->
+
+
+<p>下面提供我自己使用的简单sae python测试框架(weixin_unitest.py)：</p>
+
+<pre><code>﻿# -*- coding: utf-8 -*-
+#/usr/bin/env python
+
+
+import sys, urllib, httplib, time, hashlib, random
+
+# 配置
+interface_url = '***.sinaapp.com:80' # 注意不能加http://
+interface_path = '/your path'
+Token = 'your token'
+
+messages = {
+    # 用户关注消息
+    'subscribe' : '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[tester name]]&gt;&lt;/FromUserName&gt;
+    &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
+    &lt;Event&gt;&lt;![CDATA[subscribe]]&gt;&lt;/Event&gt;
+    &lt;EventKey&gt;&lt;![CDATA[EVENTKEY]]&gt;&lt;/EventKey&gt;
+    &lt;/xml&gt;''',
+
+    # 用户发送文本信息
+    'text': '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
+    &lt;FromUserName&gt;&lt;![CDATA[test name]]&gt;&lt;/FromUserName&gt; 
+    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
+    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
+    &lt;Content&gt;&lt;![CDATA[test text]]&gt;&lt;/Content&gt;
+    &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
+    &lt;/xml&gt;'''
+
+}
+
+def make_post(action):
+    '''模拟用户行为产生的消息提交给接口程序'''
+
+    conn = httplib.HTTPConnection(interface_url)
+
+    headers = { "Content-type": "text/xml",
+                "Content-Length": "%d" % len(messages[action])}
+
+    # 生成签名相关变量
+    timestamp = int(time.time())
+
+    nonce = random.randint(1,100000)
+
+    signature = makeSignature(Token, timestamp, nonce)
+
+    params = urllib.urlencode({'signature': signature, 'timestamp': timestamp, 'nonce': nonce})
+
+    conn.request("POST", interface_path + "?" +params, "", headers)
+
+    print messages[action]
+    conn.send(messages[action])
+
+    response = conn.getresponse()
+
+    print response.status, response.reason
+
+    print response.read()
+
+    conn.close()
+
+
+
+def makeSignature(Token, timestamp, nonce):
+    '''生成签名'''
+    try:
+        Token = int(Token)
+    except Exception, e:
+        pass
+
+    sorted_arr = map(str, sorted([Token, timestamp, nonce]))
+
+    sha1obj = hashlib.sha1()
+    sha1obj.update(''.join(sorted_arr))
+    hash = sha1obj.hexdigest()
+
+    return hash
+
+def listAction():
+    print("======Supported actions:======")
+    for i in messages.keys():
+        print(i)
+    print("==============================")
+
+if __name__ == '__main__':
+    if len(sys.argv) &lt; 2:   
+        print (u"Please input your action")
+        listAction()
+    else:
+        if (messages.has_key(sys.argv[1])):
+            make_post(sys.argv[1])
+        else:
+            print("No this action")
+            listAction()
+</code></pre>
+
+<p>运行：</p>
+
+<pre><code>python weixin_unitest.py subscribe
+python weixin_unitest.py text
+</code></pre>
+
+<p>结合SAEPython（sae服务器），在本地完成开发测试就很方便了。</p>
+
+<h1>广告</h1>
+
+<p>关注易生活，关注微信公众：EasyTool</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python日期字符串解析]]></title>
+    <link href="http://paradin.github.com/blog/2013/05/13/python_datestr_parser/"/>
+    <updated>2013-05-13T14:10:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/05/13/python_datestr_parser</id>
+    <content type="html"><![CDATA[<p>用python + 正则表达式 实现的日期字符串解析工具：</p>
+
+<!--more-->
+
+
+<pre><code># -*- coding: utf-8 -*-
+#
+# 关注易生活，我是小E
+# 微信：EasyTool
+#
+import re
+from datetime import date
+
+
+DATE_PATTERNS = {
+u'2013-05-16':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月](\d{1,2})日{,1}',
+u'20130516':u'^(\d{4})(\d{1,2})(\d{1,2})',
+u'2013-05':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月]{,1}()',
+u'2013':u'^(\d{4})[\-\/\.年]{,1}()()',
+u'05月':u'^()(\d{1,2})[月]()',
+u'05-16':u'^()(\d{1,2})[\-\/\.月](\d{1,2})日{,1}'
+}
+
+DATE_PATTERNS_TEST = [
+u'2013-05-16',
+u'2013年05月16',
+u'2013年05月16日',
+
+u'20130516',
+
+u'2013-05', 
+u'2013年05', 
+u'2013-05月',
+
+u'2013',
+u'2013年',
+
+u'05月',
+
+u'05-16',
+u'05月16',
+u'05月16日',
+
+u'05'
+]
+
+
+LANG_PRINT = 'utf-8'
+
+def parse_date(dt_str):
+    year, month, day = u'', u'', u''
+
+    for pat_key in DATE_PATTERNS.keys():
+        dt_arrs = re.findall(DATE_PATTERNS[pat_key], dt_str)
+        if len(dt_arrs)&gt;0:
+            dt_arr = dt_arrs[0]
+            if len(dt_arr)&gt;0: year  = dt_arr[0]
+            if len(dt_arr)&gt;1: month = dt_arr[1]
+            if len(dt_arr)&gt;2: day   = dt_arr[2]
+            break
+
+    return year, month, day
+
+def test_all():
+    for dt_str in DATE_PATTERNS_TEST:
+        dt_tuple = parse_date(dt_str)
+        if dt_tuple is not None:
+            print u'dt_str {0} parse result: {1} {2} {3}'.format(dt_str, dt_tuple[0], dt_tuple[1], dt_tuple[2]).encode(LANG_PRINT)
+        else:
+            print u'error date format {0}'.format(dt_str).encode(LANG_PRINT)
+
+
+if __name__ == '__main__':
+    test_all()
+</code></pre>
+
+<h1>期间遇到问题：</h1>
+
+<p>print 内容需要是utf-8格式，否则会异常</p>
+
+<p>print是标准输出sys.stdout</p>
+
+<p>查看标准输出的编码：  print sys.stdout.encoding</p>
+]]></content>
+  </entry>
+  
+</feed>
