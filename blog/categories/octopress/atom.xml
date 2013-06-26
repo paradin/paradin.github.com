@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: octopress, | Paradin's Blog]]></title>
-  <link href="http://paradin.github.io/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://paradin.github.io/"/>
-  <updated>2013-06-26T00:53:10+08:00</updated>
-  <id>http://paradin.github.io/</id>
+  <title><![CDATA[Category: octopress | Paradin's Blog]]></title>
+  <link href="http://paradin.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://paradin.github.com/"/>
+  <updated>2013-06-26T11:09:48+08:00</updated>
+  <id>http://paradin.github.com/</id>
   <author>
     <name><![CDATA[Paradin]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[octopress+github 建站]]></title>
-    <link href="http://paradin.github.io/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
+    <link href="http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
     <updated>2013-06-25T14:10:00+08:00</updated>
-    <id>http://paradin.github.io/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
+    <id>http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
     <content type="html"><![CDATA[<p>建站的过程主要参考：［用octopress来写博客]caok1231.com/blog/2012/06/24/install-octopress-to-write-blog</p>
 
 <p>多余的我就不说了，主要说下我遇到的问题：</p>
