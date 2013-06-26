@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://paradin.github.io
+url: http://paradin.github.com
 title: Paradin's Blog
 subtitle: A little bit of progress every day 
 author: Paradin 
@@ -101,7 +101,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: paradin
 disqus_show_comment_count: true 
 
 # Google Analytics
