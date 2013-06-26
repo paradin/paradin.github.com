@@ -9,8 +9,9 @@
   <meta name="author" content="Paradin">
 
   
-  <meta name="description" content="建站的过程主要参考：［用octopress来写博客]caok1231.com/blog/2012/06/24/install-octopress-to-write-blog 多余的我就不说了，主要说下我遇到的问题： rebenv 可以不用，查看ruby版本号命令：ruby -v
-不用rbenv的话 &hellip;">
+  <meta name="description" content="建站的过程主要参考： 用octopress来写博客 &ndash; 常见说明
+搭Blog 学Git &ndash; 中文Win XP下环境设置 多余的我就不说了，主要说下我遇到的问题： rebenv 可以不用，查看ruby版本号命令：ruby -v
+不用rbenv的话，rbenv rehash &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -97,7 +98,13 @@
   </header>
 
 
-<div class="entry-content"><p>建站的过程主要参考：［用octopress来写博客]caok1231.com/blog/2012/06/24/install-octopress-to-write-blog</p>
+<div class="entry-content"><p>建站的过程主要参考：</p>
+
+<ol>
+<li><a href="http://caok1231.com/blog/2012/06/24/install-octopress-to-write-blog">用octopress来写博客</a> &ndash; 常见说明</li>
+<li><a href="http://shanewfx.github.io/blog/2012/02/16/bulid-blog-by-octopress/">搭Blog 学Git</a> &ndash; 中文Win XP下环境设置</li>
+</ol>
+
 
 <p>多余的我就不说了，主要说下我遇到的问题：</p>
 
@@ -106,6 +113,11 @@
 <li><p>不用rbenv的话，rbenv rehash 就不用执行了</p></li>
 <li><p>创建github库一定要按照参考文章创建，名称：yourname.github.com , yourname必须是你的github帐号名</p></li>
 <li><p>如果对git命令不熟悉，可以学下，快速学习可参考：<a href="https://na1.salesforce.com/help/doc/en/salesforce_git_developer_cheatsheet.pdf">https://na1.salesforce.com/help/doc/en/salesforce_git_developer_cheatsheet.pdf</a></p></li>
+<li><p>中文系统下 rake generate，时提示错误，通过增加两个环境变量解决：</p>
+
+<pre><code> LC_ALL=zh_CN.UTF-8
+ LANG=zh_CN.UTF-8
+</code></pre></li>
 </ol>
 
 </div>
