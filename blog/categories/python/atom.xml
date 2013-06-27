@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | EasyTool's Blog]]></title>
   <link href="http://paradin.github.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://paradin.github.com/"/>
-  <updated>2013-06-26T22:38:20+08:00</updated>
+  <updated>2013-06-27T23:25:18+08:00</updated>
   <id>http://paradin.github.com/</id>
   <author>
     <name><![CDATA[Paradin]]></name>
@@ -12,6 +12,137 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[浅析Werkzeug服务无缝更新]]></title>
+    <link href="http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/"/>
+    <updated>2013-06-27T22:56:00+08:00</updated>
+    <id>http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin</id>
+    <content type="html"><![CDATA[<p>一直以来对于SAE上python应用无缝更新好奇</p>
+
+<p>今天就来分析一下</p>
+
+<!--more-->
+
+
+<h1>应用启动入口</h1>
+
+<p>我用的是Flask</p>
+
+<p>从dev_server.py中 WsgiWorker可以找到运行服务的入口：</p>
+
+<pre><code>    from werkzeug.serving import run_simple
+    run_simple(...)
+</code></pre>
+
+<p>注意其中参数： <strong><em>use_reloader = True</em></strong>，后面会分析到</p>
+
+<h1>带重启功能启动</h1>
+
+<p>use_reloader条件决定了直接启动服务还是带有自动重启功能启动</p>
+
+<pre><code>def run_with_reloader(main_func, extra_files=None, interval=1):
+"""Run the given function in an independent python interpreter."""
+# ********如果是真正需要运行的进程********
+if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+    # ********启动服务线程********
+    thread.start_new_thread(main_func, ())
+    try:
+        # ********检测文件变化并重启********
+        reloader_loop(extra_files, interval)
+    except KeyboardInterrupt:
+        return
+try:
+    # ********第一次启动，按reloader方式启动子进程********
+    sys.exit(restart_with_reloader())
+except KeyboardInterrupt:
+    pass
+
+
+def restart_with_reloader():
+    """Spawn a new Python interpreter with the same arguments as this one,
+    but running the reloader thread.
+    """
+    while 1:
+        _log('info', ' * Restarting with reloader...')
+        args = [sys.executable] + sys.argv
+        new_environ = os.environ.copy()
+
+        # ********标记当前启动为真正要运行的进程********
+        new_environ['WERKZEUG_RUN_MAIN'] = 'true'
+
+        # a weird bug on windows. sometimes unicode strings end up in the
+        # environment and subprocess.call does not like this, encode them
+        # to latin1 and continue.
+        if os.name == 'nt':
+            for key, value in new_environ.iteritems():
+                if isinstance(value, unicode):
+                    new_environ[key] = value.encode('iso-8859-1')
+
+        # ********创建新的子进程，执行参数和当前进程一致********
+        # ********应该是直到子进程退出才会返回********
+        exit_code = subprocess.call(args, env=new_environ)
+        if exit_code != 3:
+            return exit_code
+</code></pre>
+
+<h1>问题</h1>
+
+<p>通过以上分析，解释了我在本地起SAEPython服务时，通过日志，看到应用被初始化两次的原因</p>
+
+<p>第二次启动有这么一条日志：</p>
+
+<pre><code>     * Restarting with reloader...
+</code></pre>
+
+<p>这让的话，初始应用初始化过两次，而第一次初始化的应用没有用</p>
+
+<p>如何解决这个问题呢？</p>
+
+<h1>解决应用实例化两个的问题</h1>
+
+<ol>
+<li>创建一个启动应用</li>
+<li>由这个启动应用以自动重启方式启动真实应用</li>
+</ol>
+
+
+<p>同真实模块一样创建一个启动应用模块dummy</p>
+
+<pre><code>realapp/
+  |
+  - __init__.py
+dummy/
+  |
+  - __init__.py
+</code></pre>
+
+<p>index.wsgi文件这么写</p>
+
+<pre><code>    import sae, os
+
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        print 'realy application'
+        from realapp import app
+        application = sae.create_wsgi_app(app)
+    else:
+        print 'dummy application'
+        from dummy import dummy_app
+        application = sae.create_wsgi_app(dummy_app)
+</code></pre>
+
+<p>这样在本地启动SAEPython，应用创建两个实例的问题就解决了。</p>
+
+<h1>遗留问题</h1>
+
+<p>发布到SAE后，以上方法不生效</p>
+
+<pre><code>os.environ.get('WERKZEUG_RUN_MAIN') != 'true'
+</code></pre>
+
+<p>有知道原因的吗？</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[python 字符串编码]]></title>
@@ -345,97 +476,6 @@ python weixin_unitest.py text
 <h1>广告</h1>
 
 <p>关注易生活，关注微信公众：EasyTool</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[python日期字符串解析]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/python_datestr_parser/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/python_datestr_parser</id>
-    <content type="html"><![CDATA[<p>用python + 正则表达式 实现的日期字符串解析工具：</p>
-
-<!--more-->
-
-
-<pre><code># -*- coding: utf-8 -*-
-#
-# 关注易生活，我是小E
-# 微信：EasyTool
-#
-import re
-from datetime import date
-
-
-DATE_PATTERNS = {
-u'2013-05-16':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月](\d{1,2})日{,1}',
-u'20130516':u'^(\d{4})(\d{1,2})(\d{1,2})',
-u'2013-05':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月]{,1}()',
-u'2013':u'^(\d{4})[\-\/\.年]{,1}()()',
-u'05月':u'^()(\d{1,2})[月]()',
-u'05-16':u'^()(\d{1,2})[\-\/\.月](\d{1,2})日{,1}'
-}
-
-DATE_PATTERNS_TEST = [
-u'2013-05-16',
-u'2013年05月16',
-u'2013年05月16日',
-
-u'20130516',
-
-u'2013-05', 
-u'2013年05', 
-u'2013-05月',
-
-u'2013',
-u'2013年',
-
-u'05月',
-
-u'05-16',
-u'05月16',
-u'05月16日',
-
-u'05'
-]
-
-
-LANG_PRINT = 'utf-8'
-
-def parse_date(dt_str):
-    year, month, day = u'', u'', u''
-
-    for pat_key in DATE_PATTERNS.keys():
-        dt_arrs = re.findall(DATE_PATTERNS[pat_key], dt_str)
-        if len(dt_arrs)&gt;0:
-            dt_arr = dt_arrs[0]
-            if len(dt_arr)&gt;0: year  = dt_arr[0]
-            if len(dt_arr)&gt;1: month = dt_arr[1]
-            if len(dt_arr)&gt;2: day   = dt_arr[2]
-            break
-
-    return year, month, day
-
-def test_all():
-    for dt_str in DATE_PATTERNS_TEST:
-        dt_tuple = parse_date(dt_str)
-        if dt_tuple is not None:
-            print u'dt_str {0} parse result: {1} {2} {3}'.format(dt_str, dt_tuple[0], dt_tuple[1], dt_tuple[2]).encode(LANG_PRINT)
-        else:
-            print u'error date format {0}'.format(dt_str).encode(LANG_PRINT)
-
-
-if __name__ == '__main__':
-    test_all()
-</code></pre>
-
-<h1>期间遇到问题：</h1>
-
-<p>print 内容需要是utf-8格式，否则会异常</p>
-
-<p>print是标准输出sys.stdout</p>
-
-<p>查看标准输出的编码：  print sys.stdout.encoding</p>
 ]]></content>
   </entry>
   

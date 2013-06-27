@@ -9,8 +9,7 @@
   <meta name="author" content="Paradin">
 
   
-  <meta name="description" content="建站的过程主要参考： 用octopress来写博客 &ndash; 常见说明
-搭Blog 学Git &ndash; 中文Win XP下环境设置 多余的我就不说了，主要说下我遇到的问题： ">
+  <meta name="description" content="一直以来对于SAE上python应用无缝更新好奇 今天就来分析一下 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +68,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/">浅析Werkzeug服务无缝更新</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-27T22:56:00+08:00" pubdate data-updated="true">Jun 27<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>一直以来对于SAE上python应用无缝更新好奇</p>
+
+<p>今天就来分析一下</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -478,67 +522,6 @@ unicode字符串归一化等工作。
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/13/linux_svn_moveto/">Svn目录的拷贝方法</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-13T14:10:00+08:00" pubdate data-updated="true">May 13<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/13/linux_svn_moveto/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>svn目录中都有一个隐藏目录&#8221;.svn&#8221;，这给复制带来不便。</p>
-
-<p>记录下拷贝目录时过滤文件的方法：</p>
-
-<h1>当不需要的文件类型较为单一时</h1>
-
-<p>可以通过完全复制然后删除指定类型的文件完成</p>
-
-<pre><code>cp -r test/ test2
-find test2/ -name '.svn' | xargs rm -rf
-</code></pre>
-
-<p>xargs是给命令传递参数的一个过滤器，可以将前一个命令产生的输出作为后一个命令的参数</p>
-
-<h1>需要的文件为单一类型</h1>
-
-<p>带目录结构复制</p>
-
-<pre><code>mkdir test3
-find test/ -name '*.txt' | xargs tar czf test3.tgz
-tar zxvf test3.tgz -C test3
-</code></pre>
-
-<p>tree 命令可以查看目录树形结构</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -554,6 +537,10 @@ tar zxvf test3.tgz -C test3
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/">浅析Werkzeug服务无缝更新</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/25/octopress-plus-github-jian-zhan/">Octopress+github 建站</a>
       </li>
     
@@ -567,10 +554,6 @@ tar zxvf test3.tgz -C test3
     
       <li class="post">
         <a href="/blog/2013/05/21/git_learn_branch/">Git操作图形教学</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/05/17/python_chinese_text_parser/">[转载]python汉字处理的工具</a>
       </li>
     
   </ul>
@@ -599,7 +582,7 @@ tar zxvf test3.tgz -C test3
 <li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
 <li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
-<li class='category'><a href='/blog/categories/python/'>python (11)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (12)</a></li>
 <li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
 <li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
 <li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
