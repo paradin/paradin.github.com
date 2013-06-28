@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: python | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/python/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[浅析Werkzeug服务无缝更新]]></title>
-    <link href="http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/"/>
+    <link href="http://liuliyun.me/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/"/>
     <updated>2013-06-27T22:56:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin</id>
+    <id>http://liuliyun.me/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin</id>
     <content type="html"><![CDATA[<p>一直以来对于SAE上python应用无缝更新好奇</p>
 
 <p>今天就来分析一下</p>
@@ -146,9 +146,9 @@ dummy/
   
   <entry>
     <title type="html"><![CDATA[python 字符串编码]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/30/python_string_codec/"/>
+    <link href="http://liuliyun.me/blog/2013/05/30/python_string_codec/"/>
     <updated>2013-05-30T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/30/python_string_codec</id>
+    <id>http://liuliyun.me/blog/2013/05/30/python_string_codec</id>
     <content type="html"><![CDATA[<p>在pythong开发过程中经常遇到编码问题，原因在于没有正确理解编码解码过程</p>
 
 <p>通过以下命令过程帮助理解下，各自体会吧。</p>
@@ -248,9 +248,9 @@ TypeError: object of type 'NoneType' has no len()
   
   <entry>
     <title type="html"><![CDATA[python webservice调用-suds]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/22/python_webservice_suds/"/>
+    <link href="http://liuliyun.me/blog/2013/05/22/python_webservice_suds/"/>
     <updated>2013-05-22T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/22/python_webservice_suds</id>
+    <id>http://liuliyun.me/blog/2013/05/22/python_webservice_suds</id>
     <content type="html"><![CDATA[<p>python也可以调用webservice : suds</p>
 
 <!--more-->
@@ -286,9 +286,9 @@ TypeError: object of type 'NoneType' has no len()
   
   <entry>
     <title type="html"><![CDATA[[转载]python汉字处理的工具]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser/"/>
+    <link href="http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser/"/>
     <updated>2013-05-17T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser</id>
+    <id>http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser</id>
     <content type="html"><![CDATA[<p>下面这个小工具包含了：</p>
 
 <pre><code>判断unicode是否是汉字，数字，英文，或者其他字符。 
@@ -356,9 +356,9 @@ def Q2B(uchar):
   
   <entry>
     <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
+    <id>http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
     <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
 
 <p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>

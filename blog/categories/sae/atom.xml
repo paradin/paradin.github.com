@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: sae | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/sae/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/sae/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
+    <id>http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
     <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
 
 <p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
@@ -140,9 +140,9 @@ python weixin_unitest.py text
   
   <entry>
     <title type="html"><![CDATA[hello sae python]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/10/sae_python_helloworld/"/>
+    <link href="http://liuliyun.me/blog/2013/05/10/sae_python_helloworld/"/>
     <updated>2013-05-10T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/10/sae_python_helloworld</id>
+    <id>http://liuliyun.me/blog/2013/05/10/sae_python_helloworld</id>
     <content type="html"><![CDATA[<p>看看如何在sae上部署第一个python应用吧</p>
 
 <!--more-->

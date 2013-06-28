@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: mysql | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/mysql/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[mysql建库及用户命令实例]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd/"/>
+    <link href="http://liuliyun.me/blog/2013/05/15/mysql_create_db_user_cmd/"/>
     <updated>2013-05-15T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd</id>
+    <id>http://liuliyun.me/blog/2013/05/15/mysql_create_db_user_cmd</id>
     <content type="html"><![CDATA[<p>这里记录下mysql命令行下创建库及用户的命令</p>
 
 <!--more-->

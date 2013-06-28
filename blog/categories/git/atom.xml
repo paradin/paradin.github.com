@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: git | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/git/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[git操作图形教学]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/21/git_learn_branch/"/>
+    <link href="http://liuliyun.me/blog/2013/05/21/git_learn_branch/"/>
     <updated>2013-05-21T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/21/git_learn_branch</id>
+    <id>http://liuliyun.me/blog/2013/05/21/git_learn_branch</id>
     <content type="html"><![CDATA[<p>看到一个图形展示git使用的教程</p>
 
 <p>简单明了得介绍了git命令的作用</p>

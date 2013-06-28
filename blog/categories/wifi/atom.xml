@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: wifi | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/wifi/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/wifi/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[转载] Win7系统建立并开启Wifi热点的bat批处理]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/win7_wifi_point/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/win7_wifi_point/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/win7_wifi_point</id>
+    <id>http://liuliyun.me/blog/2013/05/13/win7_wifi_point</id>
     <content type="html"><![CDATA[<p>硬件：含有无线网卡的电脑或笔记本</p>
 
 <p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>

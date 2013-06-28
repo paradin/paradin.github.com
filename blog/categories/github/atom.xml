@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: github | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/github/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/github/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[octopress+github 建站]]></title>
-    <link href="http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
+    <link href="http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
     <updated>2013-06-25T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
+    <id>http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
     <content type="html"><![CDATA[<p>建站的过程主要参考：</p>
 
 <ol>

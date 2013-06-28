@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: colinux | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/colinux/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/colinux/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[colinux中实现声音播放]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/04/colinux_soundplay/"/>
+    <link href="http://liuliyun.me/blog/2013/05/04/colinux_soundplay/"/>
     <updated>2013-05-04T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/04/colinux_soundplay</id>
+    <id>http://liuliyun.me/blog/2013/05/04/colinux_soundplay</id>
     <content type="html"><![CDATA[<p>因为window占用着声卡,colinux是没法占用了,只能通过网络间接使用:</p>
 
 <pre><code>在colinux安装虚拟声卡；

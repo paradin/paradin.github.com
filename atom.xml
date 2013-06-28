@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[浅析Werkzeug服务无缝更新]]></title>
-    <link href="http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/"/>
+    <link href="http://liuliyun.me/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/"/>
     <updated>2013-06-27T22:56:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin</id>
+    <id>http://liuliyun.me/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin</id>
     <content type="html"><![CDATA[<p>一直以来对于SAE上python应用无缝更新好奇</p>
 
 <p>今天就来分析一下</p>
@@ -146,9 +146,9 @@ dummy/
   
   <entry>
     <title type="html"><![CDATA[octopress+github 建站]]></title>
-    <link href="http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
+    <link href="http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
     <updated>2013-06-25T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
+    <id>http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan</id>
     <content type="html"><![CDATA[<p>建站的过程主要参考：</p>
 
 <ol>
@@ -179,9 +179,9 @@ dummy/
   
   <entry>
     <title type="html"><![CDATA[python 字符串编码]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/30/python_string_codec/"/>
+    <link href="http://liuliyun.me/blog/2013/05/30/python_string_codec/"/>
     <updated>2013-05-30T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/30/python_string_codec</id>
+    <id>http://liuliyun.me/blog/2013/05/30/python_string_codec</id>
     <content type="html"><![CDATA[<p>在pythong开发过程中经常遇到编码问题，原因在于没有正确理解编码解码过程</p>
 
 <p>通过以下命令过程帮助理解下，各自体会吧。</p>
@@ -281,9 +281,9 @@ TypeError: object of type 'NoneType' has no len()
   
   <entry>
     <title type="html"><![CDATA[python webservice调用-suds]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/22/python_webservice_suds/"/>
+    <link href="http://liuliyun.me/blog/2013/05/22/python_webservice_suds/"/>
     <updated>2013-05-22T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/22/python_webservice_suds</id>
+    <id>http://liuliyun.me/blog/2013/05/22/python_webservice_suds</id>
     <content type="html"><![CDATA[<p>python也可以调用webservice : suds</p>
 
 <!--more-->
@@ -319,9 +319,9 @@ TypeError: object of type 'NoneType' has no len()
   
   <entry>
     <title type="html"><![CDATA[git操作图形教学]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/21/git_learn_branch/"/>
+    <link href="http://liuliyun.me/blog/2013/05/21/git_learn_branch/"/>
     <updated>2013-05-21T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/21/git_learn_branch</id>
+    <id>http://liuliyun.me/blog/2013/05/21/git_learn_branch</id>
     <content type="html"><![CDATA[<p>看到一个图形展示git使用的教程</p>
 
 <p>简单明了得介绍了git命令的作用</p>
@@ -332,9 +332,9 @@ TypeError: object of type 'NoneType' has no len()
   
   <entry>
     <title type="html"><![CDATA[[转载]python汉字处理的工具]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser/"/>
+    <link href="http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser/"/>
     <updated>2013-05-17T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/17/python_chinese_text_parser</id>
+    <id>http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser</id>
     <content type="html"><![CDATA[<p>下面这个小工具包含了：</p>
 
 <pre><code>判断unicode是否是汉字，数字，英文，或者其他字符。 
@@ -402,9 +402,9 @@ def Q2B(uchar):
   
   <entry>
     <title type="html"><![CDATA[mysql建库及用户命令实例]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd/"/>
+    <link href="http://liuliyun.me/blog/2013/05/15/mysql_create_db_user_cmd/"/>
     <updated>2013-05-15T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/15/mysql_create_db_user_cmd</id>
+    <id>http://liuliyun.me/blog/2013/05/15/mysql_create_db_user_cmd</id>
     <content type="html"><![CDATA[<p>这里记录下mysql命令行下创建库及用户的命令</p>
 
 <!--more-->
@@ -431,9 +431,9 @@ def Q2B(uchar):
   
   <entry>
     <title type="html"><![CDATA[[转载] Win7系统建立并开启Wifi热点的bat批处理]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/win7_wifi_point/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/win7_wifi_point/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/win7_wifi_point</id>
+    <id>http://liuliyun.me/blog/2013/05/13/win7_wifi_point</id>
     <content type="html"><![CDATA[<p>硬件：含有无线网卡的电脑或笔记本</p>
 
 <p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>
@@ -598,9 +598,9 @@ goto main2
   
   <entry>
     <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
+    <id>http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
     <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
 
 <p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
@@ -723,9 +723,9 @@ python weixin_unitest.py text
   
   <entry>
     <title type="html"><![CDATA[python日期字符串解析]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/python_datestr_parser/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/python_datestr_parser/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/python_datestr_parser</id>
+    <id>http://liuliyun.me/blog/2013/05/13/python_datestr_parser</id>
     <content type="html"><![CDATA[<p>用python + 正则表达式 实现的日期字符串解析工具：</p>
 
 <!--more-->
@@ -814,9 +814,9 @@ if __name__ == '__main__':
   
   <entry>
     <title type="html"><![CDATA[svn目录的拷贝方法]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/13/linux_svn_moveto/"/>
+    <link href="http://liuliyun.me/blog/2013/05/13/linux_svn_moveto/"/>
     <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/13/linux_svn_moveto</id>
+    <id>http://liuliyun.me/blog/2013/05/13/linux_svn_moveto</id>
     <content type="html"><![CDATA[<p>svn目录中都有一个隐藏目录&#8221;.svn&#8221;，这给复制带来不便。</p>
 
 <p>记录下拷贝目录时过滤文件的方法：</p>
@@ -846,9 +846,9 @@ tar zxvf test3.tgz -C test3
   
   <entry>
     <title type="html"><![CDATA[hello sae python]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/10/sae_python_helloworld/"/>
+    <link href="http://liuliyun.me/blog/2013/05/10/sae_python_helloworld/"/>
     <updated>2013-05-10T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/10/sae_python_helloworld</id>
+    <id>http://liuliyun.me/blog/2013/05/10/sae_python_helloworld</id>
     <content type="html"><![CDATA[<p>看看如何在sae上部署第一个python应用吧</p>
 
 <!--more-->
@@ -906,9 +906,9 @@ tar zxvf test3.tgz -C test3
   
   <entry>
     <title type="html"><![CDATA[致没有搞好的kivy环境]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/05/python_kivy_setup/"/>
+    <link href="http://liuliyun.me/blog/2013/05/05/python_kivy_setup/"/>
     <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/05/python_kivy_setup</id>
+    <id>http://liuliyun.me/blog/2013/05/05/python_kivy_setup</id>
     <content type="html"><![CDATA[<pre><code>    继续研究kivy，上次没搞通是环境安装没装好
 
     按照说明安装需要的包，遇到问题：
@@ -926,9 +926,9 @@ tar zxvf test3.tgz -C test3
   
   <entry>
     <title type="html"><![CDATA[通过adb连接手机或者模拟器进行python开发]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/05/python_dev_by_adb/"/>
+    <link href="http://liuliyun.me/blog/2013/05/05/python_dev_by_adb/"/>
     <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/05/python_dev_by_adb</id>
+    <id>http://liuliyun.me/blog/2013/05/05/python_dev_by_adb</id>
     <content type="html"><![CDATA[<h1>adb remote control</h1>
 
 <p>sl4a 可以开启python-server，通过远程adb进行开发、调试，然后发布到手机</p>
@@ -1050,9 +1050,9 @@ start echo Adb connected!
   
   <entry>
     <title type="html"><![CDATA[解决Unable to resolve target 'android-XX']]></title>
-    <link href="http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target/"/>
+    <link href="http://liuliyun.me/blog/2013/05/05/android_unable_to_resole_target/"/>
     <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/05/android_unable_to_resole_target</id>
+    <id>http://liuliyun.me/blog/2013/05/05/android_unable_to_resole_target</id>
     <content type="html"><![CDATA[<p>将低版本的代码导入eclipse时，常遇到这样的问题：</p>
 
 <pre><code>Unable to resolve target 'android-XX'
@@ -1080,9 +1080,9 @@ AVD(Android Virtual Device)，是Android的模拟器。
   
   <entry>
     <title type="html"><![CDATA[linux中时区设置]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/04/linux_timezone_set/"/>
+    <link href="http://liuliyun.me/blog/2013/05/04/linux_timezone_set/"/>
     <updated>2013-05-04T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/04/linux_timezone_set</id>
+    <id>http://liuliyun.me/blog/2013/05/04/linux_timezone_set</id>
     <content type="html"><![CDATA[<p>源码安装的时候 ./configure 最后经常提示
 make: warning:  Clock skew detected.  Your build may be incomplete.</p>
 
@@ -1097,9 +1097,9 @@ make: warning:  Clock skew detected.  Your build may be incomplete.</p>
   
   <entry>
     <title type="html"><![CDATA[colinux中实现声音播放]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/04/colinux_soundplay/"/>
+    <link href="http://liuliyun.me/blog/2013/05/04/colinux_soundplay/"/>
     <updated>2013-05-04T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/04/colinux_soundplay</id>
+    <id>http://liuliyun.me/blog/2013/05/04/colinux_soundplay</id>
     <content type="html"><![CDATA[<p>因为window占用着声卡,colinux是没法占用了,只能通过网络间接使用:</p>
 
 <pre><code>在colinux安装虚拟声卡；
@@ -1196,9 +1196,9 @@ exec1="D:\Program Files\PulseAudio\pulseaudio.exe"
   
   <entry>
     <title type="html"><![CDATA[colinux中安装pygame]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/03/python_pygame_install/"/>
+    <link href="http://liuliyun.me/blog/2013/05/03/python_pygame_install/"/>
     <updated>2013-05-03T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/03/python_pygame_install</id>
+    <id>http://liuliyun.me/blog/2013/05/03/python_pygame_install</id>
     <content type="html"><![CDATA[<p>pygame是封装sdl的基于python语言的跨平台图像开发库</p>
 
 <p>与pygame相对的还有pyglet，是基于opengl的跨平台python语言开发库</p>
@@ -1240,9 +1240,9 @@ cd pygame-1.9.1release</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[colinux中安装设置idle环境]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/03/python_idle_tool_install/"/>
+    <link href="http://liuliyun.me/blog/2013/05/03/python_idle_tool_install/"/>
     <updated>2013-05-03T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/03/python_idle_tool_install</id>
+    <id>http://liuliyun.me/blog/2013/05/03/python_idle_tool_install</id>
     <content type="html"><![CDATA[<p>colinux 安装idle，又装了一个python2.5</p>
 
 <p>无奈，强制将/usr/bin/python改成link python2.7，会造成环境不一致的问题</p>
@@ -1276,9 +1276,9 @@ cd pygame-1.9.1release</p></blockquote>
   
   <entry>
     <title type="html"><![CDATA[[转载]App Store审核宝典 - App提交和审核的流程]]></title>
-    <link href="http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow/"/>
+    <link href="http://liuliyun.me/blog/2013/05/02/appstore_submit_audit_flow/"/>
     <updated>2013-05-02T18:58:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/05/02/appstore_submit_audit_flow</id>
+    <id>http://liuliyun.me/blog/2013/05/02/appstore_submit_audit_flow</id>
     <content type="html"><![CDATA[<p><a href="http://tiny4cocoa.com/home/s/20/" title="App提交和审核的流程">App提交和审核的流程</a>
 <img src="http://tiny4cocoa.com/newsupload/appsubmitprocess_m.png" alt="" /></p>
 ]]></content>

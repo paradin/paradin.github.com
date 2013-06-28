@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://paradin.github.com/sitemap.xml 
+Sitemap: http://liuliyun.me/sitemap.xml 

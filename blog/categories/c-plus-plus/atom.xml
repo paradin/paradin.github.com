@@ -2,12 +2,12 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: c++ | EasyTool's Blog]]></title>
-  <link href="http://paradin.github.com/blog/categories/c-plus-plus/atom.xml" rel="self"/>
-  <link href="http://paradin.github.com/"/>
-  <updated>2013-06-28T13:36:44+08:00</updated>
-  <id>http://paradin.github.com/</id>
+  <link href="http://liuliyun.me/blog/categories/c-plus-plus/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-28T13:58:56+08:00</updated>
+  <id>http://liuliyun.me/</id>
   <author>
-    <name><![CDATA[Paradin]]></name>
+    <name><![CDATA[LynnLiu]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[转载]Why does C++ compilation take so long?]]></title>
-    <link href="http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason/"/>
+    <link href="http://liuliyun.me/blog/2013/04/07/cplusplus_compile_long_reason/"/>
     <updated>2013-04-07T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/04/07/cplusplus_compile_long_reason</id>
+    <id>http://liuliyun.me/blog/2013/04/07/cplusplus_compile_long_reason</id>
     <content type="html"><![CDATA[<p>Several reasons:</p>
 
 <pre><code>    1. Header files
@@ -67,9 +67,9 @@
   
   <entry>
     <title type="html"><![CDATA[C++预编译头小记]]></title>
-    <link href="http://paradin.github.com/blog/2013/04/01/cplusplus_precompile_head/"/>
+    <link href="http://liuliyun.me/blog/2013/04/01/cplusplus_precompile_head/"/>
     <updated>2013-04-01T14:10:00+08:00</updated>
-    <id>http://paradin.github.com/blog/2013/04/01/cplusplus_precompile_head</id>
+    <id>http://liuliyun.me/blog/2013/04/01/cplusplus_precompile_head</id>
     <content type="html"><![CDATA[<p>随着功能的不断增加，工程逐渐庞大，编译、链接时间明显变长，于是考虑进行优化。在多人进行开发，而没有代码质量监控的话，确实很容易造成这样的结果，尽早发现和解决这些问题，可以避免更大的麻烦。</p>
 
 <!--more-->
