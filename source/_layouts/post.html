@@ -4,6 +4,7 @@ single: true
 ---
 
 <div>
+{% include post/variables.html %}
 <article class="hentry" role="article">
   {% include article.html %}
   <footer>
@@ -12,6 +13,7 @@ single: true
       {% include post/date.html %}{% if updated %}{{ updated }}{% else %}{{ time }}{% endif %}
       {% include post/categories.html %}
     </p>
+    {% include custom/post_meta.html %}
     {% unless page.sharing == false %}
       {% include post/sharing.html %}
     {% endunless %}
