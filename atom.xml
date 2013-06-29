@@ -4,7 +4,7 @@
   <title><![CDATA[EasyTool's Blog]]></title>
   <link href="http://liuliyun.me/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-06-28T23:32:58+08:00</updated>
+  <updated>2013-06-29T19:13:49+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -172,6 +172,443 @@ dummy/
 <pre><code> LC_ALL=zh_CN.UTF-8
  LANG=zh_CN.UTF-8
 </code></pre></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[查看dll依赖脚本]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/vs_view_dll_depency_bat/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/vs_view_dll_depency_bat</id>
+    <content type="html"><![CDATA[<p>软件项目逐渐庞大，版本日益更新</p>
+
+<p>难免在安装包中残留一些老的dll</p>
+
+<p>为了检查dll的依赖关系，可以用<a href="http://download.csdn.net/detail/powerlly/4544320">dependency.exe</a>工具，然后人肉检查（弱感蛋疼。。。）</p>
+
+<p>还有命令行的方法</p>
+
+<!-- more -->
+
+
+<p>启动VS命令行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54941343/vs_cmd.png" alt="" /></p>
+
+<p>定位到.dll所在目录</p>
+
+<p>执行如下批处理脚本：</p>
+
+<pre><code>set workPath="."
+for /r "%workPath%\" %%i in ("*.dll") do (dumpbin /DEPENDENTS %%i &gt;&gt; dep.txt)
+</code></pre>
+
+<p>PS： 如果是<strong>动态加载的</strong>dll ，这方法就查不出来了</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Python中调用父类的同名方法]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass</id>
+    <content type="html"><![CDATA[<p>面向对象设计时，无可避免的会涉及到父类和子类的关系</p>
+
+<p>封装、集成、多态，大家都能娓娓道来</p>
+
+<p>道理是一样的，针对不同的语言，面向对象开发也会遇到不同情况需要解决</p>
+
+<p>今天学习下python中如何调用父类同名方法</p>
+
+<!-- more -->
+
+
+<p>PS： 如果不调用的话，子类同名方法对父类方法是直接覆盖的</p>
+
+<h2>python 2.2以前</h2>
+
+<pre><code>class FooParent:
+    def bar(self, message):
+        print(message)
+
+class FooChild(FooParent):
+    def bar(self, message):
+        FooParent.bar(self, message)
+
+&gt;&gt;&gt; FooChild().bar("Hello, World.")
+Hello, World.
+</code></pre>
+
+<p>缺点：</p>
+
+<ul>
+<li><p>要修改父类名称时，麻烦</p></li>
+<li><p>多级、多继承时，基类方法会多次执行</p></li>
+</ul>
+
+
+<h2>2.2 以后</h2>
+
+<pre><code>class FooParent:
+    def bar(self, message):
+        print(message)
+
+
+class FooChild(FooParent):
+    def bar(self, message):
+        super(FooChild, self).bar(message)
+
+
+&gt;&gt;&gt; FooChild().bar("Hello, World.")
+Hello, World.
+</code></pre>
+
+<p>优点：</p>
+
+<ul>
+<li>基类名称想怎么改就怎么改了</li>
+<li>多继承，不会多次调用基类方法</li>
+</ul>
+
+
+<p>参考：<a href="http://hi.baidu.com/thinkinginlamp/item/3095e2f52c642516ce9f32d5">如何在Python中调用父类的同名方法</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一款酷酷的电脑快捷键工具]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/el_a_shortcut_manager_tool/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/el_a_shortcut_manager_tool</id>
+    <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54941343/eform.png" alt="" /></p>
+
+<p>每次，有同事、朋友在我电脑旁边看我操作的时候</p>
+
+<p>都会惊讶我用的这个是什么</p>
+
+<p>每次，我就为这款软件带来了新的用户</p>
+
+<p>虽然据说是Japanese开发的</p>
+
+<p>软件无国界，<a href="https://dl.dropboxusercontent.com/u/54941343/mform_0981e.rar">PC用户自取吧</a></p>
+
+<!-- more -->
+
+
+<p>使用方法：</p>
+
+<ol>
+<li>解压后直接运行，可以将其加入启动项，每次开机就自动运行了</li>
+<li>启动后，用鼠标在桌面画个圈（硬币大小），奇迹就将出现。</li>
+<li><p>右键中心的图标</p>
+
+<pre><code> Task list 切换图标形状
+ Page list 选择快捷键页，也可以直接滚动滚轮翻页
+ Create new icon 创建快捷键图标
+</code></pre></li>
+<li><p>右键周围一圈的图标</p>
+
+<pre><code> Duplicate 复制图标
+ Delete 删除图标
+ Open the folder 打开所在目录
+ Options 修改设置
+</code></pre></li>
+<li><p>当创建新图标或者修改设置时，可以设置</p>
+
+<p> <img src="https://dl.dropboxusercontent.com/u/54941343/eform_opts.png" alt="" /></p>
+
+<pre><code> Caption 图标名称，注意不能输中文
+ Path 需要点击图标时打开的网页文件、目录、程序的路径
+</code></pre></li>
+<li><p>点击中间图标，关闭</p></li>
+<li><p>更多功能自己摸索吧︿＿︿</p></li>
+</ol>
+
+
+<p>&ndash;</p>
+
+<pre><code>-----------  易生活 个人微信公众  -----------
+微信号：EasyTool
+
+不止工作、学习、生活
+还可以玩游戏
+
+使用中有问题或建议，告诉小E，有问必答。
+有什么希望小E提供的功能，可直接回复！
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]svn常用命令]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/06/svn_common_commands/"/>
+    <updated>2013-06-06T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/06/svn_common_commands</id>
+    <content type="html"><![CDATA[<p>一直用的TortoiseSVN，对命令行操作不了解，今天就来熟悉一下吧</p>
+
+<p>我常用的svn操作</p>
+
+<pre><code>。查看状态 svn st [path]
+。创建目录 svn mkdir
+。添加文件 svn add [file]
+。提交修改 svn ci [file] -m 'comments'
+。比较差异 svn diff [file]
+。撤销修改 svn revert [file]
+。签出 svn co [url]
+</code></pre>
+
+<!-- more -->
+
+
+<p>以下是更详细的转载内容：<a href="http://os.51cto.com/art/200908/143157.htm">详解Linux命令行下常用svn命令</a></p>
+
+<h2>常用svn命令的使用方法</h2>
+
+<ol>
+<li><p>Linux命令行下将文件checkout到本地目录</p>
+
+<p> svn checkout path（path是服务器上的目录）</p>
+
+<p> 例如：svn checkout svn://192.168.1.1/pro/domain</p>
+
+<p> 简写：svn co</p></li>
+<li><p>Linux命令行下往版本库中添加新的文件</p>
+
+<p> svn add file</p>
+
+<p> 例如：svn add test.php(添加test.php)</p>
+
+<p> svn add *.php(添加当前目录下所有的php文件)</p></li>
+<li><p>Linux命令行下将改动的文件提交到版本库</p>
+
+<p> svn commit -m “LogMessage“ [-N] [&mdash;no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)</p>
+
+<p> 例如：svn commit -m “add test file for my test“ test.php</p>
+
+<p> 简写：svn ci</p></li>
+<li><p>Linux命令行下的加锁/解锁</p>
+
+<p> svn lock -m “LockMessage“ [&mdash;force] PATH</p>
+
+<p> 例如：svn lock -m “lock test file“ test.php</p>
+
+<p> svn unlock PATH</p></li>
+<li><p>Linux命令行下更新到某个版本</p>
+
+<p> svn update -r m path</p>
+
+<p> 例如：</p>
+
+<p> svn update如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。</p>
+
+<p> svn update -r 200 test.php(将版本库中的文件test.php还原到版本200)</p>
+
+<p> svn update test.php(更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)</p>
+
+<p> 简写：svn up</p></li>
+<li><p>Linux命令行下查看文件或者目录状态</p>
+
+<p> 1) svn status path（目录下的文件和子目录的状态，正常状态不显示）</p>
+
+<p> 【?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】</p>
+
+<p> 2）svn status -v path(显示文件和子目录状态)</p>
+
+<p> 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。</p>
+
+<p> 注：svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。</p>
+
+<p> 简写：svn st</p></li>
+<li><p>Linux命令行下删除文件</p>
+
+<p> svn delete path -m “delete test fle“</p>
+
+<p> 例如：svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”</p>
+
+<p> 或者直接svn delete test.php 然后再svn ci -m ‘delete test file‘，推荐使用这种</p>
+
+<p> 简写：svn (del, remove, rm)</p></li>
+<li><p>Linux命令行下查看日志</p>
+
+<p> svn log path</p>
+
+<p> 例如：svn log test.php 显示这个文件的所有修改记录，及其版本号的变化</p></li>
+<li><p>Linux命令行下查看文件详细信息</p>
+
+<p> svn info path</p>
+
+<p> 例如：svn info test.php</p></li>
+<li><p>Linux命令行下比较差异</p>
+
+<p>svn diff path(将修改的文件与基础版本比较)</p>
+
+<p>例如：svn diff test.php</p>
+
+<p>svn diff -r m:n path(对版本m和版本n比较差异)</p>
+
+<p>例如：svn diff -r 200:201 test.php</p>
+
+<p>简写：svn di</p></li>
+<li><p>Linux命令行下将两个版本之间的差异合并到当前文件</p>
+
+<p>svn merge -r m:n path</p>
+
+<p>例如：svn merge -r 200:205 test.php（将版本200与205之间的差异合并到当前文件，但是一般都会产生冲突，需要处理一下）</p></li>
+<li><p>Linux命令行下SVN 帮助</p>
+
+<p>svn help</p>
+
+<p>svn help ci</p></li>
+</ol>
+
+
+<h2>下面写几个不经常用的</h2>
+
+<ol>
+<li><p>Linux命令行下版本库下的文件和目录列表</p>
+
+<p> svn list path</p>
+
+<p> 显示path目录下的所有属于版本库的文件和目录</p>
+
+<p> 简写：svn ls</p></li>
+<li><p>Linux命令行下创建纳入版本控制下的新目录</p>
+
+<p> svn mkdir: 创建纳入版本控制下的新目录。</p>
+
+<p> 用法:</p>
+
+<p> 1、mkdir PATH…
+ 每一个以工作副本 PATH 指定的目录，都会创建在本地端，并且加入新增调度，以待下一次的提交。</p>
+
+<p> 2、mkdir URL…
+ 每个以URL指定的目录，都会透过立即提交于仓库中创建.在这两个情况下，所有的中间目录都必须事先存在。</p></li>
+<li><p>Linux命令行下恢复本地修改</p>
+
+<p> svn revert: 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。revert:</p>
+
+<p> 用法: revert PATH…</p>
+
+<p> 注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录</p></li>
+<li><p>Linux命令行下代码库URL变更</p></li>
+</ol>
+
+
+<p>svn switch (sw): 更新工作副本至不同的URL。</p>
+
+<pre><code>用法: 
+1、switch URL [PATH]
+更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。
+
+2、switch –relocate FROM TO [PATH...]
+改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系。
+</code></pre>
+
+<ol>
+<li><p>Linux命令行下解决冲突</p>
+
+<p> svn resolved: 移除工作副本的目录或文件的“冲突”状态。</p>
+
+<p> 用法: resolved PATH…</p>
+
+<p> 注意: 本子命令不会依语法来解决冲突或是移除冲突标记；它只是移除冲突的相关文件，然后让 PATH 可以再次提交。</p></li>
+<li><p>Linux命令行下输出指定文件或URL的内容。</p>
+
+<p> svn cat 目标[@版本]…如果指定了版本，将从指定的版本开始查找。</p>
+
+<p> svn cat -r PREV filename > filename (PREV 是上一版本,也可以写具体版本号,这样输出结果是可以提交的)</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[解析网页抓取所得gzip压缩数据]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse/"/>
+    <updated>2013-06-06T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse</id>
+    <content type="html"><![CDATA[<p>在进行网页数据抓取时，会遇到压缩数据，可能主要出于如下考虑：</p>
+
+<ol>
+<li><p>简单的防抓取方法</p>
+
+<p> 没有经过分析就对抓取的网页内容直接进行文本解析，肯定会遇到问题，就像我开始的时候一样。。。</p></li>
+<li><p>压缩数据减少流量</p>
+
+<p> 这个一般用于提供数据接口，将数据压缩后可以大大减少流量</p></li>
+</ol>
+
+
+<p>以下提供对抓取数据的处理方法：</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>检测反馈内容是否压缩，并对压缩内容解压</p></li>
+<li><p>检测数据文本编码格式，解压后返回unicode文本</p></li>
+</ol>
+
+
+<p>检测编码格式所用工具：<a href="https://pypi.python.org/pypi/chardet">chardet</a></p>
+
+<pre><code># -*- coding: utf-8 -*-
+
+import gzip, StringIO, codecs, chardet
+from utils import *
+
+def getEncoding(txt):
+    """ 检查文本内容的编码方式
+    """
+    try:
+        coding = chardet.detect(txt)['encoding']
+
+        if 'None' == coding:
+            return None
+        else:
+            return coding
+
+    except Exception as ex:
+        print 'fail getEncoding {0}'.format(ex)
+        return None
+
+def readResponse(resp):
+    """ 读取网页抓取返回内容
+    """
+    if resp.getcode() == 200:
+        encoding = resp.headers.get('Content-Encoding')
+
+        info = resp.read()
+
+        if('gzip' == encoding):
+            print 'read response compress gzip'
+            try:
+                gf = gzip.GzipFile(fileobj=StringIO.StringIO(info), mode="r")
+                info = gf.read()
+            except Exception as ex:
+                print 'fail read response, gzip'
+                info = ''
+
+    if info!='':
+        # 删除BOM头
+        info = info.strip(codecs.BOM_UTF8)
+        code = getEncoding(info)
+        if code:
+            info = info.decode(code)
+            print 'read response, encoding {0}'.format(code)
+        else:
+            print 'fail parse text encode'
+
+    return info
+</code></pre>
+
+<p>参考链接：</p>
+
+<ol>
+<li><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html">Handling compressed data</a></li>
+<li><a href="http://blog.knownsec.com/2012/04/about-content-encoding-gzip/">关于 Content-Encoding: gzip</a></li>
 </ol>
 
 ]]></content>
@@ -1075,212 +1512,6 @@ AVD(Android Virtual Device)，是Android的模拟器。
 <p>一般 android-8 对应的android sdk 是2.2， android-10对应的是2.3</p>
 
 <p>参考: <a href="http://mishar-china-hotmail-com.iteye.com/blog/969178">http://mishar-china-hotmail-com.iteye.com/blog/969178</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[linux中时区设置]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/04/linux_timezone_set/"/>
-    <updated>2013-05-04T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/04/linux_timezone_set</id>
-    <content type="html"><![CDATA[<p>源码安装的时候 ./configure 最后经常提示
-make: warning:  Clock skew detected.  Your build may be incomplete.</p>
-
-<p>于是date，发现时区是：EDT</p>
-
-<p>修改时区方法：
- /usr/share/zoneinfo/Asia/Shanghai 复制到 /etc/localtime 即可</p>
-
-<p>修改后时区改为：CST</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[colinux中实现声音播放]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/04/colinux_soundplay/"/>
-    <updated>2013-05-04T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/04/colinux_soundplay</id>
-    <content type="html"><![CDATA[<p>因为window占用着声卡,colinux是没法占用了,只能通过网络间接使用:</p>
-
-<pre><code>在colinux安装虚拟声卡；
-通过网络传输声音数据到宿主机；
-在宿主机播放声音。
-</code></pre>
-
-<!--more-->
-
-
-<p>找到了pulseaudio这个解决方案，具体安装介绍就不累赘了，这里只说明下安装过程中遇到的问题及解决方法。</p>
-
-<p>window安装pulseaudio服务，运行pulseaudio后，提示错误</p>
-
-<pre><code>W: pulsecore/random.c: failed to get proper entropy. Falling back to seeding with current time.
-W: pulsecore/core-util.c: secure directory creation not supported on Win32.
-E: pulsecore/pid.c: stale PID file, overwriting.
-W: pulsecore/core.c: failed to allocate shared memory pool. Falling back to a normal memory pool.   Unable to convert, filtering
-E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
-E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
-E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argumentUnable to convert, filtering
-E: pulsecore/socket-server.c: socket(PF_INET6): Invalid argument
-</code></pre>
-
-<p>在网上找了一通，都没有解决，有人说ipv6应该关掉</p>
-
-<p>我看了下网络连接，发现没有安装ipv6，于是尝试安装了一下，结果居然好了</p>
-
-<p>成功在colinux上播放wav文件</p>
-
-<p>尽管还有提示</p>
-
-<pre><code>W: pulsecore/random.c: failed to get proper entropy. Falling back to seeding with current time.
-W: pulsecore/core-util.c: secure directory creation not supported on Win32.
-W: pulsecore/core.c: failed to allocate shared memory pool. Falling back to a normal memory pool.
-</code></pre>
-
-<p>因为之前更换过default.pa配置，不确定是否有关，于是切换回原配置，发现有问题</p>
-
-<p>说明配置也是要更换的</p>
-
-<pre><code>// default.pa
-
-# Load audio drivers automatically on access
-
-#add-autoload-sink output module-waveout sink_name=output source_name=input
-#add-autoload-source input module-waveout sink_name=output source_name=input
-
-# Load several protocols
-#load-module module-esound-protocol-tcp
-#load-module module-native-protocol-tcp
-#load-module module-simple-protocol-tcp
-#load-module module-cli-protocol-tcp
-
-load-module module-esound-protocol-tcp auth-anonymous=1
-load-module module-native-protocol-tcp auth-anonymous=1
-load-module module-cli-protocol-tcp
-load-module module-http-protocol-tcp
-
-### Automatically restore the volume of playback streams
-load-module module-volume-restore
-
-### Automatically move streams to the default sink if the sink they are
-### connected to dies, similar for sources
-load-module module-rescue-streams
-
-# Make some devices default
-set-default-sink output
-set-default-source input
-
-.nofail
-
-# Load something to the sample cache
-load-sample x11-bell %WINDIR%\Media\ding.wav
-load-sample-dir-lazy C:\WINDOWS\Media
-</code></pre>
-
-<p>现在起colinux，还要起Xming、PulseAudio，分别打开挺麻烦的，colinux早就为我们想好了</p>
-
-<p>在colinux的.conf配置文件最后，可以设置启动命令，来启动所要的服务，如：</p>
-
-<pre><code># Run an application on colinux start (Sample Xming, a Xserver)
-exec0="D:\Program Files\Xming\Xming.exe",":0 -clipboard -multiwindow -ac"
-exec1="D:\Program Files\PulseAudio\pulseaudio.exe"
-</code></pre>
-
-<p>注意：</p>
-
-<pre><code>要增加启动进程的话，exec后序号递增；
-=后的参数以逗号分隔，第一个是exe路径，后面是启动参数。包含空格的参数最好用"包含
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[colinux中安装pygame]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/03/python_pygame_install/"/>
-    <updated>2013-05-03T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/03/python_pygame_install</id>
-    <content type="html"><![CDATA[<p>pygame是封装sdl的基于python语言的跨平台图像开发库</p>
-
-<p>与pygame相对的还有pyglet，是基于opengl的跨平台python语言开发库</p>
-
-<!--more-->
-
-
-<p>安装pygame时需要 sdl-config</p>
-
-<h1>download and install SDL</h1>
-
-<blockquote><p>wget <a href="http://www.libsdl.org/release/SDL-1.2.14.tar.gz">http://www.libsdl.org/release/SDL-1.2.14.tar.gz</a>
-tar -xzvf SDL-1.2.14.tar.gz
-cd SDL-1.2.14
-./configure &mdash;prefix=/usr/local/SDL
-make
-make install</p></blockquote>
-
-<h1>download and install PyGame</h1>
-
-<blockquote><p>wget <a href="http://pygame.seul.org/ftp/pygame-1.9.1release.tar.gz">http://pygame.seul.org/ftp/pygame-1.9.1release.tar.gz</a>
-tar xzvf pygame-1.9.1release.tar.gz
-cd pygame-1.9.1release</p></blockquote>
-
-<p># Here you need to edit the Setup file and comment out the line that looks like
-# scrap src/scrap.c $(SDL) $(SCRAP) $(DEBUG)
-# for some reason the compilation of the camera module fails for me, so I commented it out</p>
-
-<blockquote><p>vi Setup</p></blockquote>
-
-<p># once the camera module is out of the way we can proceed with the installation
-# Make sure to use the correct Python version here (e.g. &lsquo;python2.5&rsquo; or &lsquo;python2.6&rsquo;)</p>
-
-<blockquote><p>python27 setup.py install &mdash;prefix=/usr/local/pygame</p></blockquote>
-
-<h1>That&rsquo;s it</h1>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[colinux中安装设置idle环境]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/03/python_idle_tool_install/"/>
-    <updated>2013-05-03T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/03/python_idle_tool_install</id>
-    <content type="html"><![CDATA[<p>colinux 安装idle，又装了一个python2.5</p>
-
-<p>无奈，强制将/usr/bin/python改成link python2.7，会造成环境不一致的问题</p>
-
-<p>于是打算安装两个环境，默认的就用2.5，再安装设置python27</p>
-
-<!--more-->
-
-
-<p>相应的安装easy_install27, pip27, virtualenv27</p>
-
-<p>因为linux是用的colinux，进行图像开发需要display device</p>
-
-<p>通过在宿主机开启Xming服务：</p>
-
-<pre><code>安装目录中X0.hosts文件中添加colinux主机ip;
-运行Xming.
-</code></pre>
-
-<p>在colinux中设置连接宿主机显示：</p>
-
-<pre><code>$ export DISPLAY=192.168.0.100:0.0
-</code></pre>
-
-<p>启动编辑器</p>
-
-<pre><code>$ idle
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[转载]App Store审核宝典 - App提交和审核的流程]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/02/appstore_submit_audit_flow/"/>
-    <updated>2013-05-02T18:58:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/02/appstore_submit_audit_flow</id>
-    <content type="html"><![CDATA[<p><a href="http://tiny4cocoa.com/home/s/20/" title="App提交和审核的流程">App提交和审核的流程</a>
-<img src="http://tiny4cocoa.com/newsupload/appsubmitprocess_m.png" alt="" /></p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,471 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[转载]svn常用命令 - EasyTool's Blog</title>
+  <meta name="author" content="LynnLiu">
+
+  
+  <meta name="description" content="一直用的TortoiseSVN，对命令行操作不了解，今天就来熟悉一下吧 我常用的svn操作 。查看状态 svn st [path]
+。创建目录 svn mkdir
+。添加文件 svn add [file]
+。提交修改 svn ci [file] -m 'comments'
+。比较差异 svn &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://liuliyun.me/blog/2013/06/06/svn_common_commands">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="EasyTool's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">EasyTool's Blog</a></h1>
+  
+    <h2>A little bit of progress every day</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:liuliyun.me" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://me.alipay.com/lynnliu" target="_blank">Donate</a></li>
+  <li><a href="/blog/about">About</a></li>
+
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">[转载]svn常用命令</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T14:10:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>一直用的TortoiseSVN，对命令行操作不了解，今天就来熟悉一下吧</p>
+
+<p>我常用的svn操作</p>
+
+<pre><code>。查看状态 svn st [path]
+。创建目录 svn mkdir
+。添加文件 svn add [file]
+。提交修改 svn ci [file] -m 'comments'
+。比较差异 svn diff [file]
+。撤销修改 svn revert [file]
+。签出 svn co [url]
+</code></pre>
+
+<!-- more -->
+
+
+<p>以下是更详细的转载内容：<a href="http://os.51cto.com/art/200908/143157.htm">详解Linux命令行下常用svn命令</a></p>
+
+<h2>常用svn命令的使用方法</h2>
+
+<ol>
+<li><p>Linux命令行下将文件checkout到本地目录</p>
+
+<p> svn checkout path（path是服务器上的目录）</p>
+
+<p> 例如：svn checkout svn://192.168.1.1/pro/domain</p>
+
+<p> 简写：svn co</p></li>
+<li><p>Linux命令行下往版本库中添加新的文件</p>
+
+<p> svn add file</p>
+
+<p> 例如：svn add test.php(添加test.php)</p>
+
+<p> svn add *.php(添加当前目录下所有的php文件)</p></li>
+<li><p>Linux命令行下将改动的文件提交到版本库</p>
+
+<p> svn commit -m “LogMessage“ [-N] [&mdash;no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)</p>
+
+<p> 例如：svn commit -m “add test file for my test“ test.php</p>
+
+<p> 简写：svn ci</p></li>
+<li><p>Linux命令行下的加锁/解锁</p>
+
+<p> svn lock -m “LockMessage“ [&mdash;force] PATH</p>
+
+<p> 例如：svn lock -m “lock test file“ test.php</p>
+
+<p> svn unlock PATH</p></li>
+<li><p>Linux命令行下更新到某个版本</p>
+
+<p> svn update -r m path</p>
+
+<p> 例如：</p>
+
+<p> svn update如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。</p>
+
+<p> svn update -r 200 test.php(将版本库中的文件test.php还原到版本200)</p>
+
+<p> svn update test.php(更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)</p>
+
+<p> 简写：svn up</p></li>
+<li><p>Linux命令行下查看文件或者目录状态</p>
+
+<p> 1) svn status path（目录下的文件和子目录的状态，正常状态不显示）</p>
+
+<p> 【?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】</p>
+
+<p> 2）svn status -v path(显示文件和子目录状态)</p>
+
+<p> 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。</p>
+
+<p> 注：svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。</p>
+
+<p> 简写：svn st</p></li>
+<li><p>Linux命令行下删除文件</p>
+
+<p> svn delete path -m “delete test fle“</p>
+
+<p> 例如：svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”</p>
+
+<p> 或者直接svn delete test.php 然后再svn ci -m ‘delete test file‘，推荐使用这种</p>
+
+<p> 简写：svn (del, remove, rm)</p></li>
+<li><p>Linux命令行下查看日志</p>
+
+<p> svn log path</p>
+
+<p> 例如：svn log test.php 显示这个文件的所有修改记录，及其版本号的变化</p></li>
+<li><p>Linux命令行下查看文件详细信息</p>
+
+<p> svn info path</p>
+
+<p> 例如：svn info test.php</p></li>
+<li><p>Linux命令行下比较差异</p>
+
+<p>svn diff path(将修改的文件与基础版本比较)</p>
+
+<p>例如：svn diff test.php</p>
+
+<p>svn diff -r m:n path(对版本m和版本n比较差异)</p>
+
+<p>例如：svn diff -r 200:201 test.php</p>
+
+<p>简写：svn di</p></li>
+<li><p>Linux命令行下将两个版本之间的差异合并到当前文件</p>
+
+<p>svn merge -r m:n path</p>
+
+<p>例如：svn merge -r 200:205 test.php（将版本200与205之间的差异合并到当前文件，但是一般都会产生冲突，需要处理一下）</p></li>
+<li><p>Linux命令行下SVN 帮助</p>
+
+<p>svn help</p>
+
+<p>svn help ci</p></li>
+</ol>
+
+
+<h2>下面写几个不经常用的</h2>
+
+<ol>
+<li><p>Linux命令行下版本库下的文件和目录列表</p>
+
+<p> svn list path</p>
+
+<p> 显示path目录下的所有属于版本库的文件和目录</p>
+
+<p> 简写：svn ls</p></li>
+<li><p>Linux命令行下创建纳入版本控制下的新目录</p>
+
+<p> svn mkdir: 创建纳入版本控制下的新目录。</p>
+
+<p> 用法:</p>
+
+<p> 1、mkdir PATH…
+ 每一个以工作副本 PATH 指定的目录，都会创建在本地端，并且加入新增调度，以待下一次的提交。</p>
+
+<p> 2、mkdir URL…
+ 每个以URL指定的目录，都会透过立即提交于仓库中创建.在这两个情况下，所有的中间目录都必须事先存在。</p></li>
+<li><p>Linux命令行下恢复本地修改</p>
+
+<p> svn revert: 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。revert:</p>
+
+<p> 用法: revert PATH…</p>
+
+<p> 注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录</p></li>
+<li><p>Linux命令行下代码库URL变更</p></li>
+</ol>
+
+
+<p>svn switch (sw): 更新工作副本至不同的URL。</p>
+
+<pre><code>用法: 
+1、switch URL [PATH]
+更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。
+
+2、switch –relocate FROM TO [PATH...]
+改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系。
+</code></pre>
+
+<ol>
+<li><p>Linux命令行下解决冲突</p>
+
+<p> svn resolved: 移除工作副本的目录或文件的“冲突”状态。</p>
+
+<p> 用法: resolved PATH…</p>
+
+<p> 注意: 本子命令不会依语法来解决冲突或是移除冲突标记；它只是移除冲突的相关文件，然后让 PATH 可以再次提交。</p></li>
+<li><p>Linux命令行下输出指定文件或URL的内容。</p>
+
+<p> svn cat 目标[@版本]…如果指定了版本，将从指定的版本开始查找。</p>
+
+<p> svn cat -r PREV filename > filename (PREV 是上一版本,也可以写具体版本号,这样输出结果是可以提交的)</p></li>
+</ol>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">LynnLiu</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T14:10:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/svn/'>svn</a>
+  
+</span>
+
+
+    </p>
+    <p class="meta">
+      原创文章，版权声明：自由转载-非商用-非衍生-保持署名 | <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" id="">Creative Commons BY-NC-ND 3.0</a>
+</p>
+
+    
+      <div class="sharing">
+  
+  
+  
+  
+
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+        <span class="jiathis_txt">分享到：</span>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1368584833195991" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+
+
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/06/python_gzip_response_data_parse/" title="Previous Post: 解析网页抓取所得gzip压缩数据">&laquo; 解析网页抓取所得gzip压缩数据</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/06/08/el_a_shortcut_manager_tool/" title="Next Post: 一款酷酷的电脑快捷键工具">一款酷酷的电脑快捷键工具 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/">浅析Werkzeug服务无缝更新</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/25/octopress-plus-github-jian-zhan/">Octopress+github 建站</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/vs_view_dll_depency_bat/">查看dll依赖脚本</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass/">Python中调用父类的同名方法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/08/el_a_shortcut_manager_tool/">一款酷酷的电脑快捷键工具</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>About</h1>
+  <p>  一直在努力<br>
+      <br>C++、Python开发工程师
+      <br>
+      <br>新浪微博: <a href="http://weibo.com/u/3446536584" target="_blank">易生活_EasyTool</a>
+      <span id="wb_follow_btn"><span class="WB_btnA WB_widgets" node-type="followBtn"><span> <em class="WB_btnicn_add" node-type="followImg"></em><em>加关注</em></span></span></span>
+      <br>我的<strong>"易生活"</strong>微信公众账号:
+      <br><img width="220px" src="/images/weixin-qr.jpg">
+  </p>
+</section>
+<section>
+  <h1>Categories</h1>
+  <ul id="categories">
+    <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
+<li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
+<li class='category'><a href='/blog/categories/easytool/'>EasyTool (1)</a></li>
+<li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
+<li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
+<li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>
+<li class='category'><a href='/blog/categories/git/'>git (1)</a></li>
+<li class='category'><a href='/blog/categories/github/'>github (1)</a></li>
+<li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
+<li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
+<li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (14)</a></li>
+<li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
+<li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/svn/'>svn (1)</a></li>
+<li class='category'><a href='/blog/categories/vs/'>vs (1)</a></li>
+<li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
+
+  </ul>
+</section>
+<section>
+  <h1>Recent Comments</h1>
+  <div id="dsq-recentcomments" class="dsq-widget">
+	<script type="text/javascript" src="http://disqus.com/forums/paradin/recent_comments_widget.js?hide_avatars=1"></script>
+  </div>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - LynnLiu -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'paradin';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://liuliyun.me/blog/2013/06/06/svn_common_commands/';
+        var disqus_url = 'http://liuliyun.me/blog/2013/06/06/svn_common_commands/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

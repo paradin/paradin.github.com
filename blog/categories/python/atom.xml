@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | EasyTool's Blog]]></title>
   <link href="http://liuliyun.me/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-06-28T23:32:58+08:00</updated>
+  <updated>2013-06-29T19:13:49+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -145,6 +145,164 @@ dummy/
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[Python中调用父类的同名方法]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass</id>
+    <content type="html"><![CDATA[<p>面向对象设计时，无可避免的会涉及到父类和子类的关系</p>
+
+<p>封装、集成、多态，大家都能娓娓道来</p>
+
+<p>道理是一样的，针对不同的语言，面向对象开发也会遇到不同情况需要解决</p>
+
+<p>今天学习下python中如何调用父类同名方法</p>
+
+<!-- more -->
+
+
+<p>PS： 如果不调用的话，子类同名方法对父类方法是直接覆盖的</p>
+
+<h2>python 2.2以前</h2>
+
+<pre><code>class FooParent:
+    def bar(self, message):
+        print(message)
+
+class FooChild(FooParent):
+    def bar(self, message):
+        FooParent.bar(self, message)
+
+&gt;&gt;&gt; FooChild().bar("Hello, World.")
+Hello, World.
+</code></pre>
+
+<p>缺点：</p>
+
+<ul>
+<li><p>要修改父类名称时，麻烦</p></li>
+<li><p>多级、多继承时，基类方法会多次执行</p></li>
+</ul>
+
+
+<h2>2.2 以后</h2>
+
+<pre><code>class FooParent:
+    def bar(self, message):
+        print(message)
+
+
+class FooChild(FooParent):
+    def bar(self, message):
+        super(FooChild, self).bar(message)
+
+
+&gt;&gt;&gt; FooChild().bar("Hello, World.")
+Hello, World.
+</code></pre>
+
+<p>优点：</p>
+
+<ul>
+<li>基类名称想怎么改就怎么改了</li>
+<li>多继承，不会多次调用基类方法</li>
+</ul>
+
+
+<p>参考：<a href="http://hi.baidu.com/thinkinginlamp/item/3095e2f52c642516ce9f32d5">如何在Python中调用父类的同名方法</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[解析网页抓取所得gzip压缩数据]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse/"/>
+    <updated>2013-06-06T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse</id>
+    <content type="html"><![CDATA[<p>在进行网页数据抓取时，会遇到压缩数据，可能主要出于如下考虑：</p>
+
+<ol>
+<li><p>简单的防抓取方法</p>
+
+<p> 没有经过分析就对抓取的网页内容直接进行文本解析，肯定会遇到问题，就像我开始的时候一样。。。</p></li>
+<li><p>压缩数据减少流量</p>
+
+<p> 这个一般用于提供数据接口，将数据压缩后可以大大减少流量</p></li>
+</ol>
+
+
+<p>以下提供对抓取数据的处理方法：</p>
+
+<!-- more -->
+
+
+<ol>
+<li><p>检测反馈内容是否压缩，并对压缩内容解压</p></li>
+<li><p>检测数据文本编码格式，解压后返回unicode文本</p></li>
+</ol>
+
+
+<p>检测编码格式所用工具：<a href="https://pypi.python.org/pypi/chardet">chardet</a></p>
+
+<pre><code># -*- coding: utf-8 -*-
+
+import gzip, StringIO, codecs, chardet
+from utils import *
+
+def getEncoding(txt):
+    """ 检查文本内容的编码方式
+    """
+    try:
+        coding = chardet.detect(txt)['encoding']
+
+        if 'None' == coding:
+            return None
+        else:
+            return coding
+
+    except Exception as ex:
+        print 'fail getEncoding {0}'.format(ex)
+        return None
+
+def readResponse(resp):
+    """ 读取网页抓取返回内容
+    """
+    if resp.getcode() == 200:
+        encoding = resp.headers.get('Content-Encoding')
+
+        info = resp.read()
+
+        if('gzip' == encoding):
+            print 'read response compress gzip'
+            try:
+                gf = gzip.GzipFile(fileobj=StringIO.StringIO(info), mode="r")
+                info = gf.read()
+            except Exception as ex:
+                print 'fail read response, gzip'
+                info = ''
+
+    if info!='':
+        # 删除BOM头
+        info = info.strip(codecs.BOM_UTF8)
+        code = getEncoding(info)
+        if code:
+            info = info.decode(code)
+            print 'read response, encoding {0}'.format(code)
+        else:
+            print 'fail parse text encode'
+
+    return info
+</code></pre>
+
+<p>参考链接：</p>
+
+<ol>
+<li><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html">Handling compressed data</a></li>
+<li><a href="http://blog.knownsec.com/2012/04/about-content-encoding-gzip/">关于 Content-Encoding: gzip</a></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[python 字符串编码]]></title>
     <link href="http://liuliyun.me/blog/2013/05/30/python_string_codec/"/>
     <updated>2013-05-30T14:10:00+08:00</updated>
@@ -281,201 +439,6 @@ TypeError: object of type 'NoneType' has no len()
     在suds/cache.py中用 
 。但是sae声称 get_tmp_dir 暂不支持
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[转载]python汉字处理的工具]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser/"/>
-    <updated>2013-05-17T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/17/python_chinese_text_parser</id>
-    <content type="html"><![CDATA[<p>下面这个小工具包含了：</p>
-
-<pre><code>判断unicode是否是汉字，数字，英文，或者其他字符。 
-全角符号转半角符号。 
-unicode字符串归一化等工作。 
-还有一个能处理多音字的汉字转拼音的程序，还在整理中。
-</code></pre>
-
-<!--more-->
-
-
-<pre><code>#!/usr/bin/env python
-# -*- coding:GBK -*- 
-"""汉字处理的工具:
-判断unicode是否是汉字，数字，英文，或者其他字符。
-全角符号转半角符号。"""
-__author__="internetsweeper &lt;zhengbin0713@gmail.com&gt;"
-__date__="2007-08-04"
-
-def is_chinese(uchar):
-    """判断一个unicode是否是汉字"""
-    if uchar &gt;= u'\u4e00' and uchar&lt;=u'\u9fa5':
-        return True
-    else:
-        return False
-
-def is_number(uchar):
-    """判断一个unicode是否是数字"""
-    if uchar &gt;= u'\u0030' and uchar&lt;=u'\u0039':
-        return True
-    else:
-        return False
-
-def is_alphabet(uchar):
-    """判断一个unicode是否是英文字母"""
-    if (uchar &gt;= u'\u0041' and uchar&lt;=u'\u005a') or (uchar &gt;= u'\u0061' and uchar&lt;=u'\u007a'):
-        return True
-    else:
-        return False
-
-def is_other(uchar):
-    """判断是否非汉字，数字和英文字符"""
-    if not (is_chinese(uchar) or is_number(uchar) or is_alphabet(uchar)):
-        return True
-    else:
-        return False
-
-def B2Q(uchar):
-    """半角转全角"""
-    inside_code=ord(uchar)
-    if inside_code&lt;0x0020 or inside_code&gt;0x7e: #不是半角字符就返回原来的字符
-        return uchar
-    if inside_code==0x0020: #除了空格其他的全角半角的公式为:半角=全角-0xfee0
-        inside_code=0x3000
-    else:
-        inside_code+=0xfee0
-    return unichr(inside_code)
-
-def Q2B(uchar):
-    """全角转半角"""
-    inside_code=ord(uchar)
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
-    <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
-
-<p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
-
-<!--more-->
-
-
-<p>下面提供我自己使用的简单sae python测试框架(weixin_unitest.py)：</p>
-
-<pre><code>﻿# -*- coding: utf-8 -*-
-#/usr/bin/env python
-
-
-import sys, urllib, httplib, time, hashlib, random
-
-# 配置
-interface_url = '***.sinaapp.com:80' # 注意不能加http://
-interface_path = '/your path'
-Token = 'your token'
-
-messages = {
-    # 用户关注消息
-    'subscribe' : '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
-    &lt;FromUserName&gt;&lt;![CDATA[tester name]]&gt;&lt;/FromUserName&gt;
-    &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
-    &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
-    &lt;Event&gt;&lt;![CDATA[subscribe]]&gt;&lt;/Event&gt;
-    &lt;EventKey&gt;&lt;![CDATA[EVENTKEY]]&gt;&lt;/EventKey&gt;
-    &lt;/xml&gt;''',
-
-    # 用户发送文本信息
-    'text': '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
-    &lt;FromUserName&gt;&lt;![CDATA[test name]]&gt;&lt;/FromUserName&gt; 
-    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
-    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
-    &lt;Content&gt;&lt;![CDATA[test text]]&gt;&lt;/Content&gt;
-    &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
-    &lt;/xml&gt;'''
-
-}
-
-def make_post(action):
-    '''模拟用户行为产生的消息提交给接口程序'''
-
-    conn = httplib.HTTPConnection(interface_url)
-
-    headers = { "Content-type": "text/xml",
-                "Content-Length": "%d" % len(messages[action])}
-
-    # 生成签名相关变量
-    timestamp = int(time.time())
-
-    nonce = random.randint(1,100000)
-
-    signature = makeSignature(Token, timestamp, nonce)
-
-    params = urllib.urlencode({'signature': signature, 'timestamp': timestamp, 'nonce': nonce})
-
-    conn.request("POST", interface_path + "?" +params, "", headers)
-
-    print messages[action]
-    conn.send(messages[action])
-
-    response = conn.getresponse()
-
-    print response.status, response.reason
-
-    print response.read()
-
-    conn.close()
-
-
-
-def makeSignature(Token, timestamp, nonce):
-    '''生成签名'''
-    try:
-        Token = int(Token)
-    except Exception, e:
-        pass
-
-    sorted_arr = map(str, sorted([Token, timestamp, nonce]))
-
-    sha1obj = hashlib.sha1()
-    sha1obj.update(''.join(sorted_arr))
-    hash = sha1obj.hexdigest()
-
-    return hash
-
-def listAction():
-    print("======Supported actions:======")
-    for i in messages.keys():
-        print(i)
-    print("==============================")
-
-if __name__ == '__main__':
-    if len(sys.argv) &lt; 2:   
-        print (u"Please input your action")
-        listAction()
-    else:
-        if (messages.has_key(sys.argv[1])):
-            make_post(sys.argv[1])
-        else:
-            print("No this action")
-            listAction()
-</code></pre>
-
-<p>运行：</p>
-
-<pre><code>python weixin_unitest.py subscribe
-python weixin_unitest.py text
-</code></pre>
-
-<p>结合SAEPython（sae服务器），在本地完成开发测试就很方便了。</p>
-
-<h1>广告</h1>
-
-<p>关注易生活，关注微信公众：EasyTool</p>
 ]]></content>
   </entry>
   

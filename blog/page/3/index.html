@@ -9,7 +9,8 @@
   <meta name="author" content="LynnLiu">
 
   
-  <meta name="description" content="Dropbox作为saas平台，也提供了第三方引用接入接口。 如类似calepin.co等网站可以利用dropbox建站，建站步骤： ">
+  <meta name="description" content="源码安装的时候 ./configure 最后经常提示
+make: warning: Clock skew detected. Your build may be incomplete. 于是date，发现时区是：EDT 修改时区方法： /usr/share/zoneinfo/Asia/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +69,231 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/04/linux_timezone_set/">Linux中时区设置</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-04T14:10:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/04/linux_timezone_set/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>源码安装的时候 ./configure 最后经常提示
+make: warning:  Clock skew detected.  Your build may be incomplete.</p>
+
+<p>于是date，发现时区是：EDT</p>
+
+<p>修改时区方法：
+ /usr/share/zoneinfo/Asia/Shanghai 复制到 /etc/localtime 即可</p>
+
+<p>修改后时区改为：CST</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/04/colinux_soundplay/">Colinux中实现声音播放</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-04T14:10:00+08:00" pubdate data-updated="true">May 4<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/04/colinux_soundplay/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>因为window占用着声卡,colinux是没法占用了,只能通过网络间接使用:</p>
+
+<pre><code>在colinux安装虚拟声卡；
+通过网络传输声音数据到宿主机；
+在宿主机播放声音。
+</code></pre>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/04/colinux_soundplay/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/03/python_pygame_install/">Colinux中安装pygame</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T14:10:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/03/python_pygame_install/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>pygame是封装sdl的基于python语言的跨平台图像开发库</p>
+
+<p>与pygame相对的还有pyglet，是基于opengl的跨平台python语言开发库</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/03/python_pygame_install/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/03/python_idle_tool_install/">Colinux中安装设置idle环境</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T14:10:00+08:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/03/python_idle_tool_install/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>colinux 安装idle，又装了一个python2.5</p>
+
+<p>无奈，强制将/usr/bin/python改成link python2.7，会造成环境不一致的问题</p>
+
+<p>于是打算安装两个环境，默认的就用2.5，再安装设置python27</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/05/03/python_idle_tool_install/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/05/02/appstore_submit_audit_flow/">[转载]App Store审核宝典 - App提交和审核的流程</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-02T18:58:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time>
+        
+         | <a href="/blog/2013/05/02/appstore_submit_audit_flow/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://tiny4cocoa.com/home/s/20/" title="App提交和审核的流程">App提交和审核的流程</a>
+<img src="http://tiny4cocoa.com/newsupload/appsubmitprocess_m.png" alt="" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -297,50 +523,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/01/cplusplus_precompile_head/">C++预编译头小记</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-01T14:10:00+08:00" pubdate data-updated="true">Apr 1<span>st</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/01/cplusplus_precompile_head/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>随着功能的不断增加，工程逐渐庞大，编译、链接时间明显变长，于是考虑进行优化。在多人进行开发，而没有代码质量监控的话，确实很容易造成这样的结果，尽早发现和解决这些问题，可以避免更大的麻烦。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/04/01/cplusplus_precompile_head/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -363,15 +548,15 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/30/python_string_codec/">Python 字符串编码</a>
+        <a href="/blog/2013/06/08/vs_view_dll_depency_bat/">查看dll依赖脚本</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/22/python_webservice_suds/">Python Webservice调用-suds</a>
+        <a href="/blog/2013/06/08/python_how_to_invoke_same_method_in_baseclass/">Python中调用父类的同名方法</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/05/21/git_learn_branch/">Git操作图形教学</a>
+        <a href="/blog/2013/06/08/el_a_shortcut_manager_tool/">一款酷酷的电脑快捷键工具</a>
       </li>
     
   </ul>
@@ -392,6 +577,7 @@
   <ul id="categories">
     <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
 <li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
+<li class='category'><a href='/blog/categories/easytool/'>EasyTool (1)</a></li>
 <li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
 <li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
 <li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>
@@ -400,9 +586,11 @@
 <li class='category'><a href='/blog/categories/linux/'>linux (2)</a></li>
 <li class='category'><a href='/blog/categories/mysql/'>mysql (1)</a></li>
 <li class='category'><a href='/blog/categories/octopress/'>octopress (1)</a></li>
-<li class='category'><a href='/blog/categories/python/'>python (12)</a></li>
+<li class='category'><a href='/blog/categories/python/'>python (14)</a></li>
 <li class='category'><a href='/blog/categories/sae/'>sae (2)</a></li>
 <li class='category'><a href='/blog/categories/shell/'>shell (1)</a></li>
+<li class='category'><a href='/blog/categories/svn/'>svn (1)</a></li>
+<li class='category'><a href='/blog/categories/vs/'>vs (1)</a></li>
 <li class='category'><a href='/blog/categories/wifi/'>wifi (1)</a></li>
 
   </ul>

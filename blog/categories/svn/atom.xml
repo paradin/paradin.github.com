@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: svn | EasyTool's Blog]]></title>
+  <link href="http://liuliyun.me/blog/categories/svn/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-29T19:13:49+08:00</updated>
+  <id>http://liuliyun.me/</id>
+  <author>
+    <name><![CDATA[LynnLiu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[转载]svn常用命令]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/06/svn_common_commands/"/>
+    <updated>2013-06-06T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/06/svn_common_commands</id>
+    <content type="html"><![CDATA[<p>一直用的TortoiseSVN，对命令行操作不了解，今天就来熟悉一下吧</p>
+
+<p>我常用的svn操作</p>
+
+<pre><code>。查看状态 svn st [path]
+。创建目录 svn mkdir
+。添加文件 svn add [file]
+。提交修改 svn ci [file] -m 'comments'
+。比较差异 svn diff [file]
+。撤销修改 svn revert [file]
+。签出 svn co [url]
+</code></pre>
+
+<!-- more -->
+
+
+<p>以下是更详细的转载内容：<a href="http://os.51cto.com/art/200908/143157.htm">详解Linux命令行下常用svn命令</a></p>
+
+<h2>常用svn命令的使用方法</h2>
+
+<ol>
+<li><p>Linux命令行下将文件checkout到本地目录</p>
+
+<p> svn checkout path（path是服务器上的目录）</p>
+
+<p> 例如：svn checkout svn://192.168.1.1/pro/domain</p>
+
+<p> 简写：svn co</p></li>
+<li><p>Linux命令行下往版本库中添加新的文件</p>
+
+<p> svn add file</p>
+
+<p> 例如：svn add test.php(添加test.php)</p>
+
+<p> svn add *.php(添加当前目录下所有的php文件)</p></li>
+<li><p>Linux命令行下将改动的文件提交到版本库</p>
+
+<p> svn commit -m “LogMessage“ [-N] [&mdash;no-unlock] PATH(如果选择了保持锁，就使用–no-unlock开关)</p>
+
+<p> 例如：svn commit -m “add test file for my test“ test.php</p>
+
+<p> 简写：svn ci</p></li>
+<li><p>Linux命令行下的加锁/解锁</p>
+
+<p> svn lock -m “LockMessage“ [&mdash;force] PATH</p>
+
+<p> 例如：svn lock -m “lock test file“ test.php</p>
+
+<p> svn unlock PATH</p></li>
+<li><p>Linux命令行下更新到某个版本</p>
+
+<p> svn update -r m path</p>
+
+<p> 例如：</p>
+
+<p> svn update如果后面没有目录，默认将当前目录以及子目录下的所有文件都更新到最新版本。</p>
+
+<p> svn update -r 200 test.php(将版本库中的文件test.php还原到版本200)</p>
+
+<p> svn update test.php(更新，于版本库同步。如果在提交的时候提示过期的话，是因为冲突，需要先update，修改文件，然后清除svn resolved，最后再提交commit)</p>
+
+<p> 简写：svn up</p></li>
+<li><p>Linux命令行下查看文件或者目录状态</p>
+
+<p> 1) svn status path（目录下的文件和子目录的状态，正常状态不显示）</p>
+
+<p> 【?：不在svn的控制中；M：内容被修改；C：发生冲突；A：预定加入到版本库；K：被锁定】</p>
+
+<p> 2）svn status -v path(显示文件和子目录状态)</p>
+
+<p> 第一列保持相同，第二列显示工作版本号，第三和第四列显示最后一次修改的版本号和修改人。</p>
+
+<p> 注：svn status、svn diff和 svn revert这三条命令在没有网络的情况下也可以执行的，原因是svn在本地的.svn中保留了本地版本的原始拷贝。</p>
+
+<p> 简写：svn st</p></li>
+<li><p>Linux命令行下删除文件</p>
+
+<p> svn delete path -m “delete test fle“</p>
+
+<p> 例如：svn delete svn://192.168.1.1/pro/domain/test.php -m “delete test file”</p>
+
+<p> 或者直接svn delete test.php 然后再svn ci -m ‘delete test file‘，推荐使用这种</p>
+
+<p> 简写：svn (del, remove, rm)</p></li>
+<li><p>Linux命令行下查看日志</p>
+
+<p> svn log path</p>
+
+<p> 例如：svn log test.php 显示这个文件的所有修改记录，及其版本号的变化</p></li>
+<li><p>Linux命令行下查看文件详细信息</p>
+
+<p> svn info path</p>
+
+<p> 例如：svn info test.php</p></li>
+<li><p>Linux命令行下比较差异</p>
+
+<p>svn diff path(将修改的文件与基础版本比较)</p>
+
+<p>例如：svn diff test.php</p>
+
+<p>svn diff -r m:n path(对版本m和版本n比较差异)</p>
+
+<p>例如：svn diff -r 200:201 test.php</p>
+
+<p>简写：svn di</p></li>
+<li><p>Linux命令行下将两个版本之间的差异合并到当前文件</p>
+
+<p>svn merge -r m:n path</p>
+
+<p>例如：svn merge -r 200:205 test.php（将版本200与205之间的差异合并到当前文件，但是一般都会产生冲突，需要处理一下）</p></li>
+<li><p>Linux命令行下SVN 帮助</p>
+
+<p>svn help</p>
+
+<p>svn help ci</p></li>
+</ol>
+
+
+<h2>下面写几个不经常用的</h2>
+
+<ol>
+<li><p>Linux命令行下版本库下的文件和目录列表</p>
+
+<p> svn list path</p>
+
+<p> 显示path目录下的所有属于版本库的文件和目录</p>
+
+<p> 简写：svn ls</p></li>
+<li><p>Linux命令行下创建纳入版本控制下的新目录</p>
+
+<p> svn mkdir: 创建纳入版本控制下的新目录。</p>
+
+<p> 用法:</p>
+
+<p> 1、mkdir PATH…
+ 每一个以工作副本 PATH 指定的目录，都会创建在本地端，并且加入新增调度，以待下一次的提交。</p>
+
+<p> 2、mkdir URL…
+ 每个以URL指定的目录，都会透过立即提交于仓库中创建.在这两个情况下，所有的中间目录都必须事先存在。</p></li>
+<li><p>Linux命令行下恢复本地修改</p>
+
+<p> svn revert: 恢复原始未改变的工作副本文件 (恢复大部份的本地修改)。revert:</p>
+
+<p> 用法: revert PATH…</p>
+
+<p> 注意: 本子命令不会存取网络，并且会解除冲突的状况。但是它不会恢复被删除的目录</p></li>
+<li><p>Linux命令行下代码库URL变更</p></li>
+</ol>
+
+
+<p>svn switch (sw): 更新工作副本至不同的URL。</p>
+
+<pre><code>用法: 
+1、switch URL [PATH]
+更新你的工作副本，映射到一个新的URL，其行为跟“svn update”很像，也会将服务器上文件与本地文件合并。这是将工作副本对应到同一仓库中某个分支或者标记的方法。
+
+2、switch –relocate FROM TO [PATH...]
+改写工作副本的URL元数据，以反映单纯的URL上的改变。当仓库的根URL变动(比如方案名或是主机名称变动)，但是工作副本仍旧对映到同一仓库的同一目录时使用这个命令更新工作副本与仓库的对应关系。
+</code></pre>
+
+<ol>
+<li><p>Linux命令行下解决冲突</p>
+
+<p> svn resolved: 移除工作副本的目录或文件的“冲突”状态。</p>
+
+<p> 用法: resolved PATH…</p>
+
+<p> 注意: 本子命令不会依语法来解决冲突或是移除冲突标记；它只是移除冲突的相关文件，然后让 PATH 可以再次提交。</p></li>
+<li><p>Linux命令行下输出指定文件或URL的内容。</p>
+
+<p> svn cat 目标[@版本]…如果指定了版本，将从指定的版本开始查找。</p>
+
+<p> svn cat -r PREV filename > filename (PREV 是上一版本,也可以写具体版本号,这样输出结果是可以提交的)</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vs | EasyTool's Blog]]></title>
+  <link href="http://liuliyun.me/blog/categories/vs/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-29T19:13:49+08:00</updated>
+  <id>http://liuliyun.me/</id>
+  <author>
+    <name><![CDATA[LynnLiu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[查看dll依赖脚本]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/vs_view_dll_depency_bat/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/vs_view_dll_depency_bat</id>
+    <content type="html"><![CDATA[<p>软件项目逐渐庞大，版本日益更新</p>
+
+<p>难免在安装包中残留一些老的dll</p>
+
+<p>为了检查dll的依赖关系，可以用<a href="http://download.csdn.net/detail/powerlly/4544320">dependency.exe</a>工具，然后人肉检查（弱感蛋疼。。。）</p>
+
+<p>还有命令行的方法</p>
+
+<!-- more -->
+
+
+<p>启动VS命令行：</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54941343/vs_cmd.png" alt="" /></p>
+
+<p>定位到.dll所在目录</p>
+
+<p>执行如下批处理脚本：</p>
+
+<pre><code>set workPath="."
+for /r "%workPath%\" %%i in ("*.dll") do (dumpbin /DEPENDENTS %%i &gt;&gt; dep.txt)
+</code></pre>
+
+<p>PS： 如果是<strong>动态加载的</strong>dll ，这方法就查不出来了</p>
+]]></content>
+  </entry>
+  
+</feed>

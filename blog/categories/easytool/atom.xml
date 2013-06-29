@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: EasyTool | EasyTool's Blog]]></title>
+  <link href="http://liuliyun.me/blog/categories/easytool/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-06-29T19:13:49+08:00</updated>
+  <id>http://liuliyun.me/</id>
+  <author>
+    <name><![CDATA[LynnLiu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[一款酷酷的电脑快捷键工具]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/08/el_a_shortcut_manager_tool/"/>
+    <updated>2013-06-08T18:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/08/el_a_shortcut_manager_tool</id>
+    <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54941343/eform.png" alt="" /></p>
+
+<p>每次，有同事、朋友在我电脑旁边看我操作的时候</p>
+
+<p>都会惊讶我用的这个是什么</p>
+
+<p>每次，我就为这款软件带来了新的用户</p>
+
+<p>虽然据说是Japanese开发的</p>
+
+<p>软件无国界，<a href="https://dl.dropboxusercontent.com/u/54941343/mform_0981e.rar">PC用户自取吧</a></p>
+
+<!-- more -->
+
+
+<p>使用方法：</p>
+
+<ol>
+<li>解压后直接运行，可以将其加入启动项，每次开机就自动运行了</li>
+<li>启动后，用鼠标在桌面画个圈（硬币大小），奇迹就将出现。</li>
+<li><p>右键中心的图标</p>
+
+<pre><code> Task list 切换图标形状
+ Page list 选择快捷键页，也可以直接滚动滚轮翻页
+ Create new icon 创建快捷键图标
+</code></pre></li>
+<li><p>右键周围一圈的图标</p>
+
+<pre><code> Duplicate 复制图标
+ Delete 删除图标
+ Open the folder 打开所在目录
+ Options 修改设置
+</code></pre></li>
+<li><p>当创建新图标或者修改设置时，可以设置</p>
+
+<p> <img src="https://dl.dropboxusercontent.com/u/54941343/eform_opts.png" alt="" /></p>
+
+<pre><code> Caption 图标名称，注意不能输中文
+ Path 需要点击图标时打开的网页文件、目录、程序的路径
+</code></pre></li>
+<li><p>点击中间图标，关闭</p></li>
+<li><p>更多功能自己摸索吧︿＿︿</p></li>
+</ol>
+
+
+<p>&ndash;</p>
+
+<pre><code>-----------  易生活 个人微信公众  -----------
+微信号：EasyTool
+
+不止工作、学习、生活
+还可以玩游戏
+
+使用中有问题或建议，告诉小E，有问必答。
+有什么希望小E提供的功能，可直接回复！
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
