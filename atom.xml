@@ -4,7 +4,7 @@
   <title><![CDATA[EasyTool's Blog]]></title>
   <link href="http://liuliyun.me/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-06-29T19:13:49+08:00</updated>
+  <updated>2013-06-29T23:08:32+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -145,6 +145,49 @@ dummy/
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[python程序监视自身退出]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/27/python_atexit_register/"/>
+    <updated>2013-06-27T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/27/python_atexit_register</id>
+    <content type="html"><![CDATA[<p>SAE上更新代码时，服务都可以无缝切换，无需人工重启服务</p>
+
+<p>那么，怎么能够在服务重启前进行持久化操作呢</p>
+
+<p>需要监视服务何时重启</p>
+
+<p>python提供了一个绑定程序退出时处理函数的功能[<a href="http://docs.python.org/2/library/atexit.html">参考</a>]：</p>
+
+<pre><code>atexit.register(func[, *args[, **kargs]])
+</code></pre>
+
+<!-- more -->
+
+
+<p>程序结束，如调用sys.exit() 或者主模块执行结束时，就会执行注册的clean functions</p>
+
+<pre><code>def goodbye():
+    print 'Bye...'
+
+atexit.register(goodbye)
+</code></pre>
+
+<p>需要注意的是，可以重复注册相同的clean functions，这可能是我们不希望的，以下方法可以防止重复注册：</p>
+
+<pre><code>def goodbye():
+    print 'Bye...'
+
+for idx, handler in enumerate(atexit._exithandlers):
+    if handler[0].func_name == 'goodbye':
+        del atexit._exithandlers[idx]
+        break
+
+atexit.register(goodbye)
+print atexit._exithandlers
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[octopress+github 建站]]></title>
     <link href="http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan/"/>
     <updated>2013-06-25T14:10:00+08:00</updated>
@@ -178,6 +221,62 @@ dummy/
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[在SAE分布式服务上开发需要解决的问题]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/22/sae_distribute_dev_app/"/>
+    <updated>2013-06-22T14:10:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/22/sae_distribute_dev_app</id>
+    <content type="html"><![CDATA[<p>这是在开发“幸运猜数”微信游戏的时候遇到的问题</p>
+
+<p>对游戏感兴趣的，可以关注微信公众ID: EasyTool</p>
+
+<p>回复【幸运猜数】开始游戏</p>
+
+<!-- more -->
+
+
+<hr />
+
+<p>之前提供的功能：【黄金】【双色球】【记事】等，都是无状态服务</p>
+
+<p>而开发一款游戏，必然要求服务是有状态的</p>
+
+<p>这样在SAE上的分布式环境下，还继续沿用无状态服务开发方式，必然遇到：</p>
+
+<ol>
+<li>分布式服务对于请求，会进行负载均衡分配</li>
+<li>在A服务器开始游戏，游戏操作被发到B服务器了</li>
+<li>于是，B服务器不知道玩家要做什么</li>
+<li>玩家发了好多开始游戏请求，结果同时在A、B服务器开始游戏，玩家体验就错乱了</li>
+</ol>
+
+
+<p>那么，如何在SAE上开发有状态的应用呢？</p>
+
+<p>宗旨就是：<strong>数据一致性保证</strong></p>
+
+<p>设计思路：</p>
+
+<ol>
+<li>各分布服务共享关键数据</li>
+<li>需要时同步关键数据</li>
+<li>变化时更新关键数据</li>
+</ol>
+
+
+<p>SAE提供了如下数据共享方式：</p>
+
+<ol>
+<li>数据库</li>
+<li>分布式session</li>
+<li>分布式memcache</li>
+</ol>
+
+
+<p>python开发，我选择了分布式memcache，采用pylibmc包</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[查看dll依赖脚本]]></title>
     <link href="http://liuliyun.me/blog/2013/06/08/vs_view_dll_depency_bat/"/>
     <updated>2013-06-08T18:10:00+08:00</updated>
@@ -186,7 +285,7 @@ dummy/
 
 <p>难免在安装包中残留一些老的dll</p>
 
-<p>为了检查dll的依赖关系，可以用<a href="http://download.csdn.net/detail/powerlly/4544320">dependency.exe</a>工具，然后人肉检查（弱感蛋疼。。。）</p>
+<p>为了检查dll的依赖关系，可以用<a href="http://download.csdn.net/detail/powerlly/4544320">dependency.exe</a>工具，然后人肉检查（略感蛋疼。。。）</p>
 
 <p>还有命令行的方法</p>
 
@@ -1358,160 +1457,6 @@ tar zxvf test3.tgz -C test3
     怀疑环境安装还是有问题
     。 有些库提示无用可以删除，但是看要安装的库对其又有依赖
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[通过adb连接手机或者模拟器进行python开发]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/05/python_dev_by_adb/"/>
-    <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/05/python_dev_by_adb</id>
-    <content type="html"><![CDATA[<h1>adb remote control</h1>
-
-<p>sl4a 可以开启python-server，通过远程adb进行开发、调试，然后发布到手机</p>
-
-<!--more-->
-
-
-<p>在pc上通过adb, 连接手机上的python-server</p>
-
-<pre><code>public server开启不了
-只能usb开始private server，但是连着usb后，手机自动卸载sdcard
-
-期间一直找不到设备，后来发现是usb驱动没装好
-</code></pre>
-
-<h1>usb连接手机，开启模拟器</h1>
-
-<ol>
-<li><p>查看当前连接的手机或模拟器</p>
-
-<pre><code> c:/&gt;adb devices
- List of devices attached
- 015EF45B0D01200F        device
- emulator-5554   device
-</code></pre></li>
-<li><p>连接指定机器安装 sl4a，已经下载 sl4a_r6.apk</p>
-
-<pre><code> c:/&gt;adb -s &lt;name&gt; install sl4a_r6.apk
-</code></pre></li>
-<li><p>进入机器shell</p>
-
-<pre><code> c:/&gt;adb -s &lt;name&gt; shell
- $
-</code></pre></li>
-<li><p>开启private server</p>
-
-<p> 手机的话su切换到高级用户</p>
-
-<pre><code> $ su  
- #
-</code></pre>
-
-<p> Start a private server.</p>
-
-<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher
-</code></pre>
-
-<p> Start a private server on a particular port (in this case, 45001)</p>
-
-<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
-</code></pre>
-
-<p> Start a public server.</p>
-
-<pre><code> # am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ez com.googlecode.android_scripting.extra.USE_PUBLIC_IP true
-</code></pre></li>
-<li><p>退出shell</p>
-
-<pre><code> # exit
- $ exit
- c:/&gt;
-</code></pre></li>
-<li><p>连接手机/模拟器python-server</p>
-
-<pre><code> c:/&gt; adb -s &lt;name&gt; forward tcp:9999 tcp:45001
- c:/&gt; set AP_PORT=9999
-</code></pre></li>
-<li><p>开始编写python代码</p>
-
-<pre><code> c:/&gt; edit hello.py
- import android
- droid=android.Android()
- droid.makeToast("hello")
-</code></pre></li>
-<li><p>执行python</p>
-
-<pre><code> c:/&gt; python hello.py
-</code></pre></li>
-</ol>
-
-
-<h1>模拟器加载sdcard</h1>
-
-<ol>
-<li><p>创建sdcard文件</p>
-
-<pre><code> mksdcard -l e 512M mysdcard.img
-</code></pre></li>
-<li><p>带sdcard启动avd</p>
-
-<pre><code> emulator -avd QVGA_2.7 -sdcard mysdcard.img
-</code></pre></li>
-<li><p>上传文件</p>
-
-<pre><code> adb -s emulator-5554 push proxy.py /mnt/sdcard/sl4a/scripts
-</code></pre></li>
-</ol>
-
-
-<h1>启动模拟器脚本(start avd.bat)</h1>
-
-<pre><code>emulator -avd QVGA_2.7 
-</code></pre>
-
-<h1>建立adb连接脚本(start adb.bat)</h1>
-
-<pre><code>adb devices
-
-adb -s emulator-5554 shell am start -a com.googlecode.android_scripting.action.LAUNCH_SERVER -n com.googlecode.android_scripting/.activity.ScriptingLayerServiceLauncher --ei com.googlecode.android_scripting.extra.USE_SERVICE_PORT 45001
-
-adb -s emulator-5554 forward tcp:9999 tcp:45001
-set AP_PORT=9999
-
-
-start echo Adb connected!
-</code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[解决Unable to resolve target 'android-XX']]></title>
-    <link href="http://liuliyun.me/blog/2013/05/05/android_unable_to_resole_target/"/>
-    <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/05/android_unable_to_resole_target</id>
-    <content type="html"><![CDATA[<p>将低版本的代码导入eclipse时，常遇到这样的问题：</p>
-
-<pre><code>Unable to resolve target 'android-XX'
-</code></pre>
-
-<!--more-->
-
-
-<p>这是原代码中project.properties 的 Project target 设置与当前eclipse环境设置不一致所致。</p>
-
-<p>解决这个问题:</p>
-
-<pre><code>只要把project.properties文件用记事本打开
-将 Project target.target=android-7 改为你当前支持的AVD版本即可
-
-AVD(Android Virtual Device)，是Android的模拟器。
-具体介绍和命令参数参照http://apps.hi.baidu.com/share/detail/49251071
-</code></pre>
-
-<p>一般 android-8 对应的android sdk 是2.2， android-10对应的是2.3</p>
-
-<p>参考: <a href="http://mishar-china-hotmail-com.iteye.com/blog/969178">http://mishar-china-hotmail-com.iteye.com/blog/969178</a></p>
 ]]></content>
   </entry>
   
