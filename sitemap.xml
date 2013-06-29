@@ -123,6 +123,10 @@
         <lastmod>2013-06-29T23:03:31+08:00</lastmod>
     </url>
     <url>
+        <loc>http://liuliyun.me/blog/2013/06/23/el_lucknum/</loc>
+        <lastmod>2013-06-29T23:55:55+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://liuliyun.me/blog/2013/06/25/octopress-plus-github-jian-zhan/</loc>
         <lastmod>2013-06-28T22:04:13+08:00</lastmod>
     </url>
@@ -140,11 +144,15 @@
     </url>
     <url>
         <loc>http://liuliyun.me/blog/archives/</loc>
-        <lastmod>2013-06-29T23:08:05+08:00</lastmod>
+        <lastmod>2013-06-29T23:55:55+08:00</lastmod>
+    </url>
+    <url>
+        <loc>http://liuliyun.me/blog/categories/</loc>
+        <lastmod>2013-06-29T23:55:55+08:00</lastmod>
     </url>
     <url>
         <loc>http://liuliyun.me/</loc>
-        <lastmod>2013-06-29T23:08:05+08:00</lastmod>
+        <lastmod>2013-06-29T23:55:55+08:00</lastmod>
     </url>
     <url>
         <loc>http://liuliyun.me/robots.txt</loc>

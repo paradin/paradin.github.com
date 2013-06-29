@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[EasyTool's Blog]]></title>
+  <title><![CDATA[力赟的 BLOG]]></title>
   <link href="http://liuliyun.me/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-06-29T23:08:32+08:00</updated>
+  <updated>2013-06-29T23:57:57+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -217,6 +217,44 @@ print atexit._exithandlers
 </code></pre></li>
 </ol>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[E星的朋友们，我们来游戏吧！]]></title>
+    <link href="http://liuliyun.me/blog/2013/06/23/el_lucknum/"/>
+    <updated>2013-06-23T22:56:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/06/23/el_lucknum</id>
+    <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54941343/lucknum3.PNG" alt="" /></p>
+
+<p>关注小E的微信公众</p>
+
+<p>搜索微信号：EasyTool</p>
+
+<p>或者扫一扫题图中的二维码</p>
+
+<p>回复【幸运猜数】就可以开始游戏了</p>
+
+<!-- more -->
+
+
+<p>回复【1-999】之间的数字猜猜你的幸运数，根据提示“大”了还是“小”了，再猜猜吧</p>
+
+<p>猜中之后会计算得分，前五次猜的数字同幸运数字的接近程度决定了你的得分哦！越早猜中，得分越高</p>
+
+<p>中途要退出游戏，回复【退出】</p>
+
+<p>回复【h】查看更多功能</p>
+
+<pre><code>-----------  易生活 个人微信公众  -----------
+微信号：EasyTool
+
+不止工作、学习、生活
+还可以玩游戏
+
+使用中有问题或建议，告诉小E，有问必答。
+有什么希望小E提供的功能，可直接回复！
+</code></pre>
 ]]></content>
   </entry>
   
@@ -1437,26 +1475,6 @@ tar zxvf test3.tgz -C test3
 </code></pre></li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[致没有搞好的kivy环境]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/05/python_kivy_setup/"/>
-    <updated>2013-05-05T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/05/python_kivy_setup</id>
-    <content type="html"><![CDATA[<pre><code>    继续研究kivy，上次没搞通是环境安装没装好
-
-    按照说明安装需要的包，遇到问题：
-    。 要求安装python-dev，但是发现版本是2.5，没装
-    。 要安装libgles2 ，找不到， 搜了下这个包， 在apt源增加一个地址
-    。 用aptitude -f install 进行安装后，pip安装kivy，发现把gcc 给删了，然后环境烂了，经常提示 package broken
-    。 尝试过apt-get clean    apt-get autoremove 都无法解决
-    。 查看pip.log 发现标准库都不存在了， stdio.h都找不到
-
-    怀疑环境安装还是有问题
-    。 有些库提示无用可以删除，但是看要安装的库对其又有依赖
-</code></pre>
 ]]></content>
   </entry>
   
