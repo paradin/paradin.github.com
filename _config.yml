@@ -114,5 +114,5 @@ facebook_like: false
 jiathis: true 
 
 # google ads
-aside_ads: true
-post_ads: true
+aside_ads: false
+post_ads: false
