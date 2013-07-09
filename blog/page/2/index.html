@@ -9,7 +9,8 @@
   <meta name="author" content="LynnLiu">
 
   
-  <meta name="description" content="在pythong开发过程中经常遇到编码问题，原因在于没有正确理解编码解码过程 通过以下命令过程帮助理解下，各自体会吧。 ">
+  <meta name="description" content="在进行网页数据抓取时，会遇到压缩数据，可能主要出于如下考虑： 简单的防抓取方法 没有经过分析就对抓取的网页内容直接进行文本解析，肯定会遇到问题，就像我开始的时候一样。。。
+压缩数据减少流量 这个一般用于提供数据接口，将数据压缩后可以大大减少流量 以下提供对抓取数据的处理方法： ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,6 +70,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/06/python_gzip_response_data_parse/">解析网页抓取所得gzip压缩数据</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-06T14:10:00+08:00" pubdate data-updated="true">Jun 6<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/06/python_gzip_response_data_parse/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>在进行网页数据抓取时，会遇到压缩数据，可能主要出于如下考虑：</p>
+
+<ol>
+<li><p>简单的防抓取方法</p>
+
+<p> 没有经过分析就对抓取的网页内容直接进行文本解析，肯定会遇到问题，就像我开始的时候一样。。。</p></li>
+<li><p>压缩数据减少流量</p>
+
+<p> 这个一般用于提供数据接口，将数据压缩后可以大大减少流量</p></li>
+</ol>
+
+
+<p>以下提供对抓取数据的处理方法：</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2013/06/06/python_gzip_response_data_parse/">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -488,49 +544,6 @@ tar zxvf test3.tgz -C test3
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/10/sae_python_helloworld/">Hello Sae Python</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-10T14:10:00+08:00" pubdate data-updated="true">May 10<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/10/sae_python_helloworld/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>看看如何在sae上部署第一个python应用吧</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/10/sae_python_helloworld/">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -548,6 +561,10 @@ tar zxvf test3.tgz -C test3
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/09/el_kuaidi/">小E帮你查快递喽！</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/06/27/qian-xi-Werkzeug-fu-wu-wufeng-geng-xin/">浅析Werkzeug服务无缝更新</a>
       </li>
     
@@ -561,10 +578,6 @@ tar zxvf test3.tgz -C test3
     
       <li class="post">
         <a href="/blog/2013/06/23/el_lucknum/">E星的朋友们，我们来游戏吧！</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/06/22/sae_distribute_dev_app/">在SAE分布式服务上开发需要解决的问题</a>
       </li>
     
   </ul>
@@ -585,7 +598,7 @@ tar zxvf test3.tgz -C test3
   <ul id="categories">
     <li class='category'><a href='/blog/categories/appstore/'>AppStore (1)</a></li>
 <li class='category'><a href='/blog/categories/dropbox/'>DropBox (1)</a></li>
-<li class='category'><a href='/blog/categories/easytool/'>EasyTool (2)</a></li>
+<li class='category'><a href='/blog/categories/easytool/'>EasyTool (3)</a></li>
 <li class='category'><a href='/blog/categories/android/'>android (1)</a></li>
 <li class='category'><a href='/blog/categories/c-/'>c++ (2)</a></li>
 <li class='category'><a href='/blog/categories/colinux/'>colinux (1)</a></li>

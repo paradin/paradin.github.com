@@ -4,7 +4,7 @@
   <title><![CDATA[励 耘]]></title>
   <link href="http://liuliyun.me/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-07-06T13:16:23+08:00</updated>
+  <updated>2013-07-09T22:43:26+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[小E帮你查快递喽！]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/09/el_kuaidi/"/>
+    <updated>2013-07-09T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/09/el_kuaidi</id>
+    <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54941343/EL_kuaidi.JPG" alt="" /></p>
+
+<p>小E新增快递发货查询功能，支持多家常用快递公司。</p>
+
+<p>已经支持：</p>
+
+<pre><code>顺丰 申通 圆通 凡客 如风达
+中通 全峰 韵达 天天 全日通
+中通 汇通 中铁 EMS
+</code></pre>
+
+<!-- more -->
+
+
+<p>回复【快递】查询最新支持的快递公司</p>
+
+<p>需要查询其他快递公司，请直接回复快递公司名称，小E会快速新增支持。</p>
+
+<p>回复【快递公司 单号】查询快递发货情况</p>
+
+<p>快递公司可输入中文、拼音，注意，空格分隔公司和单号哦！</p>
+
+<hr />
+
+<p>想玩游戏的话，回复【幸运猜数】</p>
+
+<p>更多功能，回复【h】</p>
+
+<p>如果觉得有用，分享到你的微博、微信吧！</p>
+
+<pre><code>-----------  易生活 个人微信公众  -----------
+微信号：EasyTool
+
+不止工作、学习、生活
+还可以玩游戏
+
+使用中有问题或建议，告诉小E，有问必答。
+有什么希望小E提供的功能，可直接回复！
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[浅析Werkzeug服务无缝更新]]></title>
@@ -1415,66 +1462,6 @@ tar zxvf test3.tgz -C test3
 </code></pre>
 
 <p>tree 命令可以查看目录树形结构</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[hello sae python]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/10/sae_python_helloworld/"/>
-    <updated>2013-05-10T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/10/sae_python_helloworld</id>
-    <content type="html"><![CDATA[<p>看看如何在sae上部署第一个python应用吧</p>
-
-<!--more-->
-
-
-<p>首先在sae上创建一个python应用</p>
-
-<p>创建好后其实是没有完成创建的，无法进行代码管理</p>
-
-<p>需要先svn签出、签入</p>
-
-<p>SAE采用svn来作为代码部署工具</p>
-
-<ol>
-<li><p>检出应用helloworld目录</p>
-
-<pre><code> svn co https://svn.sinaapp.com/helloworld
-</code></pre></li>
-<li><p>创建版本目录</p>
-
-<p> 进入helloworld目录，创建一个目录1作为默认版本，切换到目录1。</p>
-
-<pre><code> cd helloworld
- ~/helloworld$ mkdir 1
- ~/helloworld$ cd 1
-</code></pre></li>
-<li><p>创建应用配置文件config.yaml，内容如下：</p>
-
-<pre><code> name: helloworld
- version: 1
-</code></pre></li>
-<li><p>创建index.wsgi，内容如下：</p>
-
-<pre><code> import sae
-
- def app(environ, start_response):
-     status = '200 OK'
-     response_headers = [('Content-type', 'text/plain')]
-     start_response(status, response_headers)
-     return ['Hello, world!']
-
- application = sae.create_wsgi_app(app)
-</code></pre></li>
-<li><p>部署应用</p>
-
-<p> 提交刚刚编辑的代码，就可以完成应用在SAE上的部署。</p>
-
-<pre><code> svn add 1/
- ~/helloworld$ svn ci -m "initialize project"
-</code></pre></li>
-</ol>
-
 ]]></content>
   </entry>
   
