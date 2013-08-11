@@ -4,7 +4,7 @@
   <title><![CDATA[励 耘]]></title>
   <link href="http://liuliyun.me/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-07-09T22:43:26+08:00</updated>
+  <updated>2013-08-11T13:06:36+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -12,6 +12,229 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[支付宝可以个人即时支付]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/30/alipay_privite_im_payment/"/>
+    <updated>2013-07-30T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/30/alipay_privite_im_payment</id>
+    <content type="html"><![CDATA[<p>目前单纯的即时到账接口是必须要公司才可以，但是个人可以选择“双接口”（其中包括担保交易和即时接口）</p>
+
+<p>这意味着：</p>
+
+<p>个人账户的支付宝，可以通过实时交易来完成虚拟货物的销售，不必成立公司
+支付宝并不介意项目是部署在海外的服务器上，所以备案这一步也可以省掉
+大陆的个人创业者从此不必哭泣！</p>
+
+<p><a href="https://b.alipay.com/order/techService.htm">接口文档</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[python生成验证码图片]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/18/python_text_image/"/>
+    <updated>2013-07-18T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/18/python_text_image</id>
+    <content type="html"><![CDATA[<p>利用Captcha生成文字图片，可以用于简单验证码图片生成</p>
+
+<!-- more -->
+
+
+<pre><code># -*- coding: utf-8 -*- 
+from Captcha.Visual import Text, Backgrounds, Distortions, ImageCaptcha 
+from Captcha import Words 
+
+myFontFactory = Text.FontFactory((50, 30), "ch") 
+
+class myCaptcha(ImageCaptcha): 
+  def getLayers(self, *args, **kwargs): 
+    if kwargs.has_key('text'): 
+      word = kwargs['text'] 
+    else: 
+      word = Words.defaultWordList.pick() 
+    self.addSolution(word) 
+    return [ 
+      Backgrounds.Grid(size=7, foreground="gray"), 
+      Backgrounds.RandomDots(dotSize=3, numDots=500), 
+      Text.TextLayer(word, textColor='red' , fontFactory=myFontFactory), 
+      Distortions.SineWarp(), 
+    ] 
+
+g = myCaptcha(text=u'測試一二三') 
+i = g.render(size=(300,100)) 
+i.save("chcaptcha.jpg")
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[利用网络存储搭建自己的代码库]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/16/privite_version_server/"/>
+    <updated>2013-07-16T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/16/privite_version_server</id>
+    <content type="html"><![CDATA[<p>其实不只是代码，任何其他需要进行版本管理的文档等都可以利用网络存储搭建自己的版本库。</p>
+
+<p>有人说，直接把文件放到网盘、云盘就可以了。当然，如果能满足需求这是最简单粗暴、但不安全的方法。</p>
+
+<p>这里介绍两种版本管理库的方法：svn，git，其他版本管理软件搭建可以自行发挥一下了。</p>
+
+<p>利用版本管理库的目的：</p>
+
+<pre><code>1. 可以进行版本管理
+2. 同步到网盘的文件不是源文件，而是版本库文件
+2. 版本库读取可以设置用户密码，更加安全
+</code></pre>
+
+<p>注意，以下所用的快盘、Dropbox不是必须的，只要用你有的网盘、云盘都可以。</p>
+
+<!-- more -->
+
+
+<h2>一、快盘+TorialSVN Server</h2>
+
+<p>本地目录准备</p>
+
+<pre><code>    。创建快盘目录
+    。在其中创建一个svn目录（将库目录建在网盘同步目录，这样当有文件变化，就会自动同步了）
+</code></pre>
+
+<p>本地搭建svn服务</p>
+
+<pre><code>    。通过svn server创建一个deposite
+    。创建svn用户、用户组
+    。在svn depo下创建项目，配置用户权限
+</code></pre>
+
+<p>签出本地编辑目录</p>
+
+<pre><code>    。checkout该项目到工程目录（注意，网盘下的svn目录是版本库目录，不能直接编辑。需要签出到其他目录进行编辑，然后提交）
+    。将工程中要上传的文件添加到svn ，不希望添加的文件可以添加到ignore list
+    。提交
+</code></pre>
+
+<p>自动上传</p>
+
+<pre><code>    。提交后，版本库目录就会有相应的变化
+    。网盘工具会自动将版本库上传
+</code></pre>
+
+<p>其他机器访问</p>
+
+<pre><code>    。利用网盘工具，下载版本库目录
+    。利用版本管理工具TorialSVN Server，创建相应的用户，导入版本库目录
+    。签出
+</code></pre>
+
+<h2>二、把Dropbox改造为Git私有仓库（转载）</h2>
+
+<pre><code>作者: JeremyWei | 可以转载, 但必须以超链接形式标明文章原始出处和作者信息及版权声明
+网址: http://weizhifeng.net/git-with-dropbox.html
+Git Dropbox　
+</code></pre>
+
+<h2>前言</h2>
+
+<p>Git作为强大的分布式版本控制工具，越来越受欢迎。大量的开源项目可以在Github上发布，不过项目是公共可见的，即人人可以fork。 对于一些用户，他们也有自己的项目，但是还不太想立刻就把项目开源出来，有可能是因为还没有完成，所以他们需要通过Git临时性地管理他们的「私有项目」，Github上虽然有私有项目托管服务，不过性价比不高。</p>
+
+<p>Dropbox（墙）是最流行的云存储服务，通过Dropbox我们可以实现对Git私有项目的托管。</p>
+
+<h2>思路</h2>
+
+<p>我们的思路是在Dropbox客户端的目录中建立Git仓库，然后我们clone此仓库到本地仓库，然后我们进行提交操作，完成提交之后，我们执行push操作， 那么本地的数据会被push到Dropbox客户端目录的仓库中，之后Dropbox客户端会把仓库文件的更改同步到Dropbox服务器。</p>
+
+<pre><code>+------------+            +-----------+              +---------+
+|  Dropbox   |  --Sync-&gt;  |  Dropbox  |   --Clone-&gt;  | Working |
+|   Server   |  &lt;-Sync--  |   Client  |   &lt;-Push---  |  Space  |
++------------+            +-----------+              +---------+
+</code></pre>
+
+<h2>实现</h2>
+
+<p>我们现在Dropbox的目录中创建一个裸git仓库</p>
+
+<pre><code>$ cd ~/Dropbox
+$ mkdir git
+$ git init --bare project.git
+</code></pre>
+
+<p>完成之后，我们clone这个仓库</p>
+
+<pre><code>$ cd ~
+$ git clone ~/Dropbox/project.git project
+$ cd project
+</code></pre>
+
+<p>提交并且push</p>
+
+<pre><code>$ touch README
+$ git add .
+$ git commit -m "init commit"
+$ git push origin master
+</code></pre>
+
+<p>完成之后，Dropbox会把你push的内容同步到服务器，你通过<a href="https://www.dropbox.com/%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E5%88%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82">https://www.dropbox.com/%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E5%88%B0%E4%BB%93%E5%BA%93%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82</a></p>
+
+<p>参考
+<a href="http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively">http://stackoverflow.com/questions/1960799/using-gitdropbox-together-effectively</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Unity3D学习随笔（一）]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/14/unity3d_study_note_1/"/>
+    <updated>2013-07-14T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/14/unity3d_study_note_1</id>
+    <content type="html"><![CDATA[<p>学习随笔将记录学习过程中的简单记录，不是教程。</p>
+
+<!-- more -->
+
+
+<h2>项目创建</h2>
+
+<pre><code>    。创建一个项目
+    。提供资源Assets：Font、Image、Shader
+    。根据相应资源创建Materials：选择Texture 2d、Shader，Font的Mat不知道怎么创建，虽然可以从Font中选择其下的用
+    。创建一个场景
+    。场景增加元素，每个元素由Component组成，自由增加删除，还可以增加Script（直接将脚本拖入Inspector)
+</code></pre>
+
+<h2>项目资源</h2>
+
+<pre><code>   。相机 Camera，决定视角，近景、远景
+   。背景 Plane， 采用Plane-Z，就不用设置旋转了；选择Material：自发光还是自定义Shader；是否有碰撞检查；
+   。文字 2d Text，Mesh Text 选择字体； Text Render 选择Material：字体材质；删除原来的GUIText
+   。文字网格 Plane，采用Plane-Z；调整大小、位置；设置碰撞检测；无Render
+   。脚本 Script，一般有 start、 update；public成员可以在编辑器中设置值；update按帧刷新，根据事件处理游戏表现
+</code></pre>
+
+<h2>多分辨率</h2>
+
+<pre><code>    。发现可以选择常见的aspect进行预览
+    。这方便很多
+    。有一点不爽就是，显示器dpi和手机dpi不一样，导致界面大小不一致
+
+    对于多分辨率屏的支持，百搭方法：
+    。相机固定
+    。增加背景相机进行填充空白区域
+    。设定目标aspect，根据屏幕aspect，计算相机rect
+    。target_aspect &lt; screem_aspect 则左右填充 pillarbox
+    。target_aspect &gt; screem_aspect 则上下填充 letterbox
+</code></pre>
+
+<h2>嵌套关系</h2>
+
+<pre><code>    。parent 通过父子关系建立依附的相对关系，子对象相对父对象：位置、旋转等
+    。prefab 当在场景中编辑好了复杂的对象（集），希望能够重复创建相同的对象，可以先建立模型：从hieracky中拖入project中。创建好prefab就可以拖入场景，创建相同的对象。对对象的修改，可以应用到prefab，此时所有对象都会变化
+</code></pre>
+
+<h2>动作编辑</h2>
+
+<pre><code>    。animation clip 可以在动作编辑器重编辑动作曲线；各种component的属性都可以编辑曲线，包括脚本变量。编辑好曲线，在运行过程中，相应的参数就会采样曲线数据进行设置。  
+            选择要编辑的曲线、添加key设置keyframe、设置切线角
+            旋转类型：欧拉、四元数（找球面最短路径，所以超过180度的旋转方向相反）
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[小E帮你查快递喽！]]></title>
@@ -1047,421 +1270,6 @@ def Q2B(uchar):
 
 &gt;show databases;
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[转载] Win7系统建立并开启Wifi热点的bat批处理]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/13/win7_wifi_point/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/13/win7_wifi_point</id>
-    <content type="html"><![CDATA[<p>硬件：含有无线网卡的电脑或笔记本</p>
-
-<p>系统：Windows7内核的系统，Windows8，Windows Server 2008 等</p>
-
-<p>目的：将Win7的无线网卡作为wifi热点，让其他含有WIFI电子设备(平板电脑，手机，笔记本)连接上笔记本共享的WIFI</p>
-
-<!--more-->
-
-
-<p>具体过程不详述了,核心代码如下：</p>
-
-<ol>
-<li><p>显示无线热点状态</p>
-
-<pre><code> netsh wlan show hostednetwork
-</code></pre></li>
-<li><p>打开无线热点</p>
-
-<pre><code> netsh wlan start hostednetwork
-</code></pre></li>
-<li><p>关闭无线热点</p>
-
-<pre><code> netsh wlan stop hostednetwork
-</code></pre></li>
-<li><p>禁用无线热点</p>
-
-<pre><code> netsh wlan set hostednetwork mode=disallow
-</code></pre></li>
-<li><p>启用无线热点</p>
-
-<pre><code> wlan set hostednetwork mode=allow
-</code></pre></li>
-<li><p>更改无线热点参数（SSID/KEY）</p>
-
-<pre><code> netsh wlan set hostednetwork mode=allow ssid=rekfan.com key=wwwrekfancom
-</code></pre></li>
-</ol>
-
-
-<p>参数解释：</p>
-
-<pre><code>mode:是否启用虚拟WiFi网卡，改为disallow则为禁止。
-ssid:无线网名称，推荐最好用英文。（此处以rekfan.com为例，可自由设置）
-key:无线网密码，限定八个以上字符。（此处以wwwrekfancom为例，可自由设置）
-</code></pre>
-
-<p>改编后的bat批处理：</p>
-
-<pre><code>echo off
-title windows 7 无线热点设置 By:REKFAN
-color 1E
-:main
-cls
-echo.
-echo.       /-------------------------------
-echo.       ‖     windows 7 无线热点设置    ‖
-echo.       -------------------------------/
-echo.
-echo.            1 - 显示无线热点状态
-echo.            2 - 打开无线热点
-echo.            3 - 关闭无线热点
-echo.            4 - 禁用无线热点
-echo.            5 - 启用无线热点
-echo.            6 - 更改无线热点参数（SSID/KEY）
-echo.            0 - 退出
-echo.-----------------------------------------------------------
-echo.          首次运行请执行6      
-echo.          直接回车可查看说明文档
-echo.          http://blog.rekfan.com
-set input=
-set /p input=请选择【输入序号,然后回车】：
-if /i '%input%'=='1' goto main1
-if /i '%input%'=='2' goto main2
-if /i '%input%'=='3' goto main3
-if /i '%input%'=='4' goto main4
-if /i '%input%'=='5' goto main5
-if /i '%input%'=='6' goto main6
-if /i '%input%'=='0' goto end
-cls
-echo.
-pause
-goto main
-
-:end
-set ssid=
-set key=
-exit
-
-:main1
-cls
-echo 系统当前无线热点状态
-echo.
-netsh wlan show hostednetwork
-echo.
-pause
-goto main
-
-:main2
-cls
-echo 打开无线热点
-echo.
-netsh wlan start hostednetwork
-echo.
-pause
-goto main1
-
-:main3
-cls
-echo 关闭无线热点
-echo.
-netsh wlan stop hostednetwork
-echo.
-pause
-goto main1
-
-:main4
-cls
-echo 禁用无线热点
-echo.
-netsh wlan set hostednetwork mode=disallow
-echo.
-pause
-goto main1
-
-:main5
-cls
-echo 启用无线热点
-echo.
-netsh wlan set hostednetwork mode=allow
-pause
-goto main2
-
-:main6
-cls
-echo 更改无线热点参数（SSID/KEY）
-echo.
-netsh wlan stop hostednetwork
-echo.
-set ssid=
-set /p ssid=请输入热点名称：
-echo.
-set key=
-set /p key=请输入网络密码(8位以上)：
-echo.
-netsh wlan set hostednetwork mode=allow ssid=%ssid% key=%key%
-pause
-goto main2
-</code></pre>
-
-<p>使用步骤：</p>
-
-<ol>
-<li>将上面代码保存在记事本里，改名更改为<em>.bat(</em>随便写，比如：Win7_Wifi.bat)</li>
-<li>初次使用，运行bat,输入6</li>
-<li>打开“网络和共享中心”&mdash;“更改适配器设置”看看是不是多了一项，如果有多出的这一项“Microsoft Virtual WiFi Miniport Adapter”，那么说明你前边的设置是正确的。</li>
-<li>设置Internet连接共享：在“网络连接”窗口中，右键单击已连接到Internet的网络连接(一般是“本地连接”)，选择“属性”→“共享”，勾上“允许其他······连接(N)”并选择刚才新建的虚拟连接。<a href="http://blog.rekfan.com/?p=226">http://blog.rekfan.com/?p=226</a></li>
-<li>到此，基本上可以使用其他设备连接wifi上网了！</li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[sae python 微信公众项目单元测试框架]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/13/python_weixin_sae_unitest_frame</id>
-    <content type="html"><![CDATA[<p>开发的伴侣就是单元测试，没有测试用例的开发，或者说是没有自动测试的开发是噩梦般的。</p>
-
-<p>在sae python微信公众项目的开发过程中，建立单元测试框架可以大大提高开发效性、项目的稳定性。</p>
-
-<!--more-->
-
-
-<p>下面提供我自己使用的简单sae python测试框架(weixin_unitest.py)：</p>
-
-<pre><code>﻿# -*- coding: utf-8 -*-
-#/usr/bin/env python
-
-
-import sys, urllib, httplib, time, hashlib, random
-
-# 配置
-interface_url = '***.sinaapp.com:80' # 注意不能加http://
-interface_path = '/your path'
-Token = 'your token'
-
-messages = {
-    # 用户关注消息
-    'subscribe' : '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
-    &lt;FromUserName&gt;&lt;![CDATA[tester name]]&gt;&lt;/FromUserName&gt;
-    &lt;CreateTime&gt;123456789&lt;/CreateTime&gt;
-    &lt;MsgType&gt;&lt;![CDATA[event]]&gt;&lt;/MsgType&gt;
-    &lt;Event&gt;&lt;![CDATA[subscribe]]&gt;&lt;/Event&gt;
-    &lt;EventKey&gt;&lt;![CDATA[EVENTKEY]]&gt;&lt;/EventKey&gt;
-    &lt;/xml&gt;''',
-
-    # 用户发送文本信息
-    'text': '''&lt;xml&gt;&lt;ToUserName&gt;&lt;![CDATA[your name]]&gt;&lt;/ToUserName&gt;
-    &lt;FromUserName&gt;&lt;![CDATA[test name]]&gt;&lt;/FromUserName&gt; 
-    &lt;CreateTime&gt;1348831860&lt;/CreateTime&gt;
-    &lt;MsgType&gt;&lt;![CDATA[text]]&gt;&lt;/MsgType&gt;
-    &lt;Content&gt;&lt;![CDATA[test text]]&gt;&lt;/Content&gt;
-    &lt;MsgId&gt;1234567890123456&lt;/MsgId&gt;
-    &lt;/xml&gt;'''
-
-}
-
-def make_post(action):
-    '''模拟用户行为产生的消息提交给接口程序'''
-
-    conn = httplib.HTTPConnection(interface_url)
-
-    headers = { "Content-type": "text/xml",
-                "Content-Length": "%d" % len(messages[action])}
-
-    # 生成签名相关变量
-    timestamp = int(time.time())
-
-    nonce = random.randint(1,100000)
-
-    signature = makeSignature(Token, timestamp, nonce)
-
-    params = urllib.urlencode({'signature': signature, 'timestamp': timestamp, 'nonce': nonce})
-
-    conn.request("POST", interface_path + "?" +params, "", headers)
-
-    print messages[action]
-    conn.send(messages[action])
-
-    response = conn.getresponse()
-
-    print response.status, response.reason
-
-    print response.read()
-
-    conn.close()
-
-
-
-def makeSignature(Token, timestamp, nonce):
-    '''生成签名'''
-    try:
-        Token = int(Token)
-    except Exception, e:
-        pass
-
-    sorted_arr = map(str, sorted([Token, timestamp, nonce]))
-
-    sha1obj = hashlib.sha1()
-    sha1obj.update(''.join(sorted_arr))
-    hash = sha1obj.hexdigest()
-
-    return hash
-
-def listAction():
-    print("======Supported actions:======")
-    for i in messages.keys():
-        print(i)
-    print("==============================")
-
-if __name__ == '__main__':
-    if len(sys.argv) &lt; 2:   
-        print (u"Please input your action")
-        listAction()
-    else:
-        if (messages.has_key(sys.argv[1])):
-            make_post(sys.argv[1])
-        else:
-            print("No this action")
-            listAction()
-</code></pre>
-
-<p>运行：</p>
-
-<pre><code>python weixin_unitest.py subscribe
-python weixin_unitest.py text
-</code></pre>
-
-<p>结合SAEPython（sae服务器），在本地完成开发测试就很方便了。</p>
-
-<h1>广告</h1>
-
-<p>关注易生活，关注微信公众：EasyTool</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[python日期字符串解析]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/13/python_datestr_parser/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/13/python_datestr_parser</id>
-    <content type="html"><![CDATA[<p>用python + 正则表达式 实现的日期字符串解析工具：</p>
-
-<!--more-->
-
-
-<pre><code># -*- coding: utf-8 -*-
-#
-# 关注易生活，我是小E
-# 微信：EasyTool
-#
-import re
-from datetime import date
-
-
-DATE_PATTERNS = {
-u'2013-05-16':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月](\d{1,2})日{,1}',
-u'20130516':u'^(\d{4})(\d{1,2})(\d{1,2})',
-u'2013-05':u'^(\d{4})[\-\/\.年](\d{1,2})[\-\/\.月]{,1}()',
-u'2013':u'^(\d{4})[\-\/\.年]{,1}()()',
-u'05月':u'^()(\d{1,2})[月]()',
-u'05-16':u'^()(\d{1,2})[\-\/\.月](\d{1,2})日{,1}'
-}
-
-DATE_PATTERNS_TEST = [
-u'2013-05-16',
-u'2013年05月16',
-u'2013年05月16日',
-
-u'20130516',
-
-u'2013-05', 
-u'2013年05', 
-u'2013-05月',
-
-u'2013',
-u'2013年',
-
-u'05月',
-
-u'05-16',
-u'05月16',
-u'05月16日',
-
-u'05'
-]
-
-
-LANG_PRINT = 'utf-8'
-
-def parse_date(dt_str):
-    year, month, day = u'', u'', u''
-
-    for pat_key in DATE_PATTERNS.keys():
-        dt_arrs = re.findall(DATE_PATTERNS[pat_key], dt_str)
-        if len(dt_arrs)&gt;0:
-            dt_arr = dt_arrs[0]
-            if len(dt_arr)&gt;0: year  = dt_arr[0]
-            if len(dt_arr)&gt;1: month = dt_arr[1]
-            if len(dt_arr)&gt;2: day   = dt_arr[2]
-            break
-
-    return year, month, day
-
-def test_all():
-    for dt_str in DATE_PATTERNS_TEST:
-        dt_tuple = parse_date(dt_str)
-        if dt_tuple is not None:
-            print u'dt_str {0} parse result: {1} {2} {3}'.format(dt_str, dt_tuple[0], dt_tuple[1], dt_tuple[2]).encode(LANG_PRINT)
-        else:
-            print u'error date format {0}'.format(dt_str).encode(LANG_PRINT)
-
-
-if __name__ == '__main__':
-    test_all()
-</code></pre>
-
-<h1>期间遇到问题：</h1>
-
-<p>print 内容需要是utf-8格式，否则会异常</p>
-
-<p>print是标准输出sys.stdout</p>
-
-<p>查看标准输出的编码：  print sys.stdout.encoding</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[svn目录的拷贝方法]]></title>
-    <link href="http://liuliyun.me/blog/2013/05/13/linux_svn_moveto/"/>
-    <updated>2013-05-13T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/05/13/linux_svn_moveto</id>
-    <content type="html"><![CDATA[<p>svn目录中都有一个隐藏目录&#8221;.svn&#8221;，这给复制带来不便。</p>
-
-<p>记录下拷贝目录时过滤文件的方法：</p>
-
-<h1>当不需要的文件类型较为单一时</h1>
-
-<p>可以通过完全复制然后删除指定类型的文件完成</p>
-
-<pre><code>cp -r test/ test2
-find test2/ -name '.svn' | xargs rm -rf
-</code></pre>
-
-<p>xargs是给命令传递参数的一个过滤器，可以将前一个命令产生的输出作为后一个命令的参数</p>
-
-<h1>需要的文件为单一类型</h1>
-
-<p>带目录结构复制</p>
-
-<pre><code>mkdir test3
-find test/ -name '*.txt' | xargs tar czf test3.tgz
-tar zxvf test3.tgz -C test3
-</code></pre>
-
-<p>tree 命令可以查看目录树形结构</p>
 ]]></content>
   </entry>
   

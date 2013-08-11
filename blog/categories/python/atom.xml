@@ -4,7 +4,7 @@
   <title><![CDATA[Category: python | 励 耘]]></title>
   <link href="http://liuliyun.me/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://liuliyun.me/"/>
-  <updated>2013-07-09T22:43:26+08:00</updated>
+  <updated>2013-08-11T13:06:36+08:00</updated>
   <id>http://liuliyun.me/</id>
   <author>
     <name><![CDATA[LynnLiu]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[python生成验证码图片]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/18/python_text_image/"/>
+    <updated>2013-07-18T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/18/python_text_image</id>
+    <content type="html"><![CDATA[<p>利用Captcha生成文字图片，可以用于简单验证码图片生成</p>
+
+<!-- more -->
+
+
+<pre><code># -*- coding: utf-8 -*- 
+from Captcha.Visual import Text, Backgrounds, Distortions, ImageCaptcha 
+from Captcha import Words 
+
+myFontFactory = Text.FontFactory((50, 30), "ch") 
+
+class myCaptcha(ImageCaptcha): 
+  def getLayers(self, *args, **kwargs): 
+    if kwargs.has_key('text'): 
+      word = kwargs['text'] 
+    else: 
+      word = Words.defaultWordList.pick() 
+    self.addSolution(word) 
+    return [ 
+      Backgrounds.Grid(size=7, foreground="gray"), 
+      Backgrounds.RandomDots(dotSize=3, numDots=500), 
+      Text.TextLayer(word, textColor='red' , fontFactory=myFontFactory), 
+      Distortions.SineWarp(), 
+    ] 
+
+g = myCaptcha(text=u'測試一二三') 
+i = g.render(size=(300,100)) 
+i.save("chcaptcha.jpg")
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[浅析Werkzeug服务无缝更新]]></title>
@@ -308,96 +345,6 @@ Hello, World.
 
 
 <p>参考：<a href="http://hi.baidu.com/thinkinginlamp/item/3095e2f52c642516ce9f32d5">如何在Python中调用父类的同名方法</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[解析网页抓取所得gzip压缩数据]]></title>
-    <link href="http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse/"/>
-    <updated>2013-06-06T14:10:00+08:00</updated>
-    <id>http://liuliyun.me/blog/2013/06/06/python_gzip_response_data_parse</id>
-    <content type="html"><![CDATA[<p>在进行网页数据抓取时，会遇到压缩数据，可能主要出于如下考虑：</p>
-
-<ol>
-<li><p>简单的防抓取方法</p>
-
-<p> 没有经过分析就对抓取的网页内容直接进行文本解析，肯定会遇到问题，就像我开始的时候一样。。。</p></li>
-<li><p>压缩数据减少流量</p>
-
-<p> 这个一般用于提供数据接口，将数据压缩后可以大大减少流量</p></li>
-</ol>
-
-
-<p>以下提供对抓取数据的处理方法：</p>
-
-<!-- more -->
-
-
-<ol>
-<li><p>检测反馈内容是否压缩，并对压缩内容解压</p></li>
-<li><p>检测数据文本编码格式，解压后返回unicode文本</p></li>
-</ol>
-
-
-<p>检测编码格式所用工具：<a href="https://pypi.python.org/pypi/chardet">chardet</a></p>
-
-<pre><code># -*- coding: utf-8 -*-
-
-import gzip, StringIO, codecs, chardet
-from utils import *
-
-def getEncoding(txt):
-    """ 检查文本内容的编码方式
-    """
-    try:
-        coding = chardet.detect(txt)['encoding']
-
-        if 'None' == coding:
-            return None
-        else:
-            return coding
-
-    except Exception as ex:
-        print 'fail getEncoding {0}'.format(ex)
-        return None
-
-def readResponse(resp):
-    """ 读取网页抓取返回内容
-    """
-    if resp.getcode() == 200:
-        encoding = resp.headers.get('Content-Encoding')
-
-        info = resp.read()
-
-        if('gzip' == encoding):
-            print 'read response compress gzip'
-            try:
-                gf = gzip.GzipFile(fileobj=StringIO.StringIO(info), mode="r")
-                info = gf.read()
-            except Exception as ex:
-                print 'fail read response, gzip'
-                info = ''
-
-    if info!='':
-        # 删除BOM头
-        info = info.strip(codecs.BOM_UTF8)
-        code = getEncoding(info)
-        if code:
-            info = info.decode(code)
-            print 'read response, encoding {0}'.format(code)
-        else:
-            print 'fail parse text encode'
-
-    return info
-</code></pre>
-
-<p>参考链接：</p>
-
-<ol>
-<li><a href="http://www.diveintopython.net/http_web_services/gzip_compression.html">Handling compressed data</a></li>
-<li><a href="http://blog.knownsec.com/2012/04/about-content-encoding-gzip/">关于 Content-Encoding: gzip</a></li>
-</ol>
-
 ]]></content>
   </entry>
   

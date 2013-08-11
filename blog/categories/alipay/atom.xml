@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: alipay | 励 耘]]></title>
+  <link href="http://liuliyun.me/blog/categories/alipay/atom.xml" rel="self"/>
+  <link href="http://liuliyun.me/"/>
+  <updated>2013-08-11T13:06:36+08:00</updated>
+  <id>http://liuliyun.me/</id>
+  <author>
+    <name><![CDATA[LynnLiu]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[支付宝可以个人即时支付]]></title>
+    <link href="http://liuliyun.me/blog/2013/07/30/alipay_privite_im_payment/"/>
+    <updated>2013-07-30T22:33:00+08:00</updated>
+    <id>http://liuliyun.me/blog/2013/07/30/alipay_privite_im_payment</id>
+    <content type="html"><![CDATA[<p>目前单纯的即时到账接口是必须要公司才可以，但是个人可以选择“双接口”（其中包括担保交易和即时接口）</p>
+
+<p>这意味着：</p>
+
+<p>个人账户的支付宝，可以通过实时交易来完成虚拟货物的销售，不必成立公司
+支付宝并不介意项目是部署在海外的服务器上，所以备案这一步也可以省掉
+大陆的个人创业者从此不必哭泣！</p>
+
+<p><a href="https://b.alipay.com/order/techService.htm">接口文档</a></p>
+]]></content>
+  </entry>
+  
+</feed>
